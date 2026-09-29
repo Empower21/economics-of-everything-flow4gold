@@ -19,7 +19,7 @@ test('both prepared languages contain correct scenario and safe actions',()=>{
 });
 const response=value=>({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify(value)}]}]});
 test('AI selects approved content and calculator supplies numbers',()=>{
-  const l=applyModel(request(),response({paragraphs:['revenue','overview'],focus:'profit'}));
+  const l=applyModel(request(),response({paragraphs:['revenue','overview'],focus:'entrance'}));
   assert.equal(l.fallbackUsed,false);assert.match(l.explanation,/750/);
 });
 test('model errors, refusals, raw numbers and arbitrary actions fall back',()=>{

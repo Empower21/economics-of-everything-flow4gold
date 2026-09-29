@@ -1,0 +1,9 @@
+How can one inexpensive component stop an expensive car? This factory needs one part for every vehicle. There are no other bottlenecks in our simplified model.
+
+The daily target is one hundred vehicles. Starting with one hundred and fifty parts, day one produces one hundred and leaves fifty in stock.
+
+Day two can produce only fifty. On day three the line stops. These are unfilled production opportunities, not automatically lost sales.
+
+Two hundred parts arrive before production on day four. The line makes one hundred vehicles and keeps one hundred parts. Total output is two hundred and fifty.
+
+A second supplier can help if parts arrive in time. Compare its premium with safety stock. Under this example, completed vehicles sell that day. Resilience has costs as well as benefits.

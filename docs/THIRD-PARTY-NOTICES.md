@@ -1,6 +1,8 @@
 # Asset provenance and dependencies
 
-The concert venue is original geometry authored for this project by `scripts/create-venue.py`. Its editable Blender file and exported GLB are included. No downloaded third-party character or venue assets are used.
+The concert, conference and factory worlds are original geometry authored by `scripts/create-venue.py` and `scripts/create-worlds.py`. Editable Blender files and GLBs are included. No downloaded third-party characters or venues are used.
+
+Six learner videos are recordings of those animated browser scenes, with authored English/German narration synthesized using the owner's existing configured ElevenLabs voice. No new voice clone was created. Source narration and timing live in `scripts/media-plan.js`; public videos, transcripts, captions and posters live in `public/media/`. No background music or third-party video footage is included. The supplied YouTube reference was inspected locally for interaction inspiration and is not shipped.
 
 The locally bundled DM Sans and Manrope fonts are supplied by their respective Fontsource packages under the SIL Open Font License. Unmodified license notices are retained in `docs/licenses/`.
 

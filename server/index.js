@@ -4,13 +4,15 @@ import { rateLimit } from 'express-rate-limit';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { validateRequest, preparedLesson, validateLesson } from '../shared/lesson.js';
+import { mountVoice } from './voice.js';
 
 const app = express();
 const production = process.argv.includes('--production');
 app.disable('x-powered-by');
 app.set('trust proxy', Number(process.env.TRUST_PROXY_HOPS || 0));
-app.use(helmet({ contentSecurityPolicy: production ? { directives: { defaultSrc: ["'self'"], scriptSrc: ["'self'"], styleSrc: ["'self'", "'unsafe-inline'"], imgSrc: ["'self'", 'data:', 'blob:'], connectSrc: ["'self'"], workerSrc: ["'self'", 'blob:'] } } : false, crossOriginEmbedderPolicy: false }));
+app.use(helmet({ contentSecurityPolicy: production ? { directives: { defaultSrc: ["'self'"], scriptSrc: ["'self'"], styleSrc: ["'self'", "'unsafe-inline'"], imgSrc: ["'self'", 'data:', 'blob:'],mediaSrc:["'self'",'blob:'], connectSrc: ["'self'"], workerSrc: ["'self'", 'blob:'] } } : false, crossOriginEmbedderPolicy: false }));
 app.use(express.json({ limit: '8kb' }));
+mountVoice(app);
 const limit = rateLimit({ windowMs: 60000, limit: 12, standardHeaders: 'draft-8', legacyHeaders: false, message: { error: 'Please wait a minute before asking another question. / Bitte warte eine Minute.' } });
 // Global per-process budget protects a single demo instance. Use a shared store when scaling.
 let daily = { day: '', count: 0 };
@@ -45,8 +47,8 @@ if (production) {
   app.get('/{*path}',(_req,res) => res.sendFile(resolve(root,'dist/index.html')));
 } else {
   const { createServer } = await import('vite');
-  const vite = await createServer({ root, server:{ middlewareMode:true, allowedHosts:['localhost'] }, appType:'spa' });
+  const vite = await createServer({ root, server:{ middlewareMode:true, allowedHosts:['localhost'],hmr:false }, appType:'spa' });
   app.use(vite.middlewares);
 }
 app.use((err,_req,res,_next) => res.status(err.status === 413 ? 413 : 400).json({ error:'Request could not be read. Please send a small JSON lesson request.' }));
-app.listen(Number(process.env.PORT || 3000),'0.0.0.0',() => console.log(`Economics of Everything: http://localhost:${process.env.PORT || 3000}`));
+app.listen(Number(process.env.PORT || 3000),'0.0.0.0',error => {if(error)throw error;console.log(`Economics of Everything: http://localhost:${process.env.PORT || 3000}`);});

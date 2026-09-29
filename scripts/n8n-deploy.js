@@ -26,7 +26,7 @@ if(!state.openAiCredential){
 }
 const workflow=JSON.parse(await readFile('workflow/economics-concert.json','utf8'));
 workflow.nodes.find(n=>n.name==='Lesson request').credentials={httpHeaderAuth:state.headerCredential};
-workflow.nodes.find(n=>n.name==='Explain the concert').credentials={openAiApi:state.openAiCredential};
+workflow.nodes.find(n=>n.name==='Select lesson explanation').credentials={openAiApi:state.openAiCredential};
 if(process.env.OPENAI_MODEL){
   const node=workflow.nodes.find(n=>n.name==='Validate and calculate');
   node.parameters.jsCode=node.parameters.jsCode.replace("model: 'gpt-4o-mini'",'model: '+JSON.stringify(process.env.OPENAI_MODEL));

@@ -4,6 +4,8 @@ A two-minute economics lesson you can explore in a miniature concert venue. Chan
 
 The original Blender scene, Babylon.js browser application, Node gateway, and n8n workflow live in this repository. The only available lesson is **The Concert**, in English and German. No account or personal information is required from learners.
 
+**Live demo:** https://web-production-af12a.up.railway.app. QR code: `docs/demo-qr.svg`. Source repository is private during competition preparation.
+
 ## Run locally
 
 Requires Node 22 or newer. Blender is only needed to rebuild the model.

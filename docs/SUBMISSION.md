@@ -26,7 +26,7 @@ External components: a Node web gateway, Babylon.js browser UI, an original Blen
 
 - [x] Clean workflow JSON: `workflow/economics-concert.json`.
 - [x] Setup documentation and formula explanation.
-- [ ] Hosted HTTPS demonstration, verified end to end.
+- [x] Hosted HTTPS demonstration, verified end to end: https://web-production-af12a.up.railway.app.
 - [ ] Actual phone validation and final German human review.
 - [ ] Screenshot of the actual n8n workflow canvas.
 - [ ] Unpublished creator-template ID if requested by the live form.

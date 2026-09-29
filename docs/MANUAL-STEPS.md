@@ -1,22 +1,22 @@
 # Steps requiring your interaction
 
-## 1. Railway sign-in
+## 1. Railway sign-in — completed
 
-The assistant has started Railway CLI login. In the browser page, sign in using **amdrentcorp@gmail.com**, finish Google verification, and authorize the CLI. Tell the assistant when complete. Do not paste a password, API key, or login code into chat.
+The Railway CLI is authenticated as **amdrentcorp@gmail.com**. The project and service have been configured. The following login command is only needed if the session expires. Do not paste a password, API key, or login code into chat.
 
-If that login window expires, open a PowerShell terminal in this project and run:
+If the login expires, open a PowerShell terminal in this project and run:
 
 ```powershell
 npx --yes @railway/cli login
 ```
 
-Only you can complete Google authentication, accept account agreements, and choose billing. The assistant can configure and deploy the application after login. Railway Hobby has a $5/month base subscription with resource usage accounting; check the dashboard's displayed terms before choosing a plan. A trial may be available. No subscription purchase is part of the completed work so far.
+Only you can complete Google authentication, accept account agreements, and choose billing. Railway Hobby has a $5/month base subscription with resource usage accounting; check the dashboard's displayed terms before choosing a plan. A trial may be available. No subscription purchase was made by the assistant.
 
 Deployment uses one Node service and no database. The server needs `N8N_WEBHOOK_URL`, `N8N_WEBHOOK_SECRET`, and its generated `PUBLIC_ORIGIN`. The assistant can copy these securely from local configuration. OpenAI's key belongs in n8n credentials, not the website's environment. Leave service sleeping/serverless disabled for the conference demo if your plan permits.
 
 ## 2. Real phone check
 
-After the HTTPS URL is available:
+Demo address: https://web-production-af12a.up.railway.app. A QR code is available in `docs/demo-qr.svg`.
 
 1. Open it on your actual phone using mobile data, then conference-style Wi-Fi if possible.
 2. Rotate the venue and tap the stage, entrance, and crowd.

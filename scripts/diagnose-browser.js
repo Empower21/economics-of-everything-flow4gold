@@ -1,0 +1,11 @@
+import {chromium} from 'playwright';
+const browser=await chromium.launch({headless:true,args:['--enable-unsafe-swiftshader']});
+const page=await browser.newPage({viewport:{width:1440,height:1080}});
+page.on('console',msg=>console.log('console',msg.type(),msg.text().slice(0,800)));
+page.on('pageerror',e=>console.log('pageerror',e.message));
+page.on('requestfailed',r=>console.log('requestfailed',r.url(),r.failure()));
+await page.goto(process.env.TEST_BASE_URL || 'http://localhost:3000',{waitUntil:'networkidle'});
+await page.screenshot({path:'test-results/diagnostic.png',fullPage:true});
+console.log(await page.locator('#scene-caption').textContent());
+console.log(await page.evaluate(()=>({canvas:document.querySelector('#venue').dataset,flat:!document.querySelector('#flat-view').hidden})));
+await browser.close();

@@ -1,0 +1,14 @@
+.env
+.env.*
+.git
+.local
+.playwright-mcp
+node_modules
+dist
+test-results
+assets
+workflow
+docs
+scripts
+tests
+*.log

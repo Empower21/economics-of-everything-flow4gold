@@ -28,7 +28,7 @@ Railway service variables include the existing authenticated n8n connection, Ope
 
 Hosted deployment `4f65d8fa-5c04-4849-b7ae-a17583aaae6d` reached SUCCESS. The public health endpoint reported n8n configured. The full desktop/mobile acceptance suite passed against the public HTTPS address, including all six videos, caption tracks, direct routes, motion pause/resume, fallback, stale text protection and history. Live hosted n8n calls passed all six selected concert/conference/factory scenarios without fallback. The hosted voice suite passed actual transcription/n8n/ElevenLabs playback, denied permission, cancellation, forced transcription error and pending-audio suppression after mute or scenario change.
 
-A final chart correction includes carrying and operating costs in the factory's 2D cost bar when no cars are sold; a focused browser test passed with cost 1,005 and a full-width cost bar. The revised page metadata also names all three lessons. Final deployment confirmation is recorded below.
+A final chart correction includes carrying and operating costs in the factory's 2D cost bar when no cars are sold; a focused browser test passed with cost 1,005 and a full-width cost bar. The revised page metadata also names all three lessons. Final deployment `4ef158c7-7bbe-4778-86a4-fbf05b352ee8` serves those changes at the existing HTTPS domain; the focused chart check passed again against that hosted build. Source/assets were committed and pushed to the existing private repository, with the configured-secret scan passing across 101 tracked files.
 
 ## Human checks still required
 

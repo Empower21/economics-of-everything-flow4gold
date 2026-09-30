@@ -2,7 +2,7 @@ import {mkdir,writeFile,readFile,stat} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {mediaPlan} from './media-plan.js';
 import {synthesize} from '../server/speech-provider.js';
-const directory='.local/narration-eleven';
+const directory='.local/narration-pixel03';
 await mkdir(directory,{recursive:true});await mkdir('public/media',{recursive:true});
 const probe=path=>Number(execFileSync('ffprobe',['-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',path],{encoding:'utf8'}).trim());
 async function speech(input,language,path){

@@ -15,12 +15,12 @@ page.on('response',async r=>{if(r.url().endsWith('/api/transcribe'))console.log(
 await page.waitForTimeout(6200);await page.locator('#record-stop').click();
 await page.waitForFunction(()=>document.querySelector('#question').value.toLowerCase().includes('thousand')||document.querySelector('#question').value.replace(/[, ]/g,'').includes('1000'),null,{timeout:40000});assert.equal(await page.locator('#field-capacity').inputValue(),'200');await page.locator('#spoken-reply').check();await page.locator('#ask').click();
 await page.waitForFunction(()=>document.querySelector('#field-capacity').value==='1000',null,{timeout:40000});
-assert.equal(await page.locator('[data-metric=profit]').textContent(),'-1,250');
+assert.equal(await page.locator('[data-metric=profit]').textContent(),'-$1,250');
 await page.waitForFunction(()=>document.querySelector('#voice-status').textContent.includes('Playing AI-generated'),null,{timeout:60000});
 assert.equal(await page.evaluate(()=>window.testStreams.every(s=>s.getTracks().every(t=>t.readyState==='ended'))),true);
 await page.locator('#mute').click();await page.locator('#mic').click();await page.waitForTimeout(800);await page.locator('#record-cancel').click();
 assert.equal(await page.evaluate(()=>window.testStreams.every(s=>s.getTracks().every(t=>t.readyState==='ended'))),true);
-await page.screenshot({path:'docs/evidence/addendum02/voice-tested.png'});
+await page.screenshot({path:'docs/evidence/addendum03/voice-tested.png'});
 console.log('PASS: recorded synthetic microphone audio → real transcription → validated setting 1000 → live n8n → ElevenLabs playback; mute and cancel release tracks.');
 const denied=await newVoicePage();await denied.addInitScript(()=>{navigator.mediaDevices.getUserMedia=async()=>{throw new DOMException('Denied','NotAllowedError');};});await denied.goto(base);await denied.locator('#mic').click();await denied.waitForFunction(()=>document.querySelector('#voice-status').textContent.includes('permission denied'));assert.equal(await denied.locator('#question').isEnabled(),true);console.log('PASS: denied microphone retains text input.');
 const stale=await newVoicePage();await stale.addInitScript(()=>{const NativeAudio=window.Audio;window.audioPlayCount=0;window.Audio=class extends NativeAudio{play(){window.audioPlayCount++;return super.play();}};});

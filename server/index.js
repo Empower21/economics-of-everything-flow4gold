@@ -31,7 +31,7 @@ app.post('/api/lesson', limit, async (req,res) => {
   if (process.env.N8N_WEBHOOK_URL && process.env.N8N_WEBHOOK_SECRET && daily.count < 300) {
     daily.count++;
     try {
-      const upstream = await fetch(process.env.N8N_WEBHOOK_URL, { method:'POST', headers:{ 'Content-Type':'application/json', 'X-Lesson-Key':process.env.N8N_WEBHOOK_SECRET }, body:JSON.stringify(input), signal:AbortSignal.timeout(18000) });
+      const upstream = await fetch(process.env.N8N_WEBHOOK_URL, { method:'POST', headers:{ 'Content-Type':'application/json', 'X-Lesson-Key':process.env.N8N_WEBHOOK_SECRET }, body:JSON.stringify({...input,verifiedResults:output.calculationResults}), signal:AbortSignal.timeout(18000) });
       if (!upstream.ok) throw new Error('upstream');
       output = validateLesson(await upstream.json(),input);
     } catch { output = preparedLesson(input,'service-fallback'); }

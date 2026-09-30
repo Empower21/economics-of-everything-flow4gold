@@ -1,5 +1,5 @@
 import {changeExplanation} from './teaching.js';
-import {LESSONS,normalizeId,validateScenario,calculateScenario} from './registry.js';
+import {LESSONS,normalizeId,validateScenario,calculateScenario,money,LOCATIONS} from './registry.js';
 export {calculate} from './legacy.js';
 export function validateRequest(input){
   if(!input||typeof input!=='object'||Array.isArray(input))throw new Error('Send a lesson request object.');
@@ -9,33 +9,37 @@ export function validateRequest(input){
   if(typeof input.question!=='string'||!input.question.trim()||input.question.length>600)throw new Error('Ask a question using 1–600 characters.');
   for(const key of ['requestId','sessionId'])if(typeof input[key]!=='string'||!/^[a-zA-Z0-9_-]{8,80}$/.test(input[key]))throw new Error('Refresh your session and try again.');
   const revision=input.scenarioRevision??0;if(!Number.isInteger(revision)||revision<0||revision>10000000)throw new Error('Invalid scenario revision.');
-  return {requestId:input.requestId,sessionId:input.sessionId,topicId,language:input.language,question:input.question.trim(),scenario:validateScenario(topicId,input.scenario),scenarioRevision:revision,inputMode:input.inputMode==='voice'?'voice':'text',previousScenario:input.previousScenario?validateScenario(topicId,input.previousScenario):null};
+  return {requestId:input.requestId,sessionId:input.sessionId,topicId,language:input.language,question:input.question.trim(),scenario:validateScenario(topicId,input.scenario),scenarioRevision:revision,inputMode:input.inputMode==='voice'?'voice':'text',previousScenario:input.previousScenario?validateScenario(topicId,input.previousScenario):null,savedScenario:input.savedScenario?validateScenario(topicId,input.savedScenario):null,modelVersion:'concert-v3',currency:'USD'};
 }
 export function approvedParagraphs(request){
   const id=normalizeId(request.topicId),s=validateScenario(id,request.scenario),c=calculateScenario(id,s),de=request.language==='de',f=n=>n===null?(de?'nicht anwendbar':'not applicable'):new Intl.NumberFormat(de?'de-DE':'en-US',{maximumFractionDigits:2}).format(n);
-  const common={limits:de?'Ein erfundenes Lernmodell, keine Prognose oder Empfehlung. Alle Geldbeträge sind Geldeinheiten.':'An invented teaching model, not a forecast or recommendation. All monetary values are currency units.',offTopic:de?'Frage nach Kosten, Einnahmen und Zusammenhängen in der gewählten Lektion.':'Ask about costs, revenue, and relationships in the selected lesson.'};
-  let p;
-  p=de?{
-    overview:`Bei einem Preis von ${f(s.ticketPrice)} kommen ${f(c.attendance)} Gäste in einen Saal mit ${f(s.capacity)} Plätzen. Umsatz: ${f(c.revenue)}. Gesamtkosten: ${f(c.totalCost)}. Gewinn oder Verlust: ${f(c.profit)}.`,
-    revenue:`Ticketumsatz ist Preis mal tatsächliche Besucherzahl: ${f(s.ticketPrice)} mal ${f(c.attendance)}. Leere Plätze erzeugen keinen Umsatz. Gewinn entsteht nach Abzug aller Kosten.`,
-    costs:`Produktion: ${f(s.productionBudget)}. Saal: ${f(s.venueRate)} pro verfügbarem Platz, insgesamt ${f(c.venueCost)}. Betreuung: ${f(s.perGuest)} pro Gast, insgesamt ${f(c.variableCost)}. Ein größerer Saal kann bei gleicher Nachfrage mehr kosten.`,
-    demand:`Die unabhängige Nachfrageannahme bei Preis zwanzig beträgt ${f(s.demand)}. Bei deinem Preis ergibt das Modell ${f(c.potentialDemand)} potenzielle Gäste. Tatsächliche Besucherzahl und Kapazität begrenzen die Auslastung auf ${f(c.occupancy)} Prozent. Ungedeckte Nachfrage: ${f(c.unmetDemand)}.`,
-    comparison:'Im Standardbeispiel ergeben Preise von zwanzig und dreißig denselben Umsatz. Weniger Gäste senken die Betreuungskosten. Mehr Kapazität allein erzeugt keine Nachfrage.',
-    returnOnCost:`Kostenrendite bedeutet Gewinn geteilt durch Gesamtkosten mal hundert: ${f(c.returnOnCost)} Prozent. Bei Kosten von null ist sie nicht anwendbar.`
+  const m=n=>money(n,request.language),common={limits:de?'Ein erfundenes Lernmodell, keine Prognose. Alle Beträge in US-Dollar ($). Steuern, Finanzierung und Rückerstattungen sind nicht enthalten.':'An invented teaching model, not a forecast. All amounts are US dollars ($). Tax, financing and refunds are excluded.',offTopic:de?'Frage nach Kosten, Einnahmen oder Publikum dieses Konzerts.':'Ask about costs, revenue or the audience of this concert.'};
+  const p=de?{
+   overview:`Bei ${m(s.ticketPrice)} pro Ticket kommen ${f(c.attendance)} Gäste in einen Saal mit ${f(s.capacity)} Plätzen. Einnahmen: ${m(c.revenue)}. Gesamtkosten: ${m(c.totalCost)}. Gewinn oder Verlust: ${m(c.profit)}.`,
+   revenue:`Ticketumsatz: ${m(s.ticketPrice)} × ${f(c.attendance)} = ${m(c.ticketRevenue)}. Sponsoren: ${m(c.sponsorship)}. Gesamteinnahmen: ${m(c.revenue)}. Leere Plätze erzeugen keinen Umsatz.`,
+   costs:`Produktion: ${m(c.productionCost)}. Saalmiete: ${m(c.venueCost)} (${m(s.venueRate)} je Platz). Leistungen für Gäste: ${m(c.variableCost)}. Werbung: ${m(c.promotionCost)}. Gesamtkosten: ${m(c.totalCost)}.`,
+   demand:s.audienceMode==='manual'?`Manuelle Gästezahl: ${f(s.manualAttendance)}, begrenzt auf ${f(c.attendance)} durch ${f(s.capacity)} Plätze. Preisänderungen verändern diese Gästezahl nicht. Der gespeicherte Werbezuwachs wird nicht angewandt.`:`Bei $20 sind ${f(s.demand)} Gäste interessiert. Angenommener Werbezuwachs: ${f(s.promotionBoost)}%. Potenzielle Nachfrage bei deinem Preis: ${f(c.potentialDemand)}. Gästezahl: ${f(c.attendance)}, Auslastung: ${f(c.occupancy)}%. Mehr Platz erzeugt keine Nachfrage.`,
+   comparison:'Im Standardbeispiel ergeben $20 und $30 denselben Ticketumsatz. Weniger Gäste senken die Betreuungskosten.',
+   returnOnCost:c.returnOnCost===null?'ROI benötigt Kosten über $0.':`Kostenrendite: Gewinn ÷ Gesamtkosten × 100 = ${c.returnOnCost.toFixed(1)}%. Dies ist keine Gewinnmarge.`,
+   location:`${LOCATIONS[s.location].de}: ${f(s.demand)} Interessierte bei $20, ${m(s.productionBudget)} Produktion, ${m(s.venueRate)} je Platz, ${m(s.perGuest)} je Gast. Beispielhafte Annahmen, keine aktuellen Angebote.`,
+   clarification:'Meinst du Ticketpreis, Publikum, Kosten, Standort oder Gewinn und ROI?'
   }:{
-    overview:`At a price of ${f(s.ticketPrice)}, ${f(c.attendance)} guests attend a venue with ${f(s.capacity)} places. Revenue: ${f(c.revenue)}. Total cost: ${f(c.totalCost)}. Profit or loss: ${f(c.profit)}.`,
-    revenue:`Ticket revenue is price times actual attendance: ${f(s.ticketPrice)} times ${f(c.attendance)}. Empty places do not create revenue. Profit remains after subtracting every cost.`,
-    costs:`Production costs ${f(s.productionBudget)}. Venue cost is ${f(s.venueRate)} per available place, totaling ${f(c.venueCost)}. Per-person costs are ${f(s.perGuest)} per guest, totaling ${f(c.variableCost)}. A larger venue can cost more with unchanged demand.`,
-    demand:`Your independent interest assumption at reference price twenty is ${f(s.demand)}. At your price, modeled potential demand is ${f(c.potentialDemand)}. Actual attendance cannot exceed capacity. Occupancy: ${f(c.occupancy)} percent; unmet demand: ${f(c.unmetDemand)}.`,
-    comparison:'In the default example, ticket prices of twenty and thirty produce the same revenue. Fewer guests mean lower per-person costs. Adding capacity alone does not create demand.',
-    returnOnCost:`Return on cost is profit divided by total cost, times one hundred: ${f(c.returnOnCost)} percent. With zero total cost, this measure is not applicable.`
+   overview:`At ${m(s.ticketPrice)} per ticket, ${f(c.attendance)} guests attend a venue with ${f(s.capacity)} places. Revenue: ${m(c.revenue)}. Total cost: ${m(c.totalCost)}. Profit or loss: ${m(c.profit)}.`,
+   revenue:`Ticket revenue: ${m(s.ticketPrice)} × ${f(c.attendance)} = ${m(c.ticketRevenue)}. Sponsorship: ${m(c.sponsorship)}. Total revenue: ${m(c.revenue)}. Empty places do not create revenue.`,
+   costs:`Production: ${m(c.productionCost)}. Venue hire: ${m(c.venueCost)} (${m(s.venueRate)} per place). Guest services: ${m(c.variableCost)}. Promotion: ${m(c.promotionCost)}. Total costs: ${m(c.totalCost)}.`,
+   demand:s.audienceMode==='manual'?`Requested manual headcount: ${f(s.manualAttendance)}, capped at ${f(c.attendance)} by ${f(s.capacity)} places. Ticket-price changes do not change this headcount. The stored promotion boost is unused.`:`At $20, ${f(s.demand)} people are interested. Assumed promotion boost: ${f(s.promotionBoost)}%. Potential demand at your price: ${f(c.potentialDemand)}. Attendance: ${f(c.attendance)}; occupancy: ${f(c.occupancy)}%. Extra space does not create buyers.`,
+   comparison:'In the default example, $20 and $30 produce the same ticket revenue. Fewer guests mean lower per-person costs.',
+   returnOnCost:c.returnOnCost===null?'ROI needs a cost greater than $0.':`Return on your event costs: profit ÷ total costs × 100 = ${c.returnOnCost.toFixed(1)}%. An ROI of 20% means $0.20 profit for every $1 spent. This is not profit margin.`,
+   location:`${LOCATIONS[s.location].en}: ${f(s.demand)} interested at $20, ${m(s.productionBudget)} production, ${m(s.venueRate)} per place, ${m(s.perGuest)} per guest. Illustrative assumptions, not live venue quotes.`,
+   clarification:'Do you mean ticket price, audience, costs, location, or profit and ROI?'
   };
+  if(request.savedScenario){const a=calculateScenario(id,request.savedScenario);p.comparison=de?`Gespeicherter Mix → aktuell: Gäste ${f(a.attendance)} → ${f(c.attendance)}, Einnahmen ${m(a.revenue)} → ${m(c.revenue)}, Kosten ${m(a.totalCost)} → ${m(c.totalCost)}, Gewinn ${m(a.profit)} → ${m(c.profit)}.`:`Saved mix → current: guests ${f(a.attendance)} → ${f(c.attendance)}, revenue ${m(a.revenue)} → ${m(c.revenue)}, costs ${m(a.totalCost)} → ${m(c.totalCost)}, profit ${m(a.profit)} → ${m(c.profit)}.`;}
   p.change=changeExplanation(id,s,request.previousScenario,request.language);
   return {...p,...common};
 }
 export function preparedLesson(request,reason='prepared'){
   const id=normalizeId(request.topicId),l=LESSONS[id],p=approvedParagraphs(request),q=request.question.toLowerCase();
-  const key=/chang|änd|fall|rise|sink|stieg/.test(q)?'change':/cost|kosten|budget|preis/.test(q)?'costs':/demand|nachfrage|guest|publikum/.test(q)?'demand':/revenue|umsatz/.test(q)?'revenue':'overview';
+  const key=/roi|return|rendite/.test(q)?'returnOnCost':/location|standort|ort/.test(q)?'location':/compar|vergleich/.test(q)?'comparison':/chang|änd|fall|rise|sink|stieg/.test(q)?'change':/cost|kosten|budget|preis/.test(q)?'costs':/demand|nachfrage|guest|publikum/.test(q)?'demand':/revenue|umsatz/.test(q)?'revenue':'overview';
   return {contractVersion:2,lessonId:id,lessonVersion:l.version,simulationVersion:l.version,scenarioRevision:request.scenarioRevision??0,requestId:request.requestId,language:request.language,explanation:p[key]+' '+(key==='overview'?p.limits:p.overview),paragraphIds:[key,key==='overview'?'limits':'overview'],calculationResults:calculateScenario(id,request.scenario),assumptions:[p.limits,p.demand],sceneActions:[{type:'highlight',target:l.zones[key==='costs'?1:0]}],suggestedFollowup:l.questions[request.language][0],sourceReferences:[{title:request.language==='de'?'Modellannahmen':'Model assumptions',url:'/methodology?lesson='+id}],fallbackUsed:true,delivery:reason};
 }
 export function modelRequest(request){
@@ -51,7 +55,7 @@ export function applyModel(request,response){
 }
 export function validateLesson(response,request){
   const id=normalizeId(request.topicId),expected=calculateScenario(id,request.scenario),p=approvedParagraphs(request);
-  if(!response||response.lessonId!==id||response.scenarioRevision!==(request.scenarioRevision??0)||response.language!==request.language||JSON.stringify(response.calculationResults)!==JSON.stringify(expected))throw new Error('Stale or inconsistent response.');
+  if(!response||response.requestId!==request.requestId||response.lessonId!==id||response.scenarioRevision!==(request.scenarioRevision??0)||response.language!==request.language||JSON.stringify(response.calculationResults)!==JSON.stringify(expected))throw new Error('Stale or inconsistent response.');
   if(!Array.isArray(response.paragraphIds)||response.paragraphIds.length<1||response.paragraphIds.length>3||response.paragraphIds.some(k=>!Object.hasOwn(p,k)))throw new Error('Invalid lesson content.');
   if(!Array.isArray(response.sceneActions)||response.sceneActions.some(a=>a.type!=='highlight'||!LESSONS[id].zones.includes(a.target)))throw new Error('Invalid scene action.');
   return {...response,explanation:response.paragraphIds.map(k=>p[k]).join(' '),calculationResults:expected,sourceReferences:preparedLesson(request).sourceReferences};

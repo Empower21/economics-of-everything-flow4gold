@@ -11,7 +11,7 @@ test('ambiguous amounts and relative spoken changes ask for clarification',()=>{
 test('change context explains the actual transition, including capacity-only and no prior state',()=>{
  const id='concert-economics',before=defaults(id),after={...before,ticketPrice:30};
  const text=changeExplanation(id,after,before);for(const n of ['150','100','3,000','2,250','2,000','750','1,000'])assert.ok(text.includes(n));
- const capacity=changeExplanation(id,{...before,capacity:1000},before);assert.match(capacity,/1,250 CU \(loss\)/);assert.match(capacity,/does not create buyers/);
+ const capacity=changeExplanation(id,{...before,capacity:1000},before);assert.match(capacity,/1,250 \(loss\)/);assert.match(capacity,/does not create buyers/);
  const request={topicId:id,scenario:after,previousScenario:before,language:'en',question:'Why did profit change?'};assert.equal(approvedParagraphs(request).change,text);assert.equal(JSON.parse(modelRequest(request).input).paragraphs.change,text);assert.match(changeExplanation(id,before,null),/no earlier/);
 });
 test('all fields have localized units/help and all focus experiments leave the state unchanged',()=>{

@@ -1,0 +1,12 @@
+{
+  "renderer": "Chromium headless SwiftShader, desktop emulation; not real phone/GPU performance",
+  "defaultFpsSamples": [
+    44.6,
+    38.8,
+    38.5,
+    37.5,
+    41.1
+  ],
+  "pause": "pixel-stable",
+  "staleAnswer": "discarded after scenario change"
+}

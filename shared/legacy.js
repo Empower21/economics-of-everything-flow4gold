@@ -32,19 +32,19 @@ export function preparedLesson(request, reason = 'prepared') {
   const question = request.question.toLowerCase();
   let concept = /cost|kosten|stage|bühne/.test(question) ? 'cost' : /attend|crowd|publikum|nachfrage|demand/.test(question) ? 'audience' : 'profit';
   let explanation = de
-    ? `Bei einem Ticketpreis von ${number(c.ticketPrice)} kommen in unserem erfundenen Modell ${number(c.attendance)} Gäste. Der Umsatz beträgt ${number(c.revenue)}, die Gesamtkosten ${number(c.totalCost)} und der Gewinn ${number(c.profit)} Geldeinheiten. Umsatz ist nicht Gewinn: Ziehe alle Kosten ab.`
-    : `At a ticket price of ${number(c.ticketPrice)}, our invented model brings in ${number(c.attendance)} guests. Revenue is ${number(c.revenue)}, total cost is ${number(c.totalCost)}, and profit is ${number(c.profit)} currency units. Revenue is not profit: subtract all costs first.`;
+    ? `Bei einem Ticketpreis von ${number(c.ticketPrice)} kommen in unserem erfundenen Modell ${number(c.attendance)} Gäste. Der Umsatz beträgt ${number(c.revenue)}, die Gesamtkosten ${number(c.totalCost)} und der Gewinn ${number(c.profit)} US-Dollar ($). Umsatz ist nicht Gewinn: Ziehe alle Kosten ab.`
+    : `At a ticket price of ${number(c.ticketPrice)}, our invented model brings in ${number(c.attendance)} guests. Revenue is ${number(c.revenue)}, total cost is ${number(c.totalCost)}, and profit is ${number(c.profit)} US dollars ($). Revenue is not profit: subtract all costs first.`;
   if (concept === 'cost') explanation = de
-    ? `Die Bühne und die Technik kosten unabhängig von der Besucherzahl ${number(c.fixedCost)} Geldeinheiten. Dazu kommen ${number(c.variableCost)} variable Kosten: fünf je Gast. Gesamtkosten: ${number(c.totalCost)}. Weniger Gäste senken die variablen Kosten, aber nicht die Fixkosten.`
-    : `The stage and equipment cost ${number(c.fixedCost)} currency units regardless of attendance. Add ${number(c.variableCost)} in variable costs: five per guest. Total cost: ${number(c.totalCost)}. Fewer guests reduce variable costs, but fixed costs stay the same.`;
+    ? `Die Bühne und die Technik kosten unabhängig von der Besucherzahl ${number(c.fixedCost)} US-Dollar ($). Dazu kommen ${number(c.variableCost)} variable Kosten: fünf je Gast. Gesamtkosten: ${number(c.totalCost)}. Weniger Gäste senken die variablen Kosten, aber nicht die Fixkosten.`
+    : `The stage and equipment cost ${number(c.fixedCost)} US dollars ($) regardless of attendance. Add ${number(c.variableCost)} in variable costs: five per guest. Total cost: ${number(c.totalCost)}. Fewer guests reduce variable costs, but fixed costs stay the same.`;
   if (concept === 'audience') explanation = de
     ? `In dieser vereinfachten Annahme sinkt die Nachfrage mit steigendem Preis. Bei ${number(c.ticketPrice)} erwarten wir rechnerisch ${number(c.attendance)} Gäste. Das ist keine Prognose: Echte Nachfrage hängt auch von Künstlern, Ort und vielen anderen Faktoren ab.`
     : `In this simplified assumption, demand falls as the price rises. A price of ${number(c.ticketPrice)} gives a calculated attendance of ${number(c.attendance)}. This is not a forecast: real demand also depends on the artists, location, and many other factors.`;
   return {
     lessonId: 'concert-v1', language: request.language, explanation, calculationResults: c,
     assumptions: de
-      ? ['Erfundenes Lernmodell, keine Nachfrageprognose.', 'Kapazität: 200; Fixkosten: 1.500; variable Kosten: 5 je Gast.', 'Gäste = abrunden(min(200, max(0, 250 − 5 × Ticketpreis))).', 'Kostenrendite = Gewinn / Gesamtkosten × 100. Alle Geldbeträge in Geldeinheiten.']
-      : ['Invented teaching model, not a demand forecast.', 'Capacity: 200; fixed costs: 1,500; variable costs: 5 per guest.', 'Guests = floor(min(200, max(0, 250 − 5 × ticket price))).', 'Return on cost = profit / total cost × 100. All money is in currency units.'],
+      ? ['Erfundenes Lernmodell, keine Nachfrageprognose.', 'Kapazität: 200; Fixkosten: 1.500; variable Kosten: 5 je Gast.', 'Gäste = abrunden(min(200, max(0, 250 − 5 × Ticketpreis))).', 'Kostenrendite = Gewinn / Gesamtkosten × 100. Alle Geldbeträge in US-Dollar ($).']
+      : ['Invented teaching model, not a demand forecast.', 'Capacity: 200; fixed costs: 1,500; variable costs: 5 per guest.', 'Guests = floor(min(200, max(0, 250 − 5 × ticket price))).', 'Return on cost = profit / total cost × 100. All money is in US dollars ($).'],
     sceneActions: [{ type: concept === 'cost' ? 'highlightStage' : concept === 'audience' ? 'setAudienceCount' : 'highlightEntrance', value: c.attendance }, { type: 'showProfit', value: c.profit }],
     suggestedFollowup: de ? 'Vergleiche die Ticketpreise 20 und 30. Warum bleibt der Umsatz gleich?' : 'Compare ticket prices of 20 and 30. Why does revenue stay the same?',
     sourceReferences: [{ title: de ? 'Modellannahmen und Formeln' : 'Model assumptions and formulas', url: '/methodology' }],
@@ -57,9 +57,9 @@ export function approvedParagraphs(request) {
   const a=calculate(20), b=calculate(30);
   const f=n=>new Intl.NumberFormat(request.language==='de'?'de-DE':'en-US',{maximumFractionDigits:1}).format(n);
   return request.language==='de' ? {
-    overview:`Bei einem Ticketpreis von ${f(c.ticketPrice)} kommen rechnerisch ${f(c.attendance)} Gäste. Der Umsatz beträgt ${f(c.revenue)}, die Gesamtkosten ${f(c.totalCost)} und der Gewinn ${f(c.profit)} Geldeinheiten.`,
+    overview:`Bei einem Ticketpreis von ${f(c.ticketPrice)} kommen rechnerisch ${f(c.attendance)} Gäste. Der Umsatz beträgt ${f(c.revenue)}, die Gesamtkosten ${f(c.totalCost)} und der Gewinn ${f(c.profit)} US-Dollar ($).`,
     revenue:'Umsatz ist das gesamte Geld aus dem Ticketverkauf: Ticketpreis mal Besucherzahl. Gewinn ist das, was nach Abzug aller Kosten übrig bleibt.',
-    costs:`Die Fixkosten bleiben bei ${f(c.fixedCost)} Geldeinheiten. Die variablen Kosten betragen fünf je Gast, hier insgesamt ${f(c.variableCost)}. Mehr Gäste bedeuten höhere variable Kosten; weniger Gäste bedeuten niedrigere variable Kosten.`,
+    costs:`Die Fixkosten bleiben bei ${f(c.fixedCost)} US-Dollar ($). Die variablen Kosten betragen fünf je Gast, hier insgesamt ${f(c.variableCost)}. Mehr Gäste bedeuten höhere variable Kosten; weniger Gäste bedeuten niedrigere variable Kosten.`,
     demand:`Unser erfundenes Modell nimmt an, dass die Nachfrage mit höherem Preis sinkt. Die Besucherzahl ist auf ${f(c.capacity)} begrenzt. Reale Nachfrage hängt auch von Künstlern, Ort und anderen Faktoren ab.`,
     comparison:`Bei Ticketpreisen von ${f(a.ticketPrice)} und ${f(b.ticketPrice)} bleibt der Umsatz bei ${f(a.revenue)}. Die Besucherzahl sinkt von ${f(a.attendance)} auf ${f(b.attendance)}, die Kosten von ${f(a.totalCost)} auf ${f(b.totalCost)}. Deshalb steigt der Gewinn von ${f(a.profit)} auf ${f(b.profit)}.`,
     returnOnCost:`Die Kostenrendite ist Gewinn geteilt durch Gesamtkosten mal hundert: hier ${f(c.returnOnCost)} Prozent. Das ist die Rendite des erfundenen Events, keine Aussage zum wirtschaftlichen Nutzen dieser Lernplattform.`,
@@ -68,9 +68,9 @@ export function approvedParagraphs(request) {
     breakEven:`Die Gewinnschwelle liegt dort, wo Umsatz und Gesamtkosten gleich sind. Aktuell beträgt der Gewinn ${f(c.profit)}. Ein negativer Wert bedeutet Verlust, ein positiver Wert Gewinn.`,
     nextStep:'Teste die beiden Vergleichspreise und beobachte, wie sich Publikum und Kosten verändern.'
   } : {
-    overview:`At a ticket price of ${f(c.ticketPrice)}, calculated attendance is ${f(c.attendance)}. Revenue is ${f(c.revenue)}, total cost is ${f(c.totalCost)}, and profit is ${f(c.profit)} currency units.`,
+    overview:`At a ticket price of ${f(c.ticketPrice)}, calculated attendance is ${f(c.attendance)}. Revenue is ${f(c.revenue)}, total cost is ${f(c.totalCost)}, and profit is ${f(c.profit)} US dollars ($).`,
     revenue:'Revenue is all the money from ticket sales: ticket price times attendance. Profit is what remains after subtracting every cost.',
-    costs:`Fixed costs stay at ${f(c.fixedCost)} currency units. Variable costs are five per guest, totaling ${f(c.variableCost)} here. More guests mean higher variable costs; fewer guests mean lower variable costs.`,
+    costs:`Fixed costs stay at ${f(c.fixedCost)} US dollars ($). Variable costs are five per guest, totaling ${f(c.variableCost)} here. More guests mean higher variable costs; fewer guests mean lower variable costs.`,
     demand:`Our invented model assumes demand falls as price rises, with attendance capped at ${f(c.capacity)}. Real demand also depends on the artists, location, and other factors.`,
     comparison:`At ticket prices of ${f(a.ticketPrice)} and ${f(b.ticketPrice)}, revenue stays at ${f(a.revenue)}. Attendance falls from ${f(a.attendance)} to ${f(b.attendance)}, and costs from ${f(a.totalCost)} to ${f(b.totalCost)}. That is why profit rises from ${f(a.profit)} to ${f(b.profit)}.`,
     returnOnCost:`Return on cost means profit divided by total cost, multiplied by one hundred: ${f(c.returnOnCost)} percent here. This describes the invented event, not the business value of this learning platform.`,

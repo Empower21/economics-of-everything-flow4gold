@@ -1,20 +1,19 @@
-# Addendum 02 control changes
-
-Current concert-only controls.
+# Addendum 03 concert controls
 
 | Control | Meaning |
 | --- | --- |
-| Try a change | Two concert beginner decisions, with units and examples |
-| What changed? / Undo | Local causal comparison of the previous/current scenario; restores the prior settings |
-| Explore the scene | One selected zone, highlighted object, current-number explanation and explicit experiment; selection never changes assumptions |
-| More decisions and assumptions | Every existing input remains available in a named group; presets list the settings and values changed |
-| More details | Itemized concert costs and secondary metrics |
-| Pause motion | Freezes decorative motion while calculations remain usable |
-| Reset view | Camera and focus only |
-| Reset lesson settings | Restores defaults and clears saved comparison; Undo restores the prior scenario |
-| Save this version | Shows saved/current/difference values while this lesson remains open |
-| Microphone / Stop recording / Cancel | User-initiated recording; transcript can be corrected before Send; cancellation releases microphone |
-| Send / Speak replies / Replay / Stop audio | Current/previous scenario answer; optional speech with revision guards |
-| Creator audition | Only in the review view, using ?review=1 |
-| Lightweight view | Distinct illustrated version of the same state; unavailable spatial controls are hidden |
-| Watch the short story | Fixed example film with native captions, transcript, replay and sound controls; no scenario reset |
+| Mix Your Margins | Ticket price, capacity, location and estimated/manual audience; synchronized number fields and sliders |
+| Add a variable… | Reveal production, venue rate, guest cost, promotion, boost, sponsorship or sensitivity. Remove resets to active profile defaults; Undo restores value and visibility |
+| Location | Fictional presets change four displayed assumptions in one transaction. Editing them creates Custom location |
+| Your last move / Undo | Deterministic previous/current figures; restores a whole committed change |
+| Neon signs | Exact audience/capacity, revenue, total costs, profit/loss and ROI; keyboard-focusable help |
+| Pause / Reduced motion | Same scene; stops motion but new decisions still change figures and numbers |
+| Reset concert | Restore all economic defaults, estimated audience and optional-control visibility; clear saved comparison |
+| Save this mix / Restore / Export | Full USD input snapshot and model version saved locally; restore validates and recomputes |
+| Explore the economics | Contextual explanations and explicit experiments; selection alone changes no assumptions |
+| Retry scene | Recover failed WebGL loading while accessible dashboard stays usable |
+| Microphone / Stop / Cancel | Record only on request; editable transcript; cancel releases microphone |
+| Send / Speak replies / Replay / Stop audio | Revision-checked coach response; optional user-controlled speech |
+| Watch the short story | Fixed bilingual film, native captions and transcript; does not replace or reset the live scene |
+
+No Lightweight view, alternate renderer, camera tour or reset-camera control remains.

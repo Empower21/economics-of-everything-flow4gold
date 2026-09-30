@@ -1,102 +1,58 @@
-import { Engine } from '@babylonjs/core/Engines/engine';
-import { Scene } from '@babylonjs/core/scene';
-import { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
-import { Vector3 } from '@babylonjs/core/Maths/math.vector';
-import { Color3, Color4 } from '@babylonjs/core/Maths/math.color';
-import { HemisphericLight } from '@babylonjs/core/Lights/hemisphericLight';
-import { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator';
-import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
-import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
-import { ImportMeshAsync } from '@babylonjs/core/Loading/sceneLoader';
-import { HighlightLayer } from '@babylonjs/core/Layers/highlightLayer';
-import '@babylonjs/core/Layers/effectLayerSceneComponent';
-import '@babylonjs/core/Culling/ray';
+import {Engine} from '@babylonjs/core/Engines/engine';
+import {Scene} from '@babylonjs/core/scene';
+import {ArcRotateCamera} from '@babylonjs/core/Cameras/arcRotateCamera';
+import {Vector3,Matrix,Quaternion} from '@babylonjs/core/Maths/math.vector';
+import {Color3,Color4} from '@babylonjs/core/Maths/math.color';
+import {HemisphericLight} from '@babylonjs/core/Lights/hemisphericLight';
+import {DirectionalLight} from '@babylonjs/core/Lights/directionalLight';
+import {ImportMeshAsync} from '@babylonjs/core/Loading/sceneLoader';
+import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
+import {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
+import '@babylonjs/core/Meshes/thinInstanceMesh';
 import '@babylonjs/loaders/glTF/2.0';
 import '@babylonjs/loaders/glTF/glTFFileLoader';
+import {crowdScale} from '../shared/registry.js';
 
-export async function createVenue(canvas, onPick, onReady, kind='concert') {
-  const engine = new Engine(canvas,true,{ preserveDrawingBuffer:true, stencil:true, antialias:true });
-  engine.setHardwareScalingLevel(Math.max(1,window.devicePixelRatio/1.5));
-  const scene = new Scene(engine);
-  scene.clearColor=new Color4(.97,.90,.79,1);
-  const camera=new ArcRotateCamera('camera',Math.PI/2.7,Math.PI/3.15,15,new Vector3(0,1,0),scene);
-  camera.attachControl(canvas,true);
-  const homeRadius=()=>canvas.clientWidth/canvas.clientHeight<1.2?19:14.7;
-  camera.radius=homeRadius();camera.lowerRadiusLimit=2.3; camera.upperRadiusLimit=35;
-  camera.lowerBetaLimit=.3; camera.upperBetaLimit=1.3;
-  camera.panningSensibility=0; camera.wheelPrecision=35;
-  const ambient=new HemisphericLight('sky',new Vector3(0,1,0),scene); ambient.intensity=.85; ambient.groundColor=new Color3(.3,.38,.27);
-  const sun=new DirectionalLight('sun',new Vector3(-.5,-1,.5),scene); sun.intensity=1.35;sun.position=new Vector3(6,12,-7);
-  const highlight=new HighlightLayer('focus',scene);
-  let meshes;
-  try { ({meshes}=await ImportMeshAsync('/models/'+kind+'.glb',scene)); }
-  catch (err) { engine.dispose(); throw err; }
-  const roots=[...scene.transformNodes,...meshes];
-  const shadows=new ShadowGenerator(1024,sun);shadows.useBlurExponentialShadowMap=true;shadows.blurKernel=12;shadows.darkness=.22;shadows.getShadowMap().refreshRate=0;
-  meshes.forEach(m=>{m.receiveShadows=true;if(/DJ|Stage|Speaker cone/.test(m.name))shadows.addShadowCaster(m);});
-  // Exported quaternion rest poses must be preserved when rotating articulated joints.
-  roots.forEach(m=>{if(/_(Torso|Head|Arm[LR]|Elbow[LR]|Leg[LR]|Knee[LR])$/.test(m.name)&&m.rotationQuaternion){m.rotation=m.rotationQuaternion.toEulerAngles();m.rotationQuaternion=null;}});
-  const rest=new Map(roots.map(m=>[m,m.rotation.clone()]));
-  const namedNodes=new Map(roots.map(m=>[m.name,m]));const joint=name=>namedNodes.get(name);
-  const rotate=(name,axis,amount)=>{const m=joint(name);if(m)m.rotation[axis]=rest.get(m)[axis]+amount;};
-  const people=roots.filter(m=>/^(Audience|EntranceWalker)_\d{2}$|^(DJ)$/.test(m.name));
-  const audience=people.filter(m=>m.name.startsWith('Audience_')).sort((a,b)=>a.name.localeCompare(b.name));
-  const positions=new Map(people.map(m=>[m,m.position.clone()]));
-  const prefixMap={entrance:['Entrance'],stage:['Stage','DJ','Speaker cone'],audience:['Audience']};
-  let visible=true;const visibility=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;});visibility.observe(canvas);
-  let paused=false,reduced=false,time=0,last=performance.now(),cameraGoal=null,manualTime=null;
-  function animate(t){
-    people.forEach((m,i)=>{
-      if(!m.isEnabled())return;const b=positions.get(m),name=m.name;
-      const walking=name.startsWith('EntranceWalker'),dancing=name.startsWith('Audience'),dj=name==='DJ';
-      const cycle=t*(walking?4:2)+i*1.7,amplitude=1;
-      rotate(name+'_Torso','z',Math.sin(cycle)*.045*amplitude);
-      rotate(name+'_Head','y',Math.sin(t*.9+i)*.12);
-      for(const [side,sign] of [['L',-1],['R',1]]){
-        rotate(name+'_Arm'+side,'x',(walking?Math.sin(cycle)*.38*sign:dj?Math.sin(t*2+sign)*.18:dancing?-.35+Math.sin(cycle)*.17:Math.sin(cycle*.6)*.12)*amplitude);
-        rotate(name+'_Elbow'+side,'x',(dj?Math.sin(t*3+sign)*.25:dancing?-.6+Math.sin(cycle+sign)*.25:-.25+Math.sin(cycle)*.1)*amplitude);
-        {rotate(name+'_Leg'+side,'x',Math.sin(cycle)*sign*(walking?.33:dancing?.055:0));rotate(name+'_Knee'+side,'x',Math.max(0,Math.sin(cycle)*sign)*(walking?.35:dancing?.1:0));}
-      }
-      if(walking){m.position.z=b.z+((t*.24+i*.36)%1.3)-.65;}else if(dancing){m.position.y=b.y+Math.abs(Math.sin(cycle))*.025;}
-    });
-    if(cameraGoal){camera.target=Vector3.Lerp(camera.target,cameraGoal.target,reduced?1:.1);camera.radius+=(cameraGoal.radius-camera.radius)*(reduced?1:.1);}
+export async function createVenue(canvas,onPick,onReady){
+ const engine=new Engine(canvas,false,{preserveDrawingBuffer:true,stencil:false,antialias:false,adaptToDeviceRatio:false});
+ const scene=new Scene(engine);scene.clearColor=new Color4(.035,.04,.09,1);
+ const camera=new ArcRotateCamera('Stable concert camera',Math.PI/2-.35,.84,24,new Vector3(0,1,0),scene);camera.mode=1;
+ const resize=()=>{const w=canvas.clientWidth,h=canvas.clientHeight;const ratio=w/h;engine.setSize(Math.min(512,Math.round(w)),Math.min(512,Math.round(w))/ratio);const span=ratio<1.1?10.5:10;camera.orthoLeft=-span;camera.orthoRight=span;camera.orthoTop=span/ratio;camera.orthoBottom=-span/ratio;};resize();
+ const hemi=new HemisphericLight('soft ambient',new Vector3(0,1,0),scene);hemi.intensity=.85;hemi.groundColor=new Color3(.19,.12,.28);
+ const key=new DirectionalLight('stage key',new Vector3(.3,-1,.5),scene);key.intensity=1.3;key.diffuse=new Color3(.84,.86,1);
+ let imported;try{imported=await ImportMeshAsync('/models/concert.glb',scene);}catch(e){engine.dispose();throw e;}
+ const convertedGeometry=new Set();for(const mesh of imported.meshes){if(!mesh.geometry||convertedGeometry.has(mesh.geometry))continue;convertedGeometry.add(mesh.geometry);const colors=mesh.getVerticesData('color');if(colors){const stride=mesh.getVertexBuffer('color').getSize();for(let i=0;i<colors.length;i++)if(stride===3||i%stride!==3)colors[i]=Math.pow(Math.max(0,colors[i]),1/2.2);mesh.setVerticesData('color',colors,false,stride);}}
+ const paletteMaterials=new Map();for(const mesh of imported.meshes){const source=mesh.material;if(!source)continue;if(!paletteMaterials.has(source)){const m=new StandardMaterial('Pixel '+source.name,scene);m.diffuseColor=source.albedoColor?.clone()||Color3.White();m.specularColor=Color3.Black();m.emissiveColor=new Color3(.10,.10,.12);m.backFaceCulling=true;paletteMaterials.set(source,m);}mesh.material=paletteMaterials.get(source);}
+ const templates=imported.meshes.filter(m=>/^Dancer_\d_\d_Frame$/.test(m.name));
+ if(templates.length!==32){engine.dispose();throw new Error('Concert character library missing.');}
+ // Exported posed frames share immutable geometry; 32 instanced batches serve up to 300 figures.
+ templates.sort((a,b)=>a.name.localeCompare(b.name));
+ const batches=templates.map(mesh=>{mesh.parent=null;mesh.position.setAll(0);mesh.rotationQuaternion=Quaternion.Identity();mesh.scaling.setAll(1);mesh.alwaysSelectAsActiveMesh=true;mesh.isPickable=false;const buffer=new Float32Array(300*16);mesh.thinInstanceSetBuffer('matrix',buffer,16,false);mesh.thinInstanceCount=0;return {mesh,buffer,variant:Number(mesh.name.split('_')[1]),pose:Number(mesh.name.split('_')[2])};});
+ const groups=imported.animationGroups;groups.forEach(g=>{g.start(true);g.pause();});
+ let paused=false,reduced=false,time=0,manualTime=null,last=performance.now(),visible=true,current={capacity:200,attendance:150},lastPose=-1;
+ const beamMat=new StandardMaterial('gentle beam',scene);beamMat.diffuseColor=new Color3(.05,.6,.7);beamMat.emissiveColor=new Color3(.05,.35,.45);beamMat.alpha=.075;beamMat.disableLighting=true;beamMat.backFaceCulling=false;
+ const beams=[-5,-2.5,2.5,5].map((x,i)=>{const b=MeshBuilder.CreateCylinder('light beam '+i,{height:5,diameterTop:.06,diameterBottom:2.5,tessellation:8},scene);b.position.set(x,2.6,-1.8);b.material=beamMat;b.isPickable=false;return b;});
+ const pulseMaterial=new StandardMaterial('Booth beat LEDs',scene);pulseMaterial.disableLighting=true;const leds=MeshBuilder.CreateBox('Booth LED accents',{width:.06,height:.07,depth:.03},scene);leds.material=pulseMaterial;leds.isPickable=false;const ledMatrices=new Float32Array(17*16);for(let i=0;i<17;i++)Matrix.Translation((i-8)*.23,1.38,-1.69).copyToArray(ledMatrices,i*16);leds.thinInstanceSetBuffer('matrix',ledMatrices,16);
+ const mat=Matrix.Identity(),scale=new Vector3(.48,.48,.48),rot=Quaternion.Identity(),pos=new Vector3();
+ function drawCrowd(t,force=false){
+  const tick=Math.floor(t*8);if(!force&&tick===lastPose)return;lastPose=tick;
+  const mapping=crowdScale(current.capacity,current.attendance),cols=Math.ceil(Math.sqrt(mapping.availableFigureSlots*1.65)),rows=Math.ceil(mapping.availableFigureSlots/cols),counts=new Map(batches.map(b=>[b,0]));
+  for(let i=0;i<mapping.occupiedFigures;i++){
+   const variant=i%4,pose=(tick+Math.floor(i*1.7))%8,b=batches[variant*8+pose]||batches.find(b=>b.variant===variant&&b.pose===pose);
+   // A stable permutation fills front/back evenly rather than one compressed strip.
+   let slot=i;const x=(slot%cols+.5)/cols*13.5-6.75,z=(Math.floor(slot/cols)+.5)/rows*8.7-6.4;
+   const phase=t*Math.PI*(variant===1?1:2)+i*1.71;
+   pos.set(x+(reduced?0:Math.sin(phase)*.045),.04+(reduced?0:Math.abs(Math.sin(phase))*.025),-z);
+   Quaternion.FromEulerAnglesToRef(0,(reduced?0:Math.sin(phase)*.08),reduced?0:Math.sin(phase)*.035,rot);
+   Matrix.ComposeToRef(scale,rot,pos,mat);const count=counts.get(b);mat.copyToArray(b.buffer,count*16);counts.set(b,count+1);
   }
-  const render=()=>{const now=performance.now(),dt=Math.min(.05,(now-last)/1000);last=now;if(document.hidden||!visible)return;if(!paused)time+=dt;animate(manualTime??time);scene.render();};
-  engine.runRenderLoop(render);
-  scene.onPointerObservable.add(info=>{
-    if(info.type!==32 || !info.pickInfo?.hit) return;
-    const name=info.pickInfo.pickedMesh.name;
-    for(const [zone,prefixes] of Object.entries(prefixMap))if(prefixes.some(p=>name.startsWith(p))){onPick(zone);break;}
-  });
-  const resize=()=>{engine.resize();scene.render();};
-  window.addEventListener('resize',resize);
-  const observer=new ResizeObserver(resize); observer.observe(canvas);
-  onReady();
-  return {
-    reduced(value){reduced=value;},
-    update(s,c){shadows.getShadowMap().resetRefreshCounter();
-      {
-        const count=Math.ceil(36*c.occupancy/100);audience.forEach((m,i)=>m.setEnabled(i<count));
-        const scale=s.capacity>=20000?3:s.capacity>=5000?2:s.capacity>=1000?1:0;
-        roots.filter(m=>m.name.startsWith('Expansion_')).forEach(m=>{const row=Number(m.name.split('_')[2]);m.setEnabled(row<scale);});
-        canvas.dataset.visiblePeople=String(audience.filter(m=>m.isEnabled()).length);
-      }
-      roots.filter(m=>/^EntranceWalker_\d{2}$/.test(m.name)).forEach(m=>m.setEnabled(c.attendance>0));
-      animate(manualTime??time);scene.render();
-    },
-    portrait(){const head=joint('DJ_Head');if(head){head.computeWorldMatrix(true);cameraGoal=null;camera.target=head.getAbsolutePosition().clone();camera.radius=2.6;camera.beta=1.38;camera.alpha=1.45;scene.render();}},
-    seek(t){manualTime=t;animate(t);scene.render();},
-    setAttendance(n) { audience.forEach((m,i)=>m.setEnabled(i<Math.ceil(n/5))); scene.render(); },
-    focus(concept) {
-      highlight.removeAllMeshes();
-      const prefixes=prefixMap[concept]||[];
-      const targets=meshes.filter(m=>prefixes.some(p=>m.name.startsWith(p))&&m.getTotalVertices()>0);
-      targets.forEach(m=>highlight.addMesh(m,new Color3(1,.6,.15)));
-      if(targets.length){const anchors={entrance:'Entrance arch',stage:'DJ',audience:'Audience_14'};const anchor=joint(anchors[concept]);const center=anchor?(anchor.getBoundingInfo?anchor.getBoundingInfo().boundingBox.centerWorld:anchor.getAbsolutePosition()):targets[0].getBoundingInfo().boundingBox.centerWorld;cameraGoal={target:new Vector3(center.x,Math.max(1.1,center.y+(concept==='stage'?.7:0)),center.z),radius:homeRadius()*.60};}
-      scene.render();
-    },
-    pause(value) {paused=value;scene.render();},
-    reset() {cameraGoal=null;camera.target=new Vector3(0,1,0);camera.alpha=Math.PI/2.7;camera.beta=Math.PI/3.05;camera.radius=homeRadius();highlight.removeAllMeshes();scene.render();},
-    dispose() { visibility.disconnect();observer.disconnect();window.removeEventListener('resize',resize);engine.dispose(); }
-  };
+  batches.forEach(b=>{const n=counts.get(b);b.mesh.setEnabled(n>0);b.mesh.thinInstanceCount=n;b.mesh.thinInstanceBufferUpdated('matrix');});
+  canvas.dataset.visiblePeople=String(mapping.occupiedFigures);canvas.dataset.peoplePerFigure=String(mapping.peoplePerFigure);
+ }
+ function animate(t){const beat=.65+.15*Math.sin(t*Math.PI*4);pulseMaterial.emissiveColor.set(.1*beat,.8*beat,beat);groups.forEach(g=>{const frame=g.from+(t%8)/8*(g.to-g.from);g.goToFrame(frame);});drawCrowd(t);beams.forEach((b,i)=>{b.rotation.z=Math.sin(t*Math.PI/4+i)*.28;b.rotation.x=.35+Math.sin(t*Math.PI/4+i)*.12;});}
+ const visibility=new IntersectionObserver(e=>{visible=e[0].isIntersecting;});visibility.observe(canvas);
+ engine.runRenderLoop(()=>{const now=performance.now(),dt=Math.min(.05,(now-last)/1000);last=now;if(document.hidden||!visible)return;if(!paused&&!reduced)time+=dt;animate(manualTime??time);scene.render();canvas.dataset.fps=engine.getFps().toFixed(1);});
+ const observer=new ResizeObserver(()=>{resize();scene.render();});observer.observe(canvas);onReady();
+ canvas.dataset.animationGroups=String(groups.length);canvas.dataset.renderWidth=String(engine.getRenderWidth());
+ return {update(s,c){current={capacity:s.capacity,attendance:c.attendance};drawCrowd(manualTime??time,true);scene.render();},pause(v){paused=v;},reduced(v){reduced=v;drawCrowd(time,true);},focus(){},reset(){},portrait(){camera.target.set(0,2.7,-2.7);camera.orthoLeft=-3.3;camera.orthoRight=3.3;camera.orthoTop=2.3;camera.orthoBottom=-2.3;scene.render();},seek(t){manualTime=t;animate(t);scene.render();},dispose(){observer.disconnect();visibility.disconnect();engine.dispose();}};
 }

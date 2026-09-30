@@ -1,23 +1,21 @@
 {
-  "version": "concert-only-v1",
+  "version": "concert-pixel-v3",
   "blender": "5.2.2 LTS",
   "renderer": "Babylon.js",
   "license": "Original project-authored geometry; no external asset attribution required",
   "sources": [
-    "scripts/create-venue.py",
-    "scripts/create-worlds-base.py",
-    "scripts/create-worlds.py",
-    "scripts/polish-assets.py"
+    "scripts/create-pixel-concert.py",
+    "scripts/render-pixel-preview.py"
   ],
-  "animation": "Articulated browser-driven named joints; no baked animation claim",
+  "animation": "Blender-exported rigid DJ, records and lights; four character variants with eight baked poses each, thin-instanced live in Babylon.js",
   "models": {
     "concert": "/models/concert.glb"
   },
-  "fallback": "src/illustration.js, original vector illustration using shared scene state",
+  "fallback": "Accessible dashboard and metrics with scene retry; no alternate renderer",
   "voice": "Existing configured ElevenLabs voice; user accent review pending",
   "media": {
-    "version": "addendum02",
-    "format": "960 × 960 composed browser recordings with existing ElevenLabs narration",
+    "version": "addendum03",
+    "format": "960 × 960 actual browser recordings with configured ElevenLabs narration",
     "languages": [
       "en",
       "de"
@@ -26,5 +24,6 @@
       "/media/concert-en.mp4",
       "/media/concert-de.mp4"
     ]
-  }
+  },
+  "modelBytes": 1373956
 }

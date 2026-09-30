@@ -1,0 +1,154 @@
+[
+  {
+    "question": "Why did profit rise when fewer people came?",
+    "language": "en",
+    "status": 200,
+    "delivery": "n8n-openai",
+    "intentDecision": {
+      "unavailable": false,
+      "explain": true,
+      "intent": "profit_roi",
+      "confidence": 0.9,
+      "model": "jev-1.13.0"
+    },
+    "paragraphs": [
+      "overview",
+      "change",
+      "costs"
+    ],
+    "profit": 1000,
+    "durationMs": 4189
+  },
+  {
+    "question": "Where does the ticket revenue come from?",
+    "language": "en",
+    "status": 200,
+    "delivery": "n8n-openai",
+    "intentDecision": {
+      "unavailable": false,
+      "explain": true,
+      "intent": "ticket_price",
+      "confidence": 0.9,
+      "model": "jev-1.13.0"
+    },
+    "paragraphs": [
+      "revenue",
+      "overview",
+      "costs"
+    ],
+    "profit": 750,
+    "durationMs": 2882
+  },
+  {
+    "question": "What is the venue hire cost?",
+    "language": "en",
+    "status": 200,
+    "delivery": "n8n-openai",
+    "intentDecision": {
+      "unavailable": false,
+      "explain": true,
+      "intent": "costs",
+      "confidence": 0.99,
+      "model": "jev-1.13.0"
+    },
+    "paragraphs": [
+      "costs",
+      "overview",
+      "revenue"
+    ],
+    "profit": 750,
+    "durationMs": 1484
+  },
+  {
+    "question": "Does a larger venue create demand?",
+    "language": "en",
+    "status": 200,
+    "delivery": "intent-clarification",
+    "intentDecision": {
+      "unavailable": false,
+      "explain": false,
+      "intent": "audience_capacity",
+      "confidence": 0.62,
+      "model": "jev-1.13.0"
+    },
+    "paragraphs": [
+      "clarification"
+    ],
+    "profit": -1250,
+    "durationMs": 659
+  },
+  {
+    "question": "What does the city-center location change?",
+    "language": "en",
+    "status": 200,
+    "delivery": "n8n-openai",
+    "intentDecision": {
+      "unavailable": false,
+      "explain": true,
+      "intent": "location",
+      "confidence": 0.8,
+      "model": "jev-1.13.0"
+    },
+    "paragraphs": [
+      "location",
+      "change",
+      "costs"
+    ],
+    "profit": -200,
+    "durationMs": 2731
+  },
+  {
+    "question": "hmm this thing?",
+    "language": "en",
+    "status": 200,
+    "delivery": "intent-clarification",
+    "intentDecision": {
+      "unavailable": false,
+      "explain": false,
+      "intent": "unclear_or_other",
+      "confidence": 0.99,
+      "model": "jev-1.13.0"
+    },
+    "paragraphs": [
+      "clarification"
+    ],
+    "profit": 750,
+    "durationMs": 533
+  },
+  {
+    "question": "What is the real venue price in Berlin today?",
+    "language": "en",
+    "status": 200,
+    "delivery": "intent-clarification",
+    "intentDecision": {
+      "unavailable": false,
+      "explain": false,
+      "intent": "unclear_or_other",
+      "confidence": 0.52,
+      "model": "jev-1.13.0"
+    },
+    "paragraphs": [
+      "clarification"
+    ],
+    "profit": 750,
+    "durationMs": 487
+  },
+  {
+    "question": "Warum sinkt der Gewinn bei einem größeren Saal?",
+    "language": "de",
+    "status": 200,
+    "delivery": "intent-clarification",
+    "intentDecision": {
+      "unavailable": false,
+      "explain": false,
+      "intent": "profit_roi",
+      "confidence": 0.59,
+      "model": "jev-1.13.0"
+    },
+    "paragraphs": [
+      "clarification"
+    ],
+    "profit": -1250,
+    "durationMs": 490
+  }
+]

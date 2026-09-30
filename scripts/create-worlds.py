@@ -75,13 +75,13 @@ def human(name,x,y,z,index=0,role='dance',scale=1,angle=0):
   if role in ['dj','work']:shoulder.rotation_euler.x=-.65;elbow.rotation_euler.x=-.8
  return root
 
-for kind in ['concert','conference','factory']:
+for kind in ['concert']:
  bpy.ops.wm.open_mainfile(filepath=str(ROOT/'assets'/f'{kind}.blend'))
  skins=[mat('Skin umber',(.28,.115,.06)),mat('Skin honey',(.61,.30,.16)),mat('Skin rose',(.82,.51,.33)),mat('Skin sienna',(.43,.21,.11))]
  clothes=[mat('Coral jacket',(.75,.20,.12)),mat('Teal shirt',(.035,.36,.33)),mat('Indigo jacket',(.18,.22,.43)),mat('Ochre knit',(.78,.46,.10)),mat('Plum shirt',(.42,.13,.25))]
  ivory=mat('Cotton ivory',(.90,.86,.74));dark=mat('Leather charcoal',(.018,.027,.033));pants=mat('Denim',(.04,.08,.13));hi=mat('Safety ochre',(.96,.57,.08));lips=mat('Lip tone',(.30,.08,.065));hair=[mat('Hair dark',(.021,.014,.012)),mat('Hair chestnut',(.13,.045,.02)),mat('Hair brown',(.055,.028,.015))]
  for o in list(bpy.data.objects):
-  if o.name.startswith(('Audience_','WorkshopPerson_','Walker_','Queue_','Worker_','DJ torso','DJ head')) or o.name=='Speaker':bpy.data.objects.remove(o,do_unlink=True)
+  if o.name.startswith(('Audience_','DJ torso','DJ head')):bpy.data.objects.remove(o,do_unlink=True)
  if kind=='concert':
   # Open canopy to retain light rig without hiding the DJ in the default view.
   canopy=bpy.data.objects.get('Stage canopy')
@@ -96,43 +96,13 @@ for kind in ['concert','conference','factory']:
   mesh('DJ laptop base',(.83,2.7,1.80),(.47,.36,.035),dark)
   laptop=mesh('DJ laptop screen',(.83,2.88,2.01),(.47,.03,.38),dark);laptop.rotation_euler.x=-.15
   mesh('DJ laptop display',(.83,2.855,2.01),(.40,.009,.31),clothes[1])
- elif kind=='conference':
-  # Remove the misleading literal queue; workshop figures represent available places only.
-  for i in range(12):
-   x=1.5+i%4*1.16;y=1.4+i//4*1.05
-   human(f'WorkshopPerson_{i:02d}',x,y,0,i,'sit',.70)
-   mesh(f'WorkshopTable_{i:02d}',(x,y-.37,.69),(.76,.44,.075),ivory)
-   mesh('Workshop material',(x,y-.38,.743),(.23,.17,.014),clothes[3])
-  human('Speaker',-3.6,3.3,.7,2,'talk',.93)
-  for i in range(6):human(f'Listener_{i:02d}',-5+i%3*1.1,.8+i//3*.85,0,i+2,'sit',.72,math.pi)
-  for i in range(6):human(f'Walker_{i:02d}',.2+i%3*1.8,-2.2-i//3*1.2,0,i,'talk',.79,(i%2)*math.pi)
-  human('RegistrationHost',-5,-2.4,0,0,'talk',.9)
-  for x in [-5.2,-4.8,-4.4]:mesh('Registration badges',(x,-3,1.23),(.25,.35,.035),ivory)
-  for x,h in [(-5.1,.45),(-4.2,.9),(-3.3,1.35)]:mesh('Speakers chart',(x,4.19,1.4+h/2),(.45,.06,h),clothes[3])
- else:
-  for i in range(3):human(f'Worker_{i:02d}',-2.5+i*2.4,-1.8,0,i,'work',.90,math.pi)
-  # Existing car roots receive shaped hoods, glazing, lights and wheel hubs.
-  glass=mat('Automotive blue glass',(.10,.26,.33),.15);chrome=mat('Brushed alloy',(.48,.53,.54),.65)
-  for i in range(4):
-   car=bpy.data.objects.get(f'Car_{i:02d}');x=-4.8+i*3
-   # Preserve this body transform, add local detail under its root.
-   inv=car.matrix_world.inverted()
-   for label,loc,size,m in [('windshield',(x+.40,0,1.85),(.06,.84,.29),glass),('rear glass',(x-.66,0,1.84),(.055,.80,.27),glass),('left window',(x-.10,-.515,1.83),(.80,.025,.27),glass),('right window',(x-.10,.515,1.83),(.80,.025,.27),glass),('hood',(x+.65,0,1.56),(.70,1,.12),clothes[0 if i%2==0 else 1]),('grille',(x+1.02,0,1.35),(.025,.5,.14),dark)]:
-    o=mesh(f'CarDetail_{i:02d}_{label}',loc,size,m);o.parent=car;o.matrix_parent_inverse=car.matrix_world.inverted()
-   for y in [-.38,.38]:
-    o=mesh(f'CarDetail_{i:02d}_headlamp',(x+1.025,y,1.5),(.03,.22,.095),ivory);o.parent=car;o.matrix_parent_inverse=car.matrix_world.inverted()
-  truck=bpy.data.objects.get('SupplierTruck')
-  for label,loc,size in [('windscreen',(-5,3.665,1.25),(1.02,.025,.48)),('left glass',(-5.67,3.12,1.27),(.025,.7,.4)),('right glass',(-4.33,3.12,1.27),(.025,.7,.4))]:
-   o=mesh('Supplier '+label,loc,size,glass);o.parent=truck;o.matrix_parent_inverse=truck.matrix_world.inverted()
-  mesh('Assembly missing part station',(1,-1.25,1.08),(.8,.1,.32),hi)
-  mesh('Assembly moving part',(0,0,2.08),(.17,.15,.12),hi)
  # Keep editable, clean source and versioned provenance.
- bpy.context.scene['asset_version']='addendum02-v1';bpy.context.scene['animation_runtime']='Babylon named joint rotations'
+ bpy.context.scene['asset_version']='concert-only-v1';bpy.context.scene['animation_runtime']='Babylon named joint rotations'
  bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'assets'/f'{kind}.blend'))
  bpy.ops.export_scene.gltf(filepath=str(ROOT/'public/models'/f'{kind}.glb'),export_format='GLB',export_apply=True,export_animations=False,export_extras=True)
  print('UPGRADED',kind,flush=True)
-manifest={'version':'addendum02-v1','blender':bpy.app.version_string,'renderer':'Babylon.js','license':'Original project-authored geometry; no external asset attribution required','sources':['scripts/create-venue.py','scripts/create-worlds-base.py','scripts/create-worlds.py','scripts/polish-assets.py'],'animation':'Articulated browser-driven named joints; no baked animation claim','models':{k:'/models/'+k+'.glb' for k in ['concert','conference','factory']},'fallback':'src/illustration.js, original vector illustration using shared scene state','voice':'Existing configured ElevenLabs voice; user accent review pending'}
-manifest['media']={'version':'addendum02','format':'960 x 960 composed browser recordings with existing ElevenLabs narration','languages':['en','de'],'paths':['/media/'+k+'-'+lang+'.mp4' for k in ['concert','conference','factory'] for lang in ['en','de']]}
+manifest={'version':'concert-only-v1','blender':bpy.app.version_string,'renderer':'Babylon.js','license':'Original project-authored geometry; no external asset attribution required','sources':['scripts/create-venue.py','scripts/create-worlds-base.py','scripts/create-worlds.py','scripts/polish-assets.py'],'animation':'Articulated browser-driven named joints; no baked animation claim','models':{k:'/models/'+k+'.glb' for k in ['concert']},'fallback':'src/illustration.js, original vector illustration using shared scene state','voice':'Existing configured ElevenLabs voice; user accent review pending'}
+manifest['media']={'version':'addendum02','format':'960 x 960 composed browser recordings with existing ElevenLabs narration','languages':['en','de'],'paths':['/media/'+k+'-'+lang+'.mp4' for k in ['concert'] for lang in ['en','de']]}
 (ROOT/'public/asset-manifest.json').write_text(json.dumps(manifest,indent=2))
 
 runpy.run_path(str(ROOT/'scripts/polish-assets.py'))

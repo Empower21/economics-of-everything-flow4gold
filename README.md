@@ -1,6 +1,6 @@
 ﻿# The Economics of Everything
 
-Three interactive economics lessons with original Blender worlds, animated Babylon.js scenes and a lightweight illustrated fallback, English/German text, captioned short videos and optional microphone questions and spoken replies.
+One interactive concert economics lesson with an original Blender world and animated Babylon.js scene and a lightweight illustrated fallback, English/German text, captioned short videos and optional microphone questions and spoken replies.
 
 Live: https://web-production-af12a.up.railway.app. The existing QR code in docs/demo-qr.svg is unchanged.
 
@@ -9,10 +9,8 @@ Live: https://web-production-af12a.up.railway.app. The existing QR code in docs/
 | Route | Experiment |
 | --- | --- |
 | /lessons/concert-economics | Ticket price, independent demand, venue capacity and costs |
-| /lessons/conference-economics | Sponsorship, workshop/networking access and budget |
-| /lessons/factory-supply-chain | Daily production, component deliveries, inventory and sales |
 
-Append ?lang=de for German. Root opens the concert with links to all lessons. Presets identify changed assumptions. Reset lesson settings, Reset view, Pause motion and Save this version have separate purposes. Factory has explicit day advancement; editing a starting assumption restarts at day 0, with Undo available. Plain-language primary decisions, worked examples and a deterministic What changed? panel lead the lesson.
+Append ?lang=de for German. Root opens the concert. Presets identify changed assumptions. Reset lesson settings, Reset view, Pause motion and Save this version have separate purposes. Plain-language primary decisions, worked examples and a deterministic What changed? panel lead the lesson.
 
 ## Run
 
@@ -20,7 +18,7 @@ Requires Node 22+. Install with npm ci, then npm run dev (port 3000). Production
 
 ## Services
 
-Import workflow/economics-concert.json into n8n. The filename and authenticated webhook path are preserved, but all three topics are supported. Select Header Auth on Lesson request, with header X-Lesson-Key and a random secret. Select an OpenAI credential on Select lesson explanation, then publish.
+Import workflow/economics-concert.json into n8n. The filename and authenticated webhook path are preserved, and only the concert topic is supported. Select Header Auth on Lesson request, with header X-Lesson-Key and a random secret. Select an OpenAI credential on Select lesson explanation, then publish.
 
 Server variables: N8N_WEBHOOK_URL, matching N8N_WEBHOOK_SECRET, OPENAI_API_KEY for transcription, ELEVENLABS_API_KEY and ELEVENLABS_VOICE_ID for speech, PUBLIC_ORIGIN for the exact HTTPS origin. Railway uses TRUST_PROXY_HOPS=1 and a single replica. Credentials never reach browser code. Owner-specific deployment helpers are scripts/n8n-deploy.js and scripts/configure-railway.js.
 
@@ -39,19 +37,15 @@ Concert: D = floor(M * (p/20)^(-e)); attendance = min(capacity,D); cost = produc
 | 5000 | 4500 | 20 | 4500 | 36000 | 54000 |
 | 20000 | 18000 | 20 | 18000 | 141000 | 219000 |
 
-Conference: revenue is ticket income plus sponsorship; funding budget is a separate constraint. Default revenue 30000, cost 25000, surplus 5000. Workshop seats 200 to 300 raises access 40% to 60% and lowers surplus to 4000. Access does not measure satisfaction or sponsor ROI.
-
-Factory: receive, produce/consume, sell, accrue costs, advance. Reference daily output: 100,50,0,100; closing component inventory: 50,0,0,100. FIFO premiums are consumed once. Purchase cash is separate from expenses; unsold finished vehicles remain inventory. Unfilled production opportunities are not automatically lost sales.
-
 All currency and demand assumptions are invented for teaching. This is a bounded lesson tutor, not an unrestricted chatbot or forecast.
 
 ## Voice and videos
 
 Microphone -> OpenAI transcription -> editable transcript -> Send -> validated setting command when present -> n8n -> approved text -> configured ElevenLabs voice. Recording lasts at most 30 seconds with Stop recording and Cancel. Scenario/language/topic changes discard pending responses. Stop audio also suppresses pending speech. Permission denial leaves text input usable.
 
-Three preset stories in two languages run approximately 70-74 seconds each in a phone-friendly 960 × 960 composition. These are actual animated browser recordings of original Blender scenes, with native caption tracks and transcripts. Live controls do not alter recorded numbers. Learner media is separate from the pending competition video.
+One preset story in two languages runs approximately 70 seconds each in a phone-friendly 960 × 960 composition. These are actual animated browser recordings of original Blender scenes, with native caption tracks and transcripts. Live controls do not alter recorded numbers. Learner media is separate from the pending competition video.
 
-Regenerate using scripts/generate-narration.js then scripts/record-explainers.js against a production preview. These require FFmpeg and Playwright Chromium; narration calls the paid speech service for missing cached clips. Existing owner-configured ElevenLabs voice is used; no new voice was cloned. Factory narration is sped up 8% to stay under 75 seconds. Rebuild afterward to include media in dist.
+Regenerate using scripts/generate-narration.js then scripts/record-explainers.js against a production preview. These require FFmpeg and Playwright Chromium; narration calls the paid speech service for missing cached clips. Existing owner-configured ElevenLabs voice is used; no new voice was cloned. Rebuild afterward to include media in dist.
 
 ## Fallbacks and privacy
 
@@ -67,4 +61,4 @@ npm test covers formulas, contract validation, fallback and gateway behavior. Se
 
 Run npm run assets to rebuild assets/*.blend and public/models/*.glb with the installed Blender 5.2.2 LTS. Override BLENDER_EXE if needed. Source geometry and browser-driven joint motion remain Blender + Babylon.js; no HyperFrames dependency was added. Crowd figures represent groups, avoiding one mesh per real attendee.
 
-See docs/ADDENDUM-02-VALIDATION.md, docs/CONTROL-INVENTORY.md, docs/MANUAL-STEPS.md and docs/SUBMISSION.md. Actual phone microphone behavior and human voice/language preferences require owner review. Competition recording remains the final production step.
+See docs/CONCERT-ONLY-VALIDATION.md, docs/CONTROL-INVENTORY.md, docs/MANUAL-STEPS.md and docs/SUBMISSION.md. Actual phone microphone behavior and human voice/language preferences require owner review. Competition recording remains the final production step.

@@ -16,7 +16,7 @@ for(const [kind,plan] of Object.entries(mediaPlan)){
   timing[kind]=[];
   for(let i=0;i<plan.steps.length;i++){
     const durations=await Promise.all(['en','de'].map(async language=>{const path=`${directory}/${kind}-${language}-${i}.mp3`;const duration=await speech(plan.steps[i][language],language,path);return {language,duration};}));
-    timing[kind].push(Math.max(...durations.map(d=>d.duration))/(kind==='factory'?1.08:1)+.8);console.log(kind,i,durations.map(d=>`${d.language}:${d.duration.toFixed(1)}s`).join(' '));
+    timing[kind].push(Math.max(...durations.map(d=>d.duration))+.8);console.log(kind,i,durations.map(d=>`${d.language}:${d.duration.toFixed(1)}s`).join(' '));
   }
   for(const language of ['en','de']){
     let start=0;const vtt=['WEBVTT',''];

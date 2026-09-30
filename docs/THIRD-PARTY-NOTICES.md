@@ -1,6 +1,6 @@
 # Asset provenance and dependencies
 
-The concert, conference and factory worlds are original geometry authored by `scripts/create-venue.py` and `scripts/create-worlds.py`. Editable Blender files and GLBs are included. No downloaded third-party characters or venues are used.
+The concert world is original geometry authored by `scripts/create-venue.py` and `scripts/create-worlds.py`. Editable Blender files and GLBs are included. No downloaded third-party characters or venues are used.
 
 Six learner videos are recordings of those animated browser scenes, with authored English/German narration synthesized using the owner's existing configured ElevenLabs voice. No new voice clone was created. Source narration and timing live in `scripts/media-plan.js`; public videos, transcripts, captions and posters live in `public/media/`. No background music or third-party video footage is included. The supplied YouTube reference was inspected locally for interaction inspiration and is not shipped.
 
@@ -12,4 +12,4 @@ The `e•` application mark is a simple original typographic mark. The product d
 
 ## Addendum 02 assets
 
-Articulated character geometry, vehicle profiles, environments and SVG fallback illustrations were authored in this project. No Rain character, reference-video footage or third-party character rig was imported. Blender 5.2.2 exports are identified in public/asset-manifest.json. Revised learner films are recordings of those Blender assets animated by Babylon.js. Existing configured ElevenLabs narration is retained; two conference segments were regenerated to correct the access explanation. No voice cloning or HyperFrames project was introduced.
+Articulated character geometry, environments and SVG fallback illustrations were authored in this project. No Rain character, reference-video footage or third-party character rig was imported. Blender 5.2.2 exports are identified in public/asset-manifest.json. Revised learner films are recordings of those Blender assets animated by Babylon.js. Existing configured ElevenLabs concert narration is retained. No voice cloning or HyperFrames project was introduced.

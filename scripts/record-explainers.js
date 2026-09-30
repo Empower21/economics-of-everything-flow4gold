@@ -6,7 +6,7 @@ import {mediaPlan} from './media-plan.js';
 const base=process.env.TEST_BASE_URL||'http://127.0.0.1:3184';
 const dir='.local/recordings';await mkdir(dir,{recursive:true});
 const timing=JSON.parse(await readFile('.local/narration-eleven/timing.json','utf8'));
-const ids={concert:'concert-economics',conference:'conference-economics',factory:'factory-supply-chain'};
+const ids={concert:'concert-economics'};
 const probe=path=>Number(execFileSync('ffprobe',['-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',path],{encoding:'utf8'}).trim());
 const ff=args=>execFileSync('ffmpeg',['-y','-hide_banner','-loglevel','error',...args],{stdio:'pipe'});
 const browser=await chromium.launch({headless:true,args:['--enable-unsafe-swiftshader','--autoplay-policy=no-user-gesture-required']});
@@ -29,7 +29,7 @@ for(const [kind,plan] of Object.entries(mediaPlan))for(const lang of ['en','de']
   const clips=[];
   for(let i=0;i<plan.steps.length;i++){
     const output=`${kind}-${lang}-${i}.wav`;clips.push(`file '${output}'`);
-    ff(['-i',`.local/narration-eleven/${kind}-${lang}-${i}.mp3`,'-af',`atempo=${kind==='factory'?1.08:1},apad,atrim=duration=${timing[kind][i]}`,'-ar','48000','-ac','2',`${dir}/${output}`]);
+    ff(['-i',`.local/narration-eleven/${kind}-${lang}-${i}.mp3`,'-af',`atempo=${1},apad,atrim=duration=${timing[kind][i]}`,'-ar','48000','-ac','2',`${dir}/${output}`]);
   }
   const list=`${dir}/${kind}-${lang}.txt`;await writeFile(list,clips.join('\n'));
   ff(['-f','concat','-safe','0','-i',list,'-c:a','pcm_s16le',`${dir}/${kind}-${lang}.wav`]);

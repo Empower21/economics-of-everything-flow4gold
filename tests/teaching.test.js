@@ -17,6 +17,3 @@ test('change context explains the actual transition, including capacity-only and
 test('all fields have localized units/help and all focus experiments leave the state unchanged',()=>{
  for(const id of Object.keys(LESSONS)){const s=defaults(id),c=calculateScenario(id,s),before=JSON.stringify(s);for(const lang of ['en','de']){for(const row of LESSONS[id].fields){const m=fieldContent(id,row[0],lang);assert.ok(m.help&&m.unit&&m.group&&m.label);assert.equal(m.min,row[3]);}for(const zone of LESSONS[id].zones){const z=zoneContent(id,zone,s,c,lang);assert.ok(z.status&&z.meaning&&Object.keys(z.values).length);}}assert.equal(JSON.stringify(s),before);}
 });
-test('factory scene never produces before simulation or on a shortage day',()=>{
- const id='factory-supply-chain',s=defaults(id);for(const [day,producing,stock] of [[0,false,150],[1,true,50],[2,true,0],[3,false,0],[4,true,100]]){const input={...s,elapsedDays:day},c=calculateScenario(id,input),state=deriveSceneState(id,input,c,'assembly');assert.equal(state.producing,producing);assert.equal(state.parts,stock);}assert.match(zoneContent(id,'supplier',s,calculateScenario(id,s),'en').status,/No backup delivery/);
-});

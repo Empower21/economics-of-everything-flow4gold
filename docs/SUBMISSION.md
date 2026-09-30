@@ -14,13 +14,13 @@ The Economics of Everything — Small worlds, useful economics
 
 Why can two concerts earn exactly the same ticket revenue but make different profits? This workflow turns an everyday question into a miniature world you can explore.
 
-Learners open a link and explore three animated miniature worlds: a concert, a conference and a factory waiting for a tiny component. They change assumptions and see the scene and accounts respond together. English and German text, captioned preset videos and optional microphone questions/spoken answers are included. An animated 2D view remains available if 3D fails.
+Learners open a link and explore an animated miniature concert. They change assumptions and see the scene and accounts respond together. English and German text, captioned preset videos and optional microphone questions/spoken answers are included. An animated 2D view remains available if 3D fails.
 
 n8n authenticates the lesson request, validates the inputs, calculates the scenario, asks OpenAI to select relevant approved explanations, checks the result, and returns safe scene actions. Every number comes from one deterministic calculator shared with the browser. If the model or network fails, the lesson continues with prepared content.
 
-The motivation is to make an abstract idea useful and memorable in a short visit without requiring a learner account. Concert capacity does not create demand; workshop access can cost surplus; and a cheap component can stop expensive production. Every lesson uses clearly labeled invented assumptions.
+The motivation is to make an abstract idea useful and memorable in a short visit without requiring a learner account. Concert capacity does not create demand, and revenue is not profit. The lesson uses clearly labeled invented assumptions.
 
-External components: a Node gateway, Babylon.js browser UI, three original Blender worlds, OpenAI selection/transcription and the owner's configured ElevenLabs voice. Setup documentation, calculation tests and source code accompany the workflow. The model chooses approved content rather than generating unchecked economic claims.
+External components: a Node gateway, Babylon.js browser UI, an original Blender concert world, OpenAI selection/transcription and the owner's configured ElevenLabs voice. Setup documentation, calculation tests and source code accompany the workflow. The model chooses approved content rather than generating unchecked economic claims.
 
 ## Required materials
 

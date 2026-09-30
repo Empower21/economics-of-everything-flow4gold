@@ -1,6 +1,6 @@
 # Validation record
 
-This is the initial release record. The three-lesson revision is documented in [ADDENDUM-VALIDATION.md](ADDENDUM-VALIDATION.md).
+This is the initial release record. The current revision is documented in [CONCERT-ONLY-VALIDATION.md](CONCERT-ONLY-VALIDATION.md).
 
 Build date: September 29, 2026. This document distinguishes verified work from remaining checks.
 

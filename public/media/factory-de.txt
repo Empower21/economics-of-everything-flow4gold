@@ -1,9 +1,0 @@
-Wie kann ein günstiges Bauteil ein teures Auto aufhalten? Diese Fabrik benötigt ein Teil je Fahrzeug. Andere Engpässe gibt es in unserem vereinfachten Modell nicht.
-
-Das Tagesziel beträgt hundert Fahrzeuge. Mit hundertfünfzig Bauteilen produziert Tag eins hundert Fahrzeuge. Fünfzig Teile bleiben im Lager.
-
-Tag zwei kann nur fünfzig Fahrzeuge produzieren. An Tag drei steht das Band still. Das sind nicht genutzte Produktionsmöglichkeiten, nicht automatisch verlorene Verkäufe.
-
-Zweihundert Teile kommen vor der Produktion an Tag vier an. Die Linie baut hundert Fahrzeuge und behält hundert Teile. Insgesamt wurden zweihundertfünfzig Fahrzeuge produziert.
-
-Ein zweiter Lieferant hilft, wenn die Teile rechtzeitig kommen. Vergleiche seinen Aufpreis mit Sicherheitsbestand. Hier werden fertige Fahrzeuge am selben Tag verkauft. Widerstandsfähigkeit hat Kosten und Vorteile.

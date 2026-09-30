@@ -6,14 +6,8 @@ test('concert v2 all addendum references and independent demand',()=>{
   assert.equal(calculateScenario('concert',{demand:0}).attendance,0);assert.equal(calculateScenario('concert',{productionBudget:0,venueRate:0,perGuest:0}).returnOnCost,null);
   assert.equal(calculateScenario('concert',{productionBudget:1000.25,perGuest:5.01}).totalCost,2251.75);
 });
-test('scenario validation and conference access',()=>{
+test('scenario validation',()=>{
   for(const capacity of [NaN,Infinity,49,100001,200.2,'1000'])assert.throws(()=>validateScenario('concert',{capacity}));
-  const a=calculateScenario('conference',{}),b=calculateScenario('conference',{workshopSeats:300});assert.equal(a.profit,5000);assert.equal(a.totalCost,25000);assert.equal(a.workshopAccess,40);assert.equal(b.totalCost,26000);assert.equal(b.profit,4000);assert.equal(b.workshopAccess,60);assert.equal(calculateScenario('conference',{expectedAttendees:0}).workshopAccess,null);
-});
-test('factory event order, premium timing and no double expensing',()=>{
-  const c=calculateScenario('factory',{elapsedDays:4});assert.deepEqual(c.history.map(d=>[d.produced,d.closingInventory]),[[100,50],[50,0],[0,0],[100,100]]);assert.equal(c.cumulativeOutput,250);assert.equal(c.delayedUnits,150);assert.equal(c.purchaseCash,2000);assert.equal(c.componentConsumedCost,2500);
-  const alt=calculateScenario('factory',{elapsedDays:4,alternativeQuantity:200,alternativeDay:2});assert.equal(alt.cumulativeOutput,400);assert.equal(alt.supplierPremiums,1000);
-  const unsold=calculateScenario('factory',{elapsedDays:1,sellImmediately:false,dailySales:0});assert.equal(unsold.finishedInventory,100);assert.equal(unsold.sales,0);assert.equal(unsold.costOfGoodsSold,0);assert.equal(unsold.profit,-1005);
 });
 test('spoken setting requests are bounded by same scenario validator',()=>{
   assert.deepEqual(parseCommand('make the venue one thousand seats','concert-economics'),{field:'capacity',value:1000});assert.equal(parseCommand('Why did profit fall?','concert-economics'),null);assert.equal(parseCommand('make the venue bigger','concert-economics').clarification,true);

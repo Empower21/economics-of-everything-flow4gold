@@ -18,8 +18,8 @@ Deployment uses one Node service and no database. Server variables now include t
 
 Demo address: https://web-production-af12a.up.railway.app. A QR code is available in `docs/demo-qr.svg`.
 
-1. Open it on your actual phone using mobile data, then conference-style Wi-Fi if possible.
-2. Open all three lessons. Rotate each world and tap its labeled zones; check the selected highlight, explanation and optional experiment. Looking alone must not change your numbers.
+1. Open it on your actual phone using mobile data, then venue Wi-Fi if possible.
+2. Open The concert. Rotate the world and tap its labeled zones; check the selected highlight, explanation and optional experiment. Looking alone must not change your numbers.
 3. Choose 20, then 30. Both show revenue 3,000; profit changes from 750 to 1,000.
 4. Switch to German and ask a question. Check that controls and explanations are readable.
 5. Choose Lightweight view. The same lesson and figures must remain usable.

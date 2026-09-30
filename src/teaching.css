@@ -8,3 +8,4 @@
 .capture-mode .canvas-wrap{height:960px;min-height:960px}.story-card{left:28px;right:28px;top:25px;max-width:none;padding:20px 26px}.story-card small{font-size:22px}.story-card h2{font-size:44px}.story-card p{font-size:34px}.capture-mode canvas{padding-top:80px}
 
 .quick-results:has(.quick-note){flex-wrap:wrap}.quick-note{flex:1 1 100%;font-size:11px;line-height:1.6;padding:0 10px;color:#d2e4da}.quick-results:has(.quick-note)>div{flex:1 1 20%}.illustrated-zone{cursor:pointer}
+.concert-heading{margin:1.5rem 0 1rem}

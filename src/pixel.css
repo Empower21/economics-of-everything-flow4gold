@@ -11,3 +11,5 @@
 
 .neon-sign{position:relative}.metric-help{position:absolute;right:3px;top:2px;text-align:left}.metric-help summary{cursor:pointer;font-size:12px;list-style:none;padding:3px;color:#e4fcff}.metric-help[open]{z-index:20}.metric-help p{position:absolute;right:0;top:24px;width:210px;max-width:65vw;padding:14px;background:#fffdf4;color:#163e40;border:1px solid #78b0ad;border-radius:6px;font-size:12px;box-shadow:0 5px 18px #0005}.sensitivity select{width:100%;min-height:44px;border:1px solid #9cafa6;padding:8px;background:#fffdf5}
 .metric-help{position:static}.metric-help summary{position:absolute;right:2px;top:1px}.metric-help p{left:0;right:auto;top:100%;z-index:30}.neon-sign:nth-child(3) .metric-help p,.neon-sign:nth-child(5) .metric-help p{left:auto;right:0}
+
+.neon-sign strong{font-size:var(--desktop-value-size,25px)}@media(max-width:480px){.neon-sign strong{font-size:var(--mobile-value-size,18px)}}

@@ -41,7 +41,7 @@ The supplied terms allow JSON or an unpublished creator-template ID; the first p
 | Criterion from section 5.3 | Evidence to show |
 | --- | --- |
 | Usability | Link → price experiment → short explanation; annotated workflow and setup guide |
-| Completeness | Three bilingual lessons, distinct deterministic simulations, visible assumptions, videos/transcripts and 2D fallback |
+| Completeness | A bilingual concert lesson, deterministic calculations, visible assumptions, videos/transcripts and 2D fallback |
 | Error handling | Invalid input correction, webhook authentication, model fallback, gateway fallback, stale answer protection |
 | Result quality | Shared calculator, approved content, the 20/30 comparison, correct language and response schema |
 | Motivation | Make everyday economics understandable during a short visit |

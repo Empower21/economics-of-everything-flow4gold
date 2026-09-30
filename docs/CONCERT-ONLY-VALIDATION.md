@@ -15,4 +15,10 @@ Verification completed before deployment:
 - Local HTTP checks confirmed retired routes, query links and assets return 404, retired API topics return 400, and the asset manifest contains one model and two concert films.
 - Blender source scripts passed Python syntax validation. The existing concert assets were retained without rebuilding their geometry.
 
-Deployment and final hosted verification are recorded below when complete. Actual phone voice behavior and voice/style preferences still require owner review. The competition video and manual submission remain later steps.
+Production source commit: `f2adf4d`. Railway deployment `e74c7d80-1017-46ce-9668-a923895ad508` reached SUCCESS at the existing public URL, https://web-production-af12a.up.railway.app.
+
+Final hosted checks passed: the complete desktop/mobile-emulation browser suite above, all retired URL/media/API checks, four real n8n concert scenarios (including unchanged demand at capacity 1,000), and English/German previous-to-current explanations. Both 70-second concert films played to completion at 4× in mobile emulation with 960 × 960 frames and 16 caption cues each. Pending tutor answers did not start speech over the film.
+
+The local production preview also passed synthetic microphone capture through real transcription, the published n8n workflow and ElevenLabs playback, plus microphone denial, cancellation, failed transcription, silence and stale-audio handling. This does not replace actual phone testing.
+
+Actual phone voice behavior and voice/style preferences still require owner review. The competition video and manual submission remain later steps.

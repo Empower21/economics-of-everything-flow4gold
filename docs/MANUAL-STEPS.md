@@ -24,7 +24,7 @@ Demo address: https://web-production-af12a.up.railway.app. A QR code is availabl
 4. Switch to German and ask a question. Check that controls and explanations are readable.
 5. Choose Lightweight view. The same lesson and figures must remain usable.
 6. Tap the microphone, allow access, say “Make the venue one thousand seats,” then Stop recording. Review or correct the transcript, turn on Speak replies if wanted, and tap Send. Concert demand should remain 150 and profit should be -1,250 at the default price. Listen to the selected ElevenLabs voice, then test Stop audio and Cancel.
-7. Play each lesson's short story and captions. Switch language to try the German recording. These learner explainers are separate from the competition entry video.
+7. Play the concert's short story and captions. Switch language to try the German recording. These learner explainers are separate from the competition entry video.
 8. Change inputs during a pending answer. Confirm no stale result or old audio starts afterward. Report phone model, browser, voice preference and anything difficult to tap.
 
 The assistant can test desktop and emulated mobile browsers; only this test establishes actual phone behavior. A fluent German speaker should also read the short lesson before recording.

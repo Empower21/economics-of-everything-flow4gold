@@ -29,7 +29,7 @@ Inspected Blender preview, 8-second sampled source loop/contact sheet, browser s
 
 ## Size and performance
 
-Concert GLB: 1,373,956 bytes (previous model 7,461,468 bytes). Source `.blend`: 205,431 bytes. Film sizes are recorded by the final artifact report. Observed headless Chromium software-rendered frame rates improved from about 15 fps with PBR shading to approximately 46–49 fps in a sampled run with simple palette materials; other short samples reached 60 fps. Measurements depend on simultaneous rendering/tests and are not real-device performance promises. `motion-performance.json` stores the sampled values and environment. Browser resolution is capped at 512 pixels wide; mobile uses its narrower viewport width.
+Concert GLB: 1,373,956 bytes (previous model 7,461,468 bytes). Source `.blend`: 205,431 bytes. English film: 15,704,877 bytes; German film: 16,018,557 bytes. Exact artifacts are listed in `evidence/addendum03/artifact-sizes.json`. Observed headless Chromium software-rendered frame rates improved from about 15 fps with PBR shading to approximately 38–49 fps across sampled runs with simple palette materials; other short samples reached 60 fps. Measurements depend on simultaneous rendering/tests and are not real-device performance promises. `motion-performance.json` stores the sampled values and environment. Browser resolution is capped at 512 pixels wide; mobile uses its narrower viewport width.
 
 ## Manual review still needed
 
@@ -38,3 +38,11 @@ Open the existing QR code on a real phone, try recording a question, inspect pix
 ## Release
 
 Deployment details are appended after production verification. The workflow export contains no credential references or secrets. Existing n8n workflow URL and authenticated path are preserved.
+
+Production verification completed for application commit `6ae80f0` on Railway deployment `827496f5-5616-41e1-960b-9fe3067da236` (SUCCESS). Live URL: https://web-production-af12a.up.railway.app.
+
+Hosted desktop/mobile browser acceptance passed in English and German with no page errors, 11 animation groups loaded, and 512/364-pixel internal scene widths. Evidence screenshots and browser-check.json were refreshed against this deployment. Latest local motion samples were 46.5–54.8 fps; pause remained pixel-stable and stale responses were discarded. These are emulated/software-rendered checks, not physical-phone measurements.
+
+Real hosted English/German coach calls passed through the native TypeSafe node and OpenAI with verified profits of $1,500 and $500; see railway-coach.json. Those calls used the immediately preceding deployment with the same backend; the final application change only adjusted crowd and DJ animation.
+
+Hosted English and German films both passed complete playback at 4x speed: 960 by 960, 70.84 seconds, 16 caption cues each, with scenario state preserved. The delayed-tutor-response check also passed: no competing speech starts while the film is playing.

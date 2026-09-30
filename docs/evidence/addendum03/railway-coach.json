@@ -1,0 +1,30 @@
+[
+  {
+    "status": 200,
+    "language": "en",
+    "delivery": "n8n-openai",
+    "intentDecision": {
+      "unavailable": false,
+      "explain": true,
+      "intent": "ticket_price",
+      "confidence": 0.87,
+      "model": "jev-1.13.0"
+    },
+    "profit": 1500,
+    "durationMs": 4332
+  },
+  {
+    "status": 200,
+    "language": "de",
+    "delivery": "n8n-openai",
+    "intentDecision": {
+      "unavailable": false,
+      "explain": true,
+      "intent": "costs",
+      "confidence": 1,
+      "model": "jev-1.13.0"
+    },
+    "profit": 500,
+    "durationMs": 1749
+  }
+]

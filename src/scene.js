@@ -28,6 +28,7 @@ export async function createVenue(canvas,onPick,onReady){
  // Exported posed frames share immutable geometry; 32 instanced batches serve up to 300 figures.
  templates.sort((a,b)=>a.name.localeCompare(b.name));
  const batches=templates.map(mesh=>{mesh.parent=null;mesh.position.setAll(0);mesh.rotationQuaternion=Quaternion.Identity();mesh.scaling.setAll(1);mesh.alwaysSelectAsActiveMesh=true;mesh.isPickable=false;const buffer=new Float32Array(300*16);mesh.thinInstanceSetBuffer('matrix',buffer,16,false);mesh.thinInstanceCount=0;return {mesh,buffer,variant:Number(mesh.name.split('_')[1]),pose:Number(mesh.name.split('_')[2])};});
+ const dj=scene.getTransformNodeByName('DJ'),djRest=dj?.rotationQuaternion?.clone()||Quaternion.Identity();
  const groups=imported.animationGroups;groups.forEach(g=>{g.start(true);g.pause();});
  let paused=false,reduced=false,time=0,manualTime=null,last=performance.now(),visible=true,current={capacity:200,attendance:150},lastPose=-1;
  const beamMat=new StandardMaterial('gentle beam',scene);beamMat.diffuseColor=new Color3(.05,.6,.7);beamMat.emissiveColor=new Color3(.05,.35,.45);beamMat.alpha=.075;beamMat.disableLighting=true;beamMat.backFaceCulling=false;
@@ -42,14 +43,14 @@ export async function createVenue(canvas,onPick,onReady){
    // A stable permutation fills front/back evenly rather than one compressed strip.
    let slot=i;const x=(slot%cols+.5)/cols*13.5-6.75,z=(Math.floor(slot/cols)+.5)/rows*8.7-6.4;
    const phase=t*Math.PI*(variant===1?1:2)+i*1.71;
-   pos.set(x+(reduced?0:Math.sin(phase)*.045),.04+(reduced?0:Math.abs(Math.sin(phase))*.025),-z);
-   Quaternion.FromEulerAnglesToRef(0,(reduced?0:Math.sin(phase)*.08),reduced?0:Math.sin(phase)*.035,rot);
+   pos.set(x+(reduced?0:Math.sin(phase)*(variant===1?.12:.035)),.04+(reduced?0:Math.abs(Math.sin(phase))*(variant===3?.065:.025)),-z);
+   Quaternion.FromEulerAnglesToRef(0,(reduced?0:Math.sin(phase)*.08),reduced?0:Math.sin(phase)*(variant===0?.075:.025),rot);
    Matrix.ComposeToRef(scale,rot,pos,mat);const count=counts.get(b);mat.copyToArray(b.buffer,count*16);counts.set(b,count+1);
   }
   batches.forEach(b=>{const n=counts.get(b);b.mesh.setEnabled(n>0);b.mesh.thinInstanceCount=n;b.mesh.thinInstanceBufferUpdated('matrix');});
   canvas.dataset.visiblePeople=String(mapping.occupiedFigures);canvas.dataset.peoplePerFigure=String(mapping.peoplePerFigure);
  }
- function animate(t){const beat=.65+.15*Math.sin(t*Math.PI*4);pulseMaterial.emissiveColor.set(.1*beat,.8*beat,beat);groups.forEach(g=>{const frame=g.from+(t%8)/8*(g.to-g.from);g.goToFrame(frame);});drawCrowd(t);beams.forEach((b,i)=>{b.rotation.z=Math.sin(t*Math.PI/4+i)*.28;b.rotation.x=.35+Math.sin(t*Math.PI/4+i)*.12;});}
+ function animate(t){const beat=.65+.15*Math.sin(t*Math.PI*4);pulseMaterial.emissiveColor.set(.1*beat,.8*beat,beat);groups.forEach(g=>{const frame=g.from+(t%8)/8*(g.to-g.from);g.goToFrame(frame);});if(dj)dj.rotationQuaternion=djRest.multiply(Quaternion.RotationYawPitchRoll(.015*Math.sin(t*Math.PI/2),0,.009*Math.sin(t*Math.PI/2)));drawCrowd(t);beams.forEach((b,i)=>{b.rotation.z=Math.sin(t*Math.PI/4+i)*.28;b.rotation.x=.35+Math.sin(t*Math.PI/4+i)*.12;});}
  const visibility=new IntersectionObserver(e=>{visible=e[0].isIntersecting;});visibility.observe(canvas);
  engine.runRenderLoop(()=>{const now=performance.now(),dt=Math.min(.05,(now-last)/1000);last=now;if(document.hidden||!visible)return;if(!paused&&!reduced)time+=dt;animate(manualTime??time);scene.render();canvas.dataset.fps=engine.getFps().toFixed(1);});
  const observer=new ResizeObserver(()=>{resize();scene.render();});observer.observe(canvas);onReady();

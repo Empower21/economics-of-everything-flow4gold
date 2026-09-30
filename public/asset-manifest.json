@@ -1,0 +1,36 @@
+{
+  "version": "addendum02-v1",
+  "blender": "5.2.2 LTS",
+  "renderer": "Babylon.js",
+  "license": "Original project-authored geometry; no external asset attribution required",
+  "sources": [
+    "scripts/create-venue.py",
+    "scripts/create-worlds-base.py",
+    "scripts/create-worlds.py",
+    "scripts/polish-assets.py"
+  ],
+  "animation": "Articulated browser-driven named joints; no baked animation claim",
+  "models": {
+    "concert": "/models/concert.glb",
+    "conference": "/models/conference.glb",
+    "factory": "/models/factory.glb"
+  },
+  "fallback": "src/illustration.js, original vector illustration using shared scene state",
+  "voice": "Existing configured ElevenLabs voice; user accent review pending",
+  "media": {
+    "version": "addendum02",
+    "format": "960 \u00d7 960 composed browser recordings with existing ElevenLabs narration",
+    "languages": [
+      "en",
+      "de"
+    ],
+    "paths": [
+      "/media/concert-en.mp4",
+      "/media/concert-de.mp4",
+      "/media/conference-en.mp4",
+      "/media/conference-de.mp4",
+      "/media/factory-en.mp4",
+      "/media/factory-de.mp4"
+    ]
+  }
+}

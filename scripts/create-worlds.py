@@ -1,85 +1,138 @@
-import bpy, math, runpy
+﻿"""Reproducible Blender 5.2 asset pass: articulated adult characters and detailed vehicles.
+All geometry is original. Babylon animates named joints, with no downloaded rig dependency.
+"""
+import bpy, math, runpy, json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-helpers=runpy.run_path(str(ROOT/'scripts'/'create-venue.py'))
-box=helpers['box']; cyl=helpers['cyl']; ball=helpers['ball']; material=helpers['material']
+# Regenerate the established environments, then upgrade their occupants/material detail.
+runpy.run_path(str(ROOT/'scripts/create-worlds-base.py'))
 
-def palette():
-    return [material('Deep teal',(.025,.22,.23)),material('Electric coral',(.97,.25,.16)),material('Honey',(.98,.66,.10)),material('Indigo',(.20,.20,.55)),material('Soft ivory',(.94,.91,.78)),material('Pool turquoise',(.10,.7,.65)),material('Grass',(.45,.68,.32)),material('Charcoal',(.03,.05,.08))]
-def person(name,x,y,mat,cream,black):
-    parts=[cyl('torso',(x,y,.53),.13,.43,mat),ball('head',(x,y,.89),.15,cream)]
-    for dx in [-.07,.07]:parts.append(cyl('leg',(x+dx,y,.2),.043,.30,black,8))
-    for dx in [-.20,.20]:parts.append(cyl('arm',(x+dx,y,.5),.04,.35,mat,8))
-    bpy.ops.object.select_all(action='DESELECT')
-    for o in parts:o.select_set(True)
-    bpy.context.view_layer.objects.active=parts[0];bpy.ops.object.join();bpy.context.object.name=name
-def save(name):
-    bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'assets'/f'{name}.blend'))
-    bpy.ops.export_scene.gltf(filepath=str(ROOT/'public'/'models'/f'{name}.glb'),export_format='GLB',export_apply=True,export_animations=False)
-def clear():
-    bpy.ops.object.select_all(action='SELECT');bpy.ops.object.delete(use_global=False)
+def mat(name,color,metal=0):
+ m=bpy.data.materials.new(name);m.diffuse_color=(*color,1);m.use_nodes=True
+ p=m.node_tree.nodes.get('Principled BSDF');p.inputs['Base Color'].default_value=(*color,1);p.inputs['Roughness'].default_value=.56;p.inputs['Metallic'].default_value=metal
+ return m
 
-# Enhance concert silhouette and color while retaining the original scene.
-p=palette()
-for o in list(bpy.data.objects):
-    if o.name.startswith('Audience_'):bpy.data.objects.remove(o,do_unlink=True)
-for i in range(60):
-    x=-2.8+(i%10)*.61;y=.15-(i//10)*.61
-    person(f'Audience_{i:02d}',x,y,p[1+i%5],p[4],p[7])
-for side in [-1,1]:
-    for row in range(3):
-        box('Expansion_'+str(side)+'_'+str(row),(side*(6.6+row*.7),.4,.3+row*.25),(.65,7,.4+row*.35),p[3 if row%2 else 5])
-for x in [-2,0,2]:
-    o=cyl('Stage spotlight',(x,1.6,3.7),.22,.35,p[2]);o.rotation_euler[0]=.3
-save('concert')
+def empty(name,parent=None,loc=(0,0,0)):
+ o=bpy.data.objects.new(name,None);bpy.context.collection.objects.link(o);o.parent=parent;o.location=loc;return o
 
-clear();p=palette()
-box('Conference foundation',(0,0,-.3),(15,11,.6),p[4],.3)
-box('Registration desk',(-5,-3,.6),(2.4,1.1,1.2),p[1]);box('Registration sign',(-5,-3,1.8),(2.5,.18,.8),p[0])
-box('Speakers stage',(-3.9,3,.35),(5,3,.7),p[3]);box('Speakers screen',(-3.9,4.3,2.3),(4.8,.16,3),p[0]);box('Speakers podium',(-3.9,3,1),(1,.6,1.3),p[1])
-person('Speaker',-3.9,3.4,p[2],p[4],p[7])
-box('Workshop floor',(3.3,2.8,.02),(5.5,4,.1),p[5]);box('Workshop board',(3.3,4.5,1.5),(4,.15,2),p[3])
-for i in range(24):
-    x=1.3+(i%6)*.8;y=1.2+(i//6)*.8
-    box(f'WorkshopSeat_{i:02d}',(x,y,.35),(.42,.42,.6),p[2])
-    person(f'WorkshopPerson_{i:02d}',x,y,p[1+i%5],p[4],p[7])
-box('Networking floor',(2,-2.5,.02),(5.5,3.3,.12),p[2])
-for x,y in [(0,-2),(2,-3),(4,-2)]:
-    cyl('Networking table',(x,y,.65),.52,.12,p[4]);cyl('Networking leg',(x,y,.3),.06,.6,p[0])
-box('Catering counter',(6,-2,.6),(1.5,4,1.2),p[0])
-for y in [-3,-2,-1]:cyl('Catering plate',(6,y,1.24),.22,.035,p[2])
-for i in range(18):
-    person(f'Walker_{i:02d}',-4.5+(i%6)*1.35,-.9-(i//6)*.8,p[1+i%5],p[4],p[7])
-for i in range(12):person(f'Queue_{i:02d}',.2-i*.37,.2,p[1+i%5],p[4],p[7])
-save('conference')
+def mesh(name,loc,size,material,parent=None,shape='box'):
+ if shape=='sphere':bpy.ops.mesh.primitive_uv_sphere_add(segments=12,ring_count=8,radius=1)
+ else:bpy.ops.mesh.primitive_cube_add(size=1)
+ o=bpy.context.object;o.name=name;o.parent=parent;o.location=loc;o.scale=size if shape=='sphere' else (1,1,1)
+ if shape!='sphere':
+  o.dimensions=size;bpy.ops.object.transform_apply(location=False,rotation=False,scale=True)
+  mod=o.modifiers.new('Tailored edges','BEVEL');mod.width=min(size)*.18;mod.segments=2;bpy.ops.object.modifier_apply(modifier=mod.name)
+ o.data.materials.append(material)
+ for p in o.data.polygons:p.use_smooth=True
+ return o
 
-clear();p=palette()
-box('Factory foundation',(0,0,-.3),(16,11,.6),p[4],.3)
-box('Assembly conveyor',(0,0,.5),(13,2,.8),p[7]);box('Assembly belt',(0,0,.94),(13,1.8,.08),p[3])
-for i in range(24):cyl('Assembly roller',(-6+i*.52,0,.65),.08,1.95,p[5]).rotation_euler[0]=math.pi/2
-for i in range(4):
-    parts=[];x=-4.8+i*3.0
-    parts.append(box('body',(x,0,1.35),(2,1.05,.45),p[1 if i%2==0 else 5],.18))
-    parts.append(box('cabin',(x-.15,0,1.75),(1,1,.5),p[3],.12))
-    for dx in [-.65,.65]:
-        for y in [-.6,.6]:
-            wheel=cyl('wheel',(x+dx,y,1.2),.22,.16,p[7]);wheel.rotation_euler[0]=math.pi/2;parts.append(wheel)
-    bpy.ops.object.select_all(action='DESELECT')
-    for o in parts:o.select_set(True)
-    bpy.context.view_layer.objects.active=parts[0];bpy.ops.object.join();bpy.context.object.name=f'Car_{i:02d}'
-box('Components rack',(-2,3,.55),(4,1.5,1.1),p[0])
-for i in range(20):box(f'Part_{i:02d}',(-3.4+(i%5)*.68,2.6+(i//5)*.32,1.22),(.4,.2,.2),p[2],.04)
-box('Assembly gantry',(1,0,3.15),(.45,3.6,.35),p[2])
-for y in [-1.7,1.7]:box('Assembly support',(1,y,1.7),(.3,.3,3),p[2])
-box('Assembly robot arm',(1,0,2.5),(.18,.2,1),p[1])
-truck=[]
-truck.append(box('cab',(-5,3,1),(1.3,1.3,1.5),p[1]));truck.append(box('trailer',(-5,1.5,1),(1.4,2,1.5),p[0]))
-for y in [1,2.1,3.2]:
-    for x in [-5.75,-4.25]:
-        o=cyl('wheel',(x,y,.5),.3,.18,p[7]);o.rotation_euler[1]=math.pi/2;truck.append(o)
-bpy.ops.object.select_all(action='DESELECT')
-for o in truck:o.select_set(True)
-bpy.context.view_layer.objects.active=truck[0];bpy.ops.object.join();bpy.context.object.name='SupplierTruck'
-box('Finished loading bay',(5,3,.04),(3,3,.12),p[5])
-for i in range(6):person(f'Worker_{i:02d}',-4+i*1.5,-2.3,p[2],p[4],p[7])
-save('factory')
+def join(parts,name,parent):
+ bpy.ops.object.select_all(action='DESELECT')
+ for o in parts:o.select_set(True)
+ bpy.context.view_layer.objects.active=parts[0];bpy.ops.object.join();o=bpy.context.object;o.name=name
+ # Keep world-space result and recover local parenting (join leaves first object's transform).
+ return o
+
+def human(name,x,y,z,index=0,role='dance',scale=1,angle=0):
+ root=empty(name,loc=(x,y,z));root.scale=(scale,scale,scale);root.rotation_euler.z=angle;root['role']=role
+ skin=skins[index%len(skins)];shirt=clothes[index%len(clothes)] if role!='work' else hi
+ # Adult proportions: 1.78 metres, head about one eighth of standing height.
+ body=empty(name+'_Torso',root,(0,0,1.12))
+ parts=[mesh('jacket',(0,0,.16),(.24,.135,.29),shirt,body,'sphere'),mesh('waist',(0,0,-.10),(.34,.22,.17),shirt,body),mesh('shirt front',(0,-.125,.14),(.10,.012,.37),ivory,body),mesh('belt',(0,0,-.15),(.36,.25,.04),dark,body)]
+ for dx in [-.055,.055]:parts.append(mesh('collar',(dx,-.13,.37),(.08,.025,.085),ivory,body))
+ if role=='work':
+  for dz in [.02,.25]:parts.append(mesh('reflective stripe',(0,-.14,dz),(.40,.015,.045),ivory,body))
+ join(parts,name+'_Clothing',body)
+ head=empty(name+'_Head',body,(0,0,.45))
+ face=[mesh('neck',(0,0,-.05),(.075,.072,.10),skin,head,'sphere'),mesh('face',(0,-.004,.10),(.118,.103,.15),skin,head,'sphere'),mesh('nose',(0,-.109,.10),(.024,.030,.034),skin,head,'sphere')]
+ for dx in [-.11,.11]:face.append(mesh('ear',(dx,0,.1),(.025,.020,.040),skin,head,'sphere'))
+ for dx in [-.043,.043]:
+  face.extend([mesh('eye white',(dx,-.099,.133),(.025,.012,.013),ivory,head,'sphere'),mesh('iris',(dx,-.111,.131),(.010,.005,.011),dark,head,'sphere'),mesh('brow',(dx,-.102,.162),(.054,.016,.012),hair[index%3],head)])
+ face.extend([mesh('mouth',(0,-.099,.043),(.043,.012,.009),lips,head),mesh('hair crown',(0,.015,.216),(.124,.107,.067),hair[index%3],head,'sphere')])
+ if index%3==0:face.append(mesh('hair bun',(0,.096,.19),(.09,.07,.09),hair[0],head,'sphere'))
+ elif index%3==1:face.append(mesh('hair fringe',(-.05,-.065,.205),(.080,.06,.048),hair[1],head,'sphere'))
+ else:
+  for k in range(6):face.append(mesh('curl',(.075*math.cos(k),.05*math.sin(k),.245),(.05,.055,.045),hair[2],head,'sphere'))
+ if role=='work':face.extend([mesh('helmet',(0,0,.245),(.15,.135,.07),hi,head,'sphere'),mesh('helmet brim',(0,-.022,.214),(.33,.3,.025),hi,head)])
+ if role=='dj':
+  for dx in [-.137,.137]:face.append(mesh('headphone',(dx,0,.11),(.035,.08,.09),dark,head,'sphere'))
+  face.append(mesh('headband',(0,.01,.27),(.27,.055,.04),dark,head))
+ join(face,name+'_Face',head)
+ for side,sign in [('L',-1),('R',1)]:
+  shoulder=empty(name+'_Arm'+side,body,(sign*.25,0,.33))
+  upper=[mesh('sleeve',(sign*.015,0,-.12),(.075,.078,.17),shirt,shoulder,'sphere'),mesh('upper arm',(sign*.025,0,-.235),(.050,.050,.09),skin,shoulder,'sphere')]
+  join(upper,name+'_Sleeve'+side,shoulder)
+  elbow=empty(name+'_Elbow'+side,shoulder,(sign*.025,0,-.28))
+  fore=[mesh('forearm',(0,0,-.12),(.047,.046,.13),skin,elbow,'sphere'),mesh('hand',(0,-.008,-.25),(.049,.033,.067),skin,elbow,'sphere')]
+  for finger in range(3):fore.append(mesh('finger',(-.025+finger*.023,-.011,-.304),(.009,.016,.035),skin,elbow,'sphere'))
+  join(fore,name+'_Hand'+side,elbow)
+  hip=empty(name+'_Leg'+side,root,(sign*.095,0,.93))
+  mesh(name+'_Trousers'+side,(0,0,-.215),(.083,.083,.235),pants,hip,'sphere')
+  knee=empty(name+'_Knee'+side,hip,(0,0,-.43))
+  lower=[mesh('lower leg',(0,0,-.20),(.063,.067,.22),pants,knee,'sphere'),mesh('shoe',(0,-.075,-.43),(.145,.28,.10),dark,knee)]
+  join(lower,name+'_Boot'+side,knee)
+  if role=='sit':hip.rotation_euler.x=-1.35;knee.rotation_euler.x=1.35
+  if role in ['dj','work']:shoulder.rotation_euler.x=-.65;elbow.rotation_euler.x=-.8
+ return root
+
+for kind in ['concert','conference','factory']:
+ bpy.ops.wm.open_mainfile(filepath=str(ROOT/'assets'/f'{kind}.blend'))
+ skins=[mat('Skin umber',(.28,.115,.06)),mat('Skin honey',(.61,.30,.16)),mat('Skin rose',(.82,.51,.33)),mat('Skin sienna',(.43,.21,.11))]
+ clothes=[mat('Coral jacket',(.75,.20,.12)),mat('Teal shirt',(.035,.36,.33)),mat('Indigo jacket',(.18,.22,.43)),mat('Ochre knit',(.78,.46,.10)),mat('Plum shirt',(.42,.13,.25))]
+ ivory=mat('Cotton ivory',(.90,.86,.74));dark=mat('Leather charcoal',(.018,.027,.033));pants=mat('Denim',(.04,.08,.13));hi=mat('Safety ochre',(.96,.57,.08));lips=mat('Lip tone',(.30,.08,.065));hair=[mat('Hair dark',(.021,.014,.012)),mat('Hair chestnut',(.13,.045,.02)),mat('Hair brown',(.055,.028,.015))]
+ for o in list(bpy.data.objects):
+  if o.name.startswith(('Audience_','WorkshopPerson_','Walker_','Queue_','Worker_','DJ torso','DJ head')) or o.name=='Speaker':bpy.data.objects.remove(o,do_unlink=True)
+ if kind=='concert':
+  # Open canopy to retain light rig without hiding the DJ in the default view.
+  canopy=bpy.data.objects.get('Stage canopy')
+  if canopy:canopy.dimensions.y=.45;canopy.location.y=3.9
+  human('DJ',0,3.10,.86,1,'dj',1.05)
+  for i in range(36):human(f'Audience_{i:02d}',-2.55+i%6*.94,-.4-i//6*.61,0,i,'dance',.72,math.pi+(i%3-1)*.12)
+  for i in range(3):human(f'EntranceWalker_{i:02d}',3.7,-3.9+i*.5,0,i+1,'walk',.70)
+  # Mixer controls and an identifiable laptop.
+  mesh('DJ mixer',(0,2.58,1.79),(.40,.5,.065),dark)
+  for x in [-.12,0,.12]:
+   for y in [2.46,2.59,2.72]:mesh('DJ knob',(x,y,1.845),(.025,.025,.04),hi)
+  mesh('DJ laptop base',(.83,2.7,1.80),(.47,.36,.035),dark)
+  laptop=mesh('DJ laptop screen',(.83,2.88,2.01),(.47,.03,.38),dark);laptop.rotation_euler.x=-.15
+  mesh('DJ laptop display',(.83,2.855,2.01),(.40,.009,.31),clothes[1])
+ elif kind=='conference':
+  # Remove the misleading literal queue; workshop figures represent available places only.
+  for i in range(12):
+   x=1.5+i%4*1.16;y=1.4+i//4*1.05
+   human(f'WorkshopPerson_{i:02d}',x,y,0,i,'sit',.70)
+   mesh(f'WorkshopTable_{i:02d}',(x,y-.37,.69),(.76,.44,.075),ivory)
+   mesh('Workshop material',(x,y-.38,.743),(.23,.17,.014),clothes[3])
+  human('Speaker',-3.6,3.3,.7,2,'talk',.93)
+  for i in range(6):human(f'Listener_{i:02d}',-5+i%3*1.1,.8+i//3*.85,0,i+2,'sit',.72,math.pi)
+  for i in range(6):human(f'Walker_{i:02d}',.2+i%3*1.8,-2.2-i//3*1.2,0,i,'talk',.79,(i%2)*math.pi)
+  human('RegistrationHost',-5,-2.4,0,0,'talk',.9)
+  for x in [-5.2,-4.8,-4.4]:mesh('Registration badges',(x,-3,1.23),(.25,.35,.035),ivory)
+  for x,h in [(-5.1,.45),(-4.2,.9),(-3.3,1.35)]:mesh('Speakers chart',(x,4.19,1.4+h/2),(.45,.06,h),clothes[3])
+ else:
+  for i in range(3):human(f'Worker_{i:02d}',-2.5+i*2.4,-1.8,0,i,'work',.90,math.pi)
+  # Existing car roots receive shaped hoods, glazing, lights and wheel hubs.
+  glass=mat('Automotive blue glass',(.10,.26,.33),.15);chrome=mat('Brushed alloy',(.48,.53,.54),.65)
+  for i in range(4):
+   car=bpy.data.objects.get(f'Car_{i:02d}');x=-4.8+i*3
+   # Preserve this body transform, add local detail under its root.
+   inv=car.matrix_world.inverted()
+   for label,loc,size,m in [('windshield',(x+.40,0,1.85),(.06,.84,.29),glass),('rear glass',(x-.66,0,1.84),(.055,.80,.27),glass),('left window',(x-.10,-.515,1.83),(.80,.025,.27),glass),('right window',(x-.10,.515,1.83),(.80,.025,.27),glass),('hood',(x+.65,0,1.56),(.70,1,.12),clothes[0 if i%2==0 else 1]),('grille',(x+1.02,0,1.35),(.025,.5,.14),dark)]:
+    o=mesh(f'CarDetail_{i:02d}_{label}',loc,size,m);o.parent=car;o.matrix_parent_inverse=car.matrix_world.inverted()
+   for y in [-.38,.38]:
+    o=mesh(f'CarDetail_{i:02d}_headlamp',(x+1.025,y,1.5),(.03,.22,.095),ivory);o.parent=car;o.matrix_parent_inverse=car.matrix_world.inverted()
+  truck=bpy.data.objects.get('SupplierTruck')
+  for label,loc,size in [('windscreen',(-5,3.665,1.25),(1.02,.025,.48)),('left glass',(-5.67,3.12,1.27),(.025,.7,.4)),('right glass',(-4.33,3.12,1.27),(.025,.7,.4))]:
+   o=mesh('Supplier '+label,loc,size,glass);o.parent=truck;o.matrix_parent_inverse=truck.matrix_world.inverted()
+  mesh('Assembly missing part station',(1,-1.25,1.08),(.8,.1,.32),hi)
+  mesh('Assembly moving part',(0,0,2.08),(.17,.15,.12),hi)
+ # Keep editable, clean source and versioned provenance.
+ bpy.context.scene['asset_version']='addendum02-v1';bpy.context.scene['animation_runtime']='Babylon named joint rotations'
+ bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'assets'/f'{kind}.blend'))
+ bpy.ops.export_scene.gltf(filepath=str(ROOT/'public/models'/f'{kind}.glb'),export_format='GLB',export_apply=True,export_animations=False,export_extras=True)
+ print('UPGRADED',kind,flush=True)
+manifest={'version':'addendum02-v1','blender':bpy.app.version_string,'renderer':'Babylon.js','license':'Original project-authored geometry; no external asset attribution required','sources':['scripts/create-venue.py','scripts/create-worlds-base.py','scripts/create-worlds.py','scripts/polish-assets.py'],'animation':'Articulated browser-driven named joints; no baked animation claim','models':{k:'/models/'+k+'.glb' for k in ['concert','conference','factory']},'fallback':'src/illustration.js, original vector illustration using shared scene state','voice':'Existing configured ElevenLabs voice; user accent review pending'}
+manifest['media']={'version':'addendum02','format':'960 x 960 composed browser recordings with existing ElevenLabs narration','languages':['en','de'],'paths':['/media/'+k+'-'+lang+'.mp4' for k in ['concert','conference','factory'] for lang in ['en','de']]}
+(ROOT/'public/asset-manifest.json').write_text(json.dumps(manifest,indent=2))
+
+runpy.run_path(str(ROOT/'scripts/polish-assets.py'))

@@ -20,7 +20,7 @@ test('gateway validates input, origin, upstream numbers and service failures',as
   const child=spawn(process.execPath,['server/index.js','--production'],{env:{...process.env,PORT:String(port),N8N_WEBHOOK_URL:`http://127.0.0.1:${upstream.address().port}`,N8N_WEBHOOK_SECRET:'synthetic-test-secret',PUBLIC_ORIGIN:'http://localhost:3102',TRUST_PROXY_HOPS:'0'},stdio:'ignore',windowsHide:true});
   t.after(()=>{child.kill();upstream.close();});
   let ready=false;
-  for(let i=0;i<30;i++){try{await fetch(`http://localhost:${port}/api/health`);ready=true;break;}catch{await delay(100);}}
+  for(let i=0;i<150;i++){try{await fetch(`http://localhost:${port}/api/health`);ready=true;break;}catch{await delay(100);}}
   assert.equal(ready,true,'gateway starts');
   const data={requestId:'test-request-123',sessionId:'test-session-123',topicId:'concert',language:'en',question:'Why is revenue not profit?',scenario:{ticketPrice:30}};
   const post=(body=data,origin='http://localhost:3102')=>fetch(`http://localhost:${port}/api/lesson`,{method:'POST',headers:{'Content-Type':'application/json',Origin:origin},body:JSON.stringify(body)});

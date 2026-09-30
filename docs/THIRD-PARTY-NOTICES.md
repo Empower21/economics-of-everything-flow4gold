@@ -9,3 +9,7 @@ The locally bundled DM Sans and Manrope fonts are supplied by their respective F
 Babylon.js and its glTF loader are distributed under Apache-2.0. Express, Vite, and the other JavaScript dependencies retain their licenses in their npm packages; exact resolved versions are recorded in `package-lock.json`. The application uses n8n and OpenAI as connected services rather than bundling those services' software or branding assets.
 
 The `e•` application mark is a simple original typographic mark. The product does not use n8n's logo as its own identity.
+
+## Addendum 02 assets
+
+Articulated character geometry, vehicle profiles, environments and SVG fallback illustrations were authored in this project. No Rain character, reference-video footage or third-party character rig was imported. Blender 5.2.2 exports are identified in public/asset-manifest.json. Revised learner films are recordings of those Blender assets animated by Babylon.js. Existing configured ElevenLabs narration is retained; two conference segments were regenerated to correct the access explanation. No voice cloning or HyperFrames project was introduced.

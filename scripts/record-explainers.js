@@ -1,8 +1,9 @@
+import {storyCards} from './story-cards.js';
 import {chromium} from 'playwright';
 import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {mediaPlan} from './media-plan.js';
-const base=process.env.TEST_BASE_URL||'http://127.0.0.1:3181';
+const base=process.env.TEST_BASE_URL||'http://127.0.0.1:3184';
 const dir='.local/recordings';await mkdir(dir,{recursive:true});
 const timing=JSON.parse(await readFile('.local/narration-eleven/timing.json','utf8'));
 const ids={concert:'concert-economics',conference:'conference-economics',factory:'factory-supply-chain'};
@@ -11,13 +12,14 @@ const ff=args=>execFileSync('ffmpeg',['-y','-hide_banner','-loglevel','error',..
 const browser=await chromium.launch({headless:true,args:['--enable-unsafe-swiftshader','--autoplay-policy=no-user-gesture-required']});
 try{
 for(const [kind,plan] of Object.entries(mediaPlan))for(const lang of ['en','de']){
-  const context=await browser.newContext({viewport:{width:1280,height:720},recordVideo:{dir,size:{width:1280,height:720}}});
+  const context=await browser.newContext({viewport:{width:960,height:960},recordVideo:{dir,size:{width:960,height:960}}});
   const page=await context.newPage();await page.goto(`${base}/lessons/${ids[kind]}?lang=${lang}`,{waitUntil:'networkidle'});
   await page.waitForFunction(()=>document.querySelector('#venue')?.dataset.loaded==='true',null,{timeout:60000});
-  await page.evaluate(()=>{document.body.classList.add('capture-mode');scrollTo(0,0);});await page.waitForTimeout(1000);
+  await page.evaluate(()=>{document.body.classList.add('capture-mode');const card=document.createElement('div');card.className='story-card';document.body.append(card);scrollTo(0,0);});await page.waitForTimeout(1000);
+  await page.evaluate(cards=>window.storyCards=cards,storyCards);
   const start=Date.now();
   for(let i=0;i<plan.steps.length;i++){
-    await page.evaluate(({values,zone})=>{window.lessonCapture.set(values);window.lessonCapture.focus(zone);},plan.steps[i]);
+    await page.evaluate(({values,zone,kind,lang,i})=>{window.lessonCapture.set(values);window.lessonCapture.focus(zone);const cards=window.storyCards[kind][lang];document.querySelector('.story-card').innerHTML=`<small>${lang==='de'?'FESTES LERNBEISPIEL · GE':'FIXED TEACHING EXAMPLE · CU'}</small><h2>${cards[i][0]}</h2><p>${cards[i][1]}</p>`;},{...plan.steps[i],kind,lang,i});
     if(i===0){await page.waitForTimeout(1200);await page.screenshot({path:`public/media/${kind}-${lang}-poster.jpg`,type:'jpeg',quality:90});}
     const deadline=start+timing[kind].slice(0,i+1).reduce((a,b)=>a+b,0)*1000;
     await page.waitForTimeout(Math.max(0,deadline-Date.now()));

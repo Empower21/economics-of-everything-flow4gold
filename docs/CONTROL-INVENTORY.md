@@ -1,3 +1,25 @@
+# Addendum 02 control changes
+
+This section supersedes the earlier inventory below.
+
+| Control | Meaning |
+| --- | --- |
+| Try a change | Two concert or three conference/factory beginner decisions, with units and examples |
+| What changed? / Undo | Local causal comparison of the previous/current scenario; restores the prior settings and factory day |
+| Explore the scene | One selected zone, highlighted object, current-number explanation and explicit experiment; selection never changes assumptions |
+| More decisions and assumptions | Every existing input remains available in a named group; presets list the settings and values changed |
+| More details | Itemized costs, spending-limit distinction, secondary metrics and factory accounting scopes |
+| Pause motion | Freezes decorative motion; factory simulation time is separate |
+| Play the days / Pause simulation | Advances complete deterministic factory days; receives before producing; stops at day 30 |
+| Reset view | Camera and focus only |
+| Reset lesson settings | Restores defaults/day 0 and clears saved comparison; Undo restores the prior scenario |
+| Save this version | Shows saved/current/difference values while this lesson remains open |
+| Microphone / Stop recording / Cancel | User-initiated recording; transcript can be corrected before Send; cancellation releases microphone |
+| Send / Speak replies / Replay / Stop audio | Current/previous scenario answer; optional speech with revision guards |
+| Creator audition | Only in the review view, using ?review=1 |
+| Lightweight view | Distinct illustrated version of the same state; unavailable spatial controls are hidden |
+| Watch the short story | Fixed example film with native captions, transcript, replay and sound controls; no scenario reset |
+
 # Addendum control review
 
 The original scene tabs and question section did not make their effects clear enough. The revision preserves the working price control and gives each exploration action a visible result.

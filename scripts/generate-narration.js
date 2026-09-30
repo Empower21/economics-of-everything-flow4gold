@@ -21,7 +21,7 @@ for(const [kind,plan] of Object.entries(mediaPlan)){
   for(const language of ['en','de']){
     let start=0;const vtt=['WEBVTT',''];
     const stamp=s=>new Date(Math.round(s*1000)).toISOString().slice(11,23);
-    for(let i=0;i<plan.steps.length;i++){vtt.push(`${stamp(start)} --> ${stamp(start+timing[kind][i]-.15)}`,plan.steps[i][language],'');start+=timing[kind][i];}
+    for(let i=0;i<plan.steps.length;i++){const sentences=plan.steps[i][language].match(/[^.!?]+[.!?]+|[^.!?]+$/g).map(s=>s.trim()),total=sentences.reduce((n,s)=>n+s.length,0);let offset=0;for(const sentence of sentences){const duration=(timing[kind][i]-.15)*sentence.length/total;vtt.push(`${stamp(start+offset)} --> ${stamp(start+offset+duration)}`,sentence,'');offset+=duration;}start+=timing[kind][i];}
     await writeFile(`public/media/${kind}-${language}.vtt`,vtt.join('\n'));await writeFile(`public/media/${kind}-${language}.txt`,plan.steps.map(s=>s[language]).join('\n\n'));
   }
   console.log(kind,'planned duration',timing[kind].reduce((a,b)=>a+b,0).toFixed(1));

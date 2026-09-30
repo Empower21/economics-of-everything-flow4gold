@@ -1,6 +1,6 @@
 ﻿# The Economics of Everything
 
-Three interactive economics lessons with original Blender worlds, animated 2D/3D views, English/German text, captioned short videos and optional microphone questions and spoken replies.
+Three interactive economics lessons with original Blender worlds, animated Babylon.js scenes and a lightweight illustrated fallback, English/German text, captioned short videos and optional microphone questions and spoken replies.
 
 Live: https://web-production-af12a.up.railway.app. The existing QR code in docs/demo-qr.svg is unchanged.
 
@@ -12,7 +12,7 @@ Live: https://web-production-af12a.up.railway.app. The existing QR code in docs/
 | /lessons/conference-economics | Sponsorship, workshop/networking access and budget |
 | /lessons/factory-supply-chain | Daily production, component deliveries, inventory and sales |
 
-Append ?lang=de for German. Root opens the concert with links to all lessons. Presets identify changed assumptions. Reset scenario, Reset view, Pause motion and Save A have separate purposes. Factory has explicit day advancement.
+Append ?lang=de for German. Root opens the concert with links to all lessons. Presets identify changed assumptions. Reset lesson settings, Reset view, Pause motion and Save this version have separate purposes. Factory has explicit day advancement; editing a starting assumption restarts at day 0, with Undo available. Plain-language primary decisions, worked examples and a deterministic What changed? panel lead the lesson.
 
 ## Run
 
@@ -26,7 +26,7 @@ Server variables: N8N_WEBHOOK_URL, matching N8N_WEBHOOK_SECRET, OPENAI_API_KEY f
 
 ## Trusted calculations
 
-shared/registry.js contains field schemas, bounds, presets and deterministic formulas. shared/lesson.js supplies authored bilingual explanations. npm run workflow embeds the same functions in n8n. AI selects approved paragraph IDs and a declared scene focus. It cannot invent numbers or execute code. Server and browser validate matching results and request revisions.
+shared/registry.js contains field schemas, bounds, presets and deterministic formulas. shared/teaching.js supplies bilingual field metadata, causal comparisons and scene state; shared/lesson.js supplies authored tutor explanations. npm run workflow embeds the same functions in n8n. AI selects approved paragraph IDs and a declared scene focus. It cannot invent numbers or execute code. Server and browser validate matching results and request revisions.
 
 Concert: D = floor(M * (p/20)^(-e)); attendance = min(capacity,D); cost = productionBudget + venueRate * capacity + perGuest * attendance; profit = revenue - cost. Return on cost is null at zero cost. Capacity does not create demand.
 
@@ -47,9 +47,9 @@ All currency and demand assumptions are invented for teaching. This is a bounded
 
 ## Voice and videos
 
-Microphone -> OpenAI transcription -> validated setting command when present -> n8n -> approved text -> configured ElevenLabs voice. Recording lasts at most 30 seconds with Stop & send and Cancel. Scenario/language/topic changes discard pending responses. Stop audio also suppresses pending speech. Permission denial leaves text input usable.
+Microphone -> OpenAI transcription -> editable transcript -> Send -> validated setting command when present -> n8n -> approved text -> configured ElevenLabs voice. Recording lasts at most 30 seconds with Stop recording and Cancel. Scenario/language/topic changes discard pending responses. Stop audio also suppresses pending speech. Permission denial leaves text input usable.
 
-Three preset stories in two languages run approximately 70-74 seconds each. These are actual animated browser recordings of original Blender scenes, with native caption tracks and transcripts. Live controls do not alter recorded numbers. Learner media is separate from the pending competition video.
+Three preset stories in two languages run approximately 70-74 seconds each in a phone-friendly 960 × 960 composition. These are actual animated browser recordings of original Blender scenes, with native caption tracks and transcripts. Live controls do not alter recorded numbers. Learner media is separate from the pending competition video.
 
 Regenerate using scripts/generate-narration.js then scripts/record-explainers.js against a production preview. These require FFmpeg and Playwright Chromium; narration calls the paid speech service for missing cached clips. Existing owner-configured ElevenLabs voice is used; no new voice was cloned. Factory narration is sped up 8% to stay under 75 seconds. Rebuild afterward to include media in dist.
 
@@ -63,8 +63,8 @@ Application logs omit questions, recordings, session IDs and secrets. n8n execut
 
 ## Verify
 
-npm test covers formulas, contract validation, fallback and gateway behavior. Set TEST_BASE_URL to a running production preview, then run npm run test:browser and node scripts/check-revision-live.js. node --env-file=.env scripts/voice-browser.js uses synthetic microphone audio with real transcription, n8n and ElevenLabs services.
+npm test covers formulas, contract validation, fallback and gateway behavior. Set TEST_BASE_URL to a running production preview, then run node scripts/addendum02-browser.js and node scripts/check-revision-live.js. node --env-file=.env scripts/voice-browser.js uses synthetic microphone audio with real transcription, n8n and ElevenLabs services.
 
-Run scripts/create-worlds.py in Blender to rebuild assets/*.blend and public/models/*.glb. Crowd figures represent groups, avoiding one mesh per real attendee.
+Run npm run assets to rebuild assets/*.blend and public/models/*.glb with the installed Blender 5.2.2 LTS. Override BLENDER_EXE if needed. Source geometry and browser-driven joint motion remain Blender + Babylon.js; no HyperFrames dependency was added. Crowd figures represent groups, avoiding one mesh per real attendee.
 
-See docs/ADDENDUM-VALIDATION.md, docs/CONTROL-INVENTORY.md, docs/MANUAL-STEPS.md and docs/SUBMISSION.md. Actual phone microphone behavior and human voice/language preferences require owner review. Competition recording remains the final production step.
+See docs/ADDENDUM-02-VALIDATION.md, docs/CONTROL-INVENTORY.md, docs/MANUAL-STEPS.md and docs/SUBMISSION.md. Actual phone microphone behavior and human voice/language preferences require owner review. Competition recording remains the final production step.

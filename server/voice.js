@@ -30,7 +30,7 @@ export function mountVoice(app){
     try{
       const request=validateRequest(req.body.request),paragraphs=approvedParagraphs(request),ids=req.body.paragraphIds;
       if(!Array.isArray(ids)||ids.length<1||ids.length>3||ids.some(id=>typeof id!=='string'||!Object.hasOwn(paragraphs,id)))return res.status(400).json({error:'Invalid spoken lesson.'});
-      const input=ids.map(id=>paragraphs[id]).join(' '),key=createHash('sha256').update(request.topicId+request.language+process.env.ELEVENLABS_VOICE_ID+input).digest('hex');
+      const input=ids.map(id=>paragraphs[id]).join(' ').replaceAll(' → ',request.language==='de'?' auf ':' to '),key=createHash('sha256').update(request.topicId+request.language+process.env.ELEVENLABS_VOICE_ID+input).digest('hex');
       let bytes=cache.get(key);
       if(!bytes){
         bytes=await synthesize(input,request.language);if(cache.size>=40)cache.delete(cache.keys().next().value);cache.set(key,bytes);

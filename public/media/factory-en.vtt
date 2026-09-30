@@ -1,16 +1,46 @@
 WEBVTT
 
-00:00:00.000 --> 00:00:12.217
-How can one inexpensive component stop an expensive car? This factory needs one part for every vehicle. There are no other bottlenecks in our simplified model.
+00:00:00.000 --> 00:00:04.358
+How can one inexpensive component stop an expensive car?
 
-00:00:12.367 --> 00:00:24.885
-The daily target is one hundred vehicles. Starting with one hundred and fifty parts, day one produces one hundred and leaves fifty in stock.
+00:00:04.358 --> 00:00:07.937
+This factory needs one part for every vehicle.
 
-00:00:25.035 --> 00:00:39.273
-Day two can produce only fifty. On day three the line stops. These are unfilled production opportunities, not automatically lost sales.
+00:00:07.937 --> 00:00:12.217
+There are no other bottlenecks in our simplified model.
 
-00:00:39.423 --> 00:00:55.553
-Two hundred parts arrive before production on day four. The line makes one hundred vehicles and keeps one hundred parts. Total output is two hundred and fifty.
+00:00:12.367 --> 00:00:16.059
+The daily target is one hundred vehicles.
 
-00:00:55.703 --> 00:01:12.005
-A second supplier can help if parts arrive in time. Compare its premium with safety stock. Under this example, completed vehicles sell that day. Resilience has costs as well as benefits.
+00:00:16.059 --> 00:00:24.885
+Starting with one hundred and fifty parts, day one produces one hundred and leaves fifty in stock.
+
+00:00:25.035 --> 00:00:28.354
+Day two can produce only fifty.
+
+00:00:28.354 --> 00:00:31.351
+On day three the line stops.
+
+00:00:31.351 --> 00:00:39.273
+These are unfilled production opportunities, not automatically lost sales.
+
+00:00:39.423 --> 00:00:45.074
+Two hundred parts arrive before production on day four.
+
+00:00:45.074 --> 00:00:51.649
+The line makes one hundred vehicles and keeps one hundred parts.
+
+00:00:51.649 --> 00:00:55.553
+Total output is two hundred and fifty.
+
+00:00:55.703 --> 00:01:00.246
+A second supplier can help if parts arrive in time.
+
+00:01:00.246 --> 00:01:03.631
+Compare its premium with safety stock.
+
+00:01:03.631 --> 00:01:08.353
+Under this example, completed vehicles sell that day.
+
+00:01:08.353 --> 00:01:12.005
+Resilience has costs as well as benefits.

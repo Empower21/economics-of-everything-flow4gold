@@ -1,7 +1,8 @@
+import {changeExplanation} from '../shared/teaching.js';
 import { mkdir,writeFile } from 'node:fs/promises';
 import * as registry from '../shared/registry.js';
 import { validateRequest, preparedLesson, approvedParagraphs, modelRequest, applyModel } from '../shared/lesson.js';
-const functions='const LESSONS = '+JSON.stringify(registry.LESSONS)+';\n'+[...Object.values(registry).filter(v=>typeof v==='function'),validateRequest,preparedLesson,approvedParagraphs,modelRequest,applyModel].map(f=>f.toString()).join('\n\n');
+const functions='const LESSONS = '+JSON.stringify(registry.LESSONS)+';\n'+[...Object.values(registry).filter(v=>typeof v==='function'),changeExplanation,validateRequest,preparedLesson,approvedParagraphs,modelRequest,applyModel].map(f=>f.toString()).join('\n\n');
 const code=(name,x,y,jsCode)=>({id:name.replace(/\W/g,''),name,type:'n8n-nodes-base.code',typeVersion:2,position:[x,y],parameters:{jsCode}});
 const nodes=[
   {id:'guide',name:'Start here',type:'n8n-nodes-base.stickyNote',typeVersion:1,position:[0,-360],parameters:{width:1100,height:250,content:'# The Economics of Everything — three interactive lessons\nOne question becomes an interactive lesson. The same pure calculation functions power the browser and this workflow.\n\n**Setup:** Select a Header Auth credential on the webhook (header: X-Lesson-Key). Select an OpenAI credential on the model node. Publish, then set N8N_WEBHOOK_URL and N8N_WEBHOOK_SECRET on the app server. See README.md.\n**Privacy:** Synthetic demonstrations only. Questions are sent to OpenAI with store:false. Execution payload saving is disabled. No credentials are included in this export.\n**Failure handling:** Invalid requests → correction (400). Model timeout/refusal/invalid numbers → prepared English/German lesson (200).'}},

@@ -56,3 +56,12 @@ Server-only `N8N_EVENTS_WEBHOOK_URL` must point to `https://amdrfound.app.n8n.cl
 Rollback application to `7aa38f4` through Railway; its original coach contract remains supported. To roll back coach canvas, use the sanitized before export and reselect existing credential references, then publish. Deactivate the added events workflow only after the app no longer calls it.
 
 No new hosting project/account was created. Competition submission stays manual; the final submission video is still the last step.
+
+## Final release status
+
+Implemented locally, workflow artifacts prepared, actual canvases updated, both workflows published/active, Railway deployed, and hosted end-to-end verified. Application commit: `27c5bd2`. Railway deployment `089dd597-8d8f-4e2f-8b67-19e3d3268ed1`: SUCCESS.
+
+Hosted simulation checks reached n8n executions 3699 (Atlanta), 3700 (Berlin), and 3701 (Kingston); each returned three fictional cards. Cache and refresh passed. See `hosted-simulation-trace.json`. An additional uncached live-mode check returned a sourced card; its exact request/execution mapping is in `hosted-live-search.json`. Hosted coach returned n8n/OpenAI content with TypeSafe confidence 0.96; speech returned HTTP 200 audio/mpeg. No physical phone/microphone test is claimed.
+
+28 automated tests pass. The separate dashboard runtime asset is 146,512 bytes; Blender source is 138,672 bytes. The protected concert scene remains unchanged. Final competition video and manual submission are not part of this release and remain for the agreed final step.
+

@@ -1,0 +1,14 @@
+{
+  "lessonStatus": 200,
+  "delivery": "n8n-openai",
+  "intent": {
+    "unavailable": false,
+    "explain": true,
+    "intent": "ticket_price",
+    "confidence": 0.96,
+    "model": "jev-1.13.0"
+  },
+  "speechStatus": 200,
+  "speechType": "audio/mpeg",
+  "speechBytes": 309333
+}

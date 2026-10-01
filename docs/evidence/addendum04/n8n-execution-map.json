@@ -15,6 +15,121 @@
   ],
   "executions": [
     {
+      "executionId": "3704",
+      "requestId": "eb264fba-1237-4a07-8ac7-2fc397511aa1",
+      "cityId": "atlanta-us",
+      "dataMode": "live",
+      "executionStatus": "success",
+      "resultStatus": "ok",
+      "eventCount": 1,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Use illustrative listings?",
+        "Retrieve dated sources",
+        "Verify geography dates and deduplicate",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:47:21.250Z"
+    },
+    {
+      "executionId": "3702",
+      "requestId": "8c03c7a6-757a-43a4-93c5-6bfb42f8f4be",
+      "cityId": "kingston-jm",
+      "dataMode": "simulation",
+      "executionStatus": "success",
+      "resultStatus": "ok",
+      "eventCount": 3,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Use illustrative listings?",
+        "Build clearly labeled simulation",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:46:15.731Z"
+    },
+    {
+      "executionId": "3701",
+      "requestId": "6c671ab4-c65f-41dd-af95-180255413163",
+      "cityId": "kingston-jm",
+      "dataMode": "simulation",
+      "executionStatus": "success",
+      "resultStatus": "ok",
+      "eventCount": 3,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Use illustrative listings?",
+        "Build clearly labeled simulation",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:46:13.985Z"
+    },
+    {
+      "executionId": "3700",
+      "requestId": "2b94e5e7-f691-4cf5-8840-410e66cd4de1",
+      "cityId": "berlin-de",
+      "dataMode": "simulation",
+      "executionStatus": "success",
+      "resultStatus": "ok",
+      "eventCount": 3,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Use illustrative listings?",
+        "Build clearly labeled simulation",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:46:13.217Z"
+    },
+    {
+      "executionId": "3699",
+      "requestId": "3cff9cd2-7e56-44a0-98dc-09da9dc3cebb",
+      "cityId": "atlanta-us",
+      "dataMode": "simulation",
+      "executionStatus": "success",
+      "resultStatus": "ok",
+      "eventCount": 3,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Use illustrative listings?",
+        "Build clearly labeled simulation",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:46:11.123Z"
+    },
+    {
+      "executionId": "3698",
+      "requestId": "4b927ea5-765b-45d8-a8a8-9365eb90d92f",
+      "cityId": "kingston-jm",
+      "dataMode": "simulation",
+      "executionStatus": "success",
+      "resultStatus": "ok",
+      "eventCount": 3,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Use illustrative listings?",
+        "Build clearly labeled simulation",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:43:46.717Z"
+    },
+    {
       "executionId": "3697",
       "requestId": "c590ba99-2f2c-451f-9428-d19f4b73e9bd",
       "cityId": "kingston-jm",

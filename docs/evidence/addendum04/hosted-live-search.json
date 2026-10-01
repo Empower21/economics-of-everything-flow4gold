@@ -1,0 +1,60 @@
+{
+  "base": "https://web-production-af12a.up.railway.app",
+  "requestId": "eb264fba-1237-4a07-8ac7-2fc397511aa1",
+  "status": 200,
+  "response": {
+    "schemaVersion": "concert-events-v1",
+    "requestId": "eb264fba-1237-4a07-8ac7-2fc397511aa1",
+    "planningRevision": 2,
+    "queryKey": "[\"atlanta-us\",\"live\",\"2026-10-10T04:00:00.000Z\",\"2026-10-11T04:00:00.000Z\",\"music\",\"same_day\",\"en\"]",
+    "status": "ok",
+    "dataMode": "live",
+    "events": [
+      {
+        "id": "shuttervisionbassbirthday|2026-10-10|22:00|glam104",
+        "title": "Shuttervision Bass Birthday",
+        "venue": "Glam104",
+        "area": "Atlanta, GA",
+        "cityId": "atlanta-us",
+        "timeZone": "America/New_York",
+        "date": "2026-10-10",
+        "endDate": "2026-10-10",
+        "time": "22:00",
+        "endTime": "23:59",
+        "category": "Music/DJ",
+        "sourceUrl": "https://www.atledmevents.com/calendar",
+        "sourceName": "Atlanta EDM Events",
+        "verifiedAt": "2026-10-01T01:47:25.626Z",
+        "dateRelevance": "overlapping",
+        "eventStatus": "scheduled",
+        "overlap": null,
+        "overlapReason": null
+      }
+    ],
+    "checkedAt": "2026-10-01T01:47:25.626Z",
+    "cached": false,
+    "coverage": {
+      "attemptedSources": [
+        "OpenAI web search"
+      ],
+      "successfulSources": [
+        "https://www.atledmevents.com/calendar",
+        "https://www.axs.com/uk/venues/130338/believe-music-hall-atlanta-tickets",
+        "https://www.axs.com/venues/130338/believe-music-hall-atlanta-tickets?skin=independent",
+        "https://www.axs.com/venues/101068/heaven-at-the-masquerade-atlanta-tickets",
+        "https://www.axs.com/venues/130338/believe-music-hall-atlanta-tickets",
+        "https://www.axs.com/venues/130338/believe-music-hall-atlanta-tickets?page=2&skin=tmobile&staticDetails=staticDetails",
+        "https://soybean-bison-24c9.squarespace.com/calendar?category=Atlanta",
+        "https://19hz.info/eventlisting_Atlanta.php",
+        "https://www.atlanta-ga.events/concerts/edm/",
+        "https://www.ticketle.net/atlanta/october",
+        "https://believeatl.com/calendar/",
+        "https://www.concertowl.com/atlanta/pisces"
+      ],
+      "failedSources": [],
+      "truncated": false,
+      "note": "Public web coverage varies by city and date. No listing does not establish a competition-free date."
+    }
+  },
+  "n8nExecutionId": "3704"
+}

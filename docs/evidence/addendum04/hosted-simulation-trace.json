@@ -1,0 +1,27 @@
+{
+  "base": "https://web-production-af12a.up.railway.app",
+  "deployment": "089dd597-8d8f-4e2f-8b67-19e3d3268ed1",
+  "trace": [
+    {
+      "cityId": "atlanta-us",
+      "requestId": "3cff9cd2-7e56-44a0-98dc-09da9dc3cebb",
+      "status": "ok",
+      "mode": "simulation",
+      "n8nExecutionId": "3699"
+    },
+    {
+      "cityId": "berlin-de",
+      "requestId": "2b94e5e7-f691-4cf5-8840-410e66cd4de1",
+      "status": "ok",
+      "mode": "simulation",
+      "n8nExecutionId": "3700"
+    },
+    {
+      "cityId": "kingston-jm",
+      "requestId": "6c671ab4-c65f-41dd-af95-180255413163",
+      "status": "ok",
+      "mode": "simulation",
+      "n8nExecutionId": "3701"
+    }
+  ]
+}

@@ -5,6 +5,14 @@ One interactive concert economics lesson with an original Blender world and anim
 
 Live: https://web-production-af12a.up.railway.app. The existing QR code in docs/demo-qr.svg is unchanged.
 
+## Use this template
+
+- [Download the Creators portal workflow JSON](submission/The-Economics-of-Everything-Concert-n8n.json).
+- [Follow the recipient setup guide](submission/TEMPLATE-SETUP.txt).
+- [Watch the 1:49 walkthrough](https://youtu.be/JP_wxRAzGkc).
+
+The public demo uses the creator's backend. To use your own n8n credentials, import the workflow, install TypeSafe AI, and deploy this companion web application with your own production webhook URLs and shared secret. Importing the JSON does not reconnect the public demo to your instance. Voice credentials are configured separately on the website server. One workflow contains both coaching and event-research branches.
+
 ## Lessons
 
 | Route | Experiment |

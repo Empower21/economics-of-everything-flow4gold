@@ -1,0 +1,29 @@
+THE ECONOMICS OF EVERYTHING - CONCERT SYSTEM
+
+Upload The-Economics-of-Everything-Concert-n8n.json to the Creators portal. This is one workflow containing 21 executable nodes and 3 explanatory notes. No creator credentials, instance IDs, pinned data or execution history are included. Importing/publishing in a fresh recipient instance has not been tested during this export; structural, connection and Code-node syntax checks passed.
+
+WHAT THE TEMPLATE INCLUDES
+Two authenticated webhook branches: scenario-aware concert coaching and city/date event research. Deterministic economics, TypeSafe intent routing, approved OpenAI explanations, clarification and fallback responses. It does not include website hosting, provider accounts or credentials.
+
+RECIPIENT SETUP
+1. Obtain the companion application source from the creator:
+https://github.com/Empower21/economics-of-everything-flow4gold
+The repository is public. Clone or download it to deploy your own companion website.
+2. Install the TypeSafe AI community node in n8n. This project used @typesafe-ai/n8n-nodes-typesafe-ai version 0.9.0. Confirm availability/compatibility with your n8n installation.
+3. Import the JSON. Create Header Auth with header name X-Lesson-Key and your own strong random secret. Select this credential on Lesson request AND Event research request.
+4. Select your OpenAI credential on Select lesson explanation AND Retrieve dated sources. Select your TypeSafe AI API credential on Identify concert question; operation Evaluate.
+5. Publish/activate the workflow. Copy the production webhook URLs, not the test URLs. If the paths already exist on that n8n instance, choose unique paths before publishing.
+6. Deploy the companion Node application (Node 22+, npm ci, npm run build, npm start) on an HTTPS host such as Railway. Set these server-side variables:
+N8N_WEBHOOK_URL=<Lesson request production URL>
+N8N_EVENTS_WEBHOOK_URL=<Event research request production URL>
+N8N_WEBHOOK_SECRET=<the exact Header Auth secret from step 3>
+PUBLIC_ORIGIN=<your deployed website HTTPS origin, no trailing slash>
+TRUST_PROXY_HOPS=1 on Railway with one trusted proxy; use 0 for local direct access.
+7. Optional voice: set OPENAI_API_KEY for transcription, ELEVENLABS_API_KEY and ELEVENLABS_VOICE_ID for spoken replies on the WEBSITE SERVER. n8n credentials do not automatically configure these server services. Without voice credentials, use text.
+8. Verify price 20 gives 150 guests and 750 profit; price 30 gives 100 guests and 1000 profit under default assumptions. Ask the coach about ticket revenue and verify the response is from n8n, rather than just the prepared fallback. Test simulation listings for Atlanta, Berlin and Kingston. Then test live research and voice separately if configured.
+
+EXISTING PUBLIC DEMO
+https://web-production-af12a.up.railway.app
+Anyone can try this demonstration. It remains connected to Alicia's backend and service budget. Importing the template into another n8n account does not redirect this site to that account. An independent deployment needs its own website/gateway and credentials. Never put API keys or the webhook secret in browser code.
+
+Submission walkthrough: https://youtu.be/JP_wxRAzGkc

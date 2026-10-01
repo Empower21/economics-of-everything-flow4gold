@@ -1,0 +1,55 @@
+﻿/* Page chrome follows the concert palette; scene canvas and neon signs stay untouched. */
+:root{--green:#89efd2;--lime:#ffcf83;--muted:#bac5dd;--line:#495575;background:#101426;color:#e4eafa;color-scheme:dark}
+body{background:linear-gradient(90deg,#ffffff03 1px,transparent 1px),linear-gradient(#ffffff03 1px,transparent 1px),#101426;background-size:24px 24px;font-size:16px}
+.site-header{background:#171d34;border-bottom:2px solid #485574;padding:20px 4vw}
+.brand{font-family:'Pixelify Sans',monospace;font-size:20px;letter-spacing:0;color:#e4eafa;line-height:1.1}
+.brand-mark{border-radius:0;background:#89efd2;color:#101426;box-shadow:4px 4px 0 #435f69}
+.header-lab{color:#bac5dd;font-size:11px;letter-spacing:1.5px}
+.site-header select{background:#202b46;color:#edf3ff;border:2px solid #657393;border-radius:0;font-size:16px;min-height:44px}
+.concert-heading{font-family:'Pixelify Sans',monospace;font-size:18px;color:#89efd2;letter-spacing:2px;margin:28px 0 12px}
+.compact-title{margin:0 0 28px;gap:28px;align-items:flex-start}
+.compact-title h1{font-family:'Pixelify Sans',monospace;font-weight:500;font-size:clamp(32px,3.5vw,48px);letter-spacing:0;line-height:1.15;color:#f3e9ff}
+.compact-title p{font-size:16px;line-height:1.7;color:#ced6e9;max-width:780px}
+.money-note{font-size:13px;color:#bac5dd;line-height:1.6}
+.primary{background:#ffcf83;color:#201c30;border:2px solid #ffe3b4;border-radius:0;box-shadow:4px 4px 0 #795774;font-size:14px;white-space:normal;flex-shrink:0}
+.world-column{position:static;min-width:0}
+.dashboard h2,.event-planner h3,.tutor-section h2,.comparison h2,.video-heading h2,.methodology h1{font-family:'Pixelify Sans',monospace;letter-spacing:0;line-height:1.2}
+.dashboard h2{font-size:32px}.event-planner h3{font-size:25px}
+.decision-panel{border-radius:0}.decision-panel .field-help,.decision-panel .worked-example,.dashboard>small,.decision-panel #profile-summary,.decision-panel #audience-help{font-size:13px;line-height:1.65}
+.dashboard>p,.event-planner p,.event-planner small,.break-even{font-size:14px;line-height:1.65}
+.decision-panel select,.decision-panel input[type=date],.decision-panel input[type=time],.decision-panel .sensitivity select{font-size:16px}
+.decision-panel .field>label,.event-planner label{font-size:14px}
+.deck-caption{font-size:11px;letter-spacing:1px}
+.result-card,.explore-panel,.comparison,.tutor-card,.assumptions,dialog{background:#1a233b;color:#e4eafa;border:2px solid #4c5b7d;border-radius:0;box-shadow:4px 4px 0 #090e20}
+.result-card,.explore-panel{margin-top:18px}
+.result-card>summary,.explore-panel>summary,.assumptions>summary{font-family:'Pixelify Sans',monospace;font-size:22px;line-height:1.4;color:#b6ffe8}
+.result-card:not([open]){padding-bottom:0}
+.result-card small,.tutor-card small{font-size:13px;line-height:1.65;color:#bac5dd}
+.cost-line,.metric{border-color:#495575;font-size:14px}.metric strong{font-size:18px}.metric.main-metric{background:#21483f;color:#d6fff1;border-radius:0}.metric.negative{background:#6c3544;color:#fff1ec}
+#breakdown p,.assumptions p,.assumptions a{font-size:14px;line-height:1.8}.assumptions{padding:18px 22px;margin:24px 0 32px}
+.explore-panel .hotspots{display:flex;background:#141c32;border-color:#495575}
+.explore-panel .context-card{display:flex;background:#202b46;color:#e4eafa;border-color:#495575}
+.context-card .eyebrow{color:#ffcf83}.context-card p{font-size:15px}
+.explore-panel button,.question-chips button,.audio-tools button,.comparison button,.video-heading button{border:2px solid #607393;border-radius:0;background:#263653;color:#edf5ff;min-height:44px;font-size:14px;line-height:1.5}
+.explore-panel button[aria-pressed=true],.context-card #experiment{background:#a4edd5;color:#142634;border-color:#a4edd5}
+.tutor-section{margin:36px 0;gap:32px}.tutor-section h2{font-size:34px;color:#e6cdff}.tutor-section .eyebrow{color:#89efd2;font-size:12px}.tutor-section>div>p{color:#ced6e9;font-size:16px;line-height:1.7}
+.tutor-heading{color:#bac5dd;font-size:13px}.tutor-avatar{background:#89efd2;color:#101426;border-radius:0}
+#explanation{color:#e4eafa;font-size:16px;line-height:1.8}
+#ask-form{background:#111a2e;border:2px solid #667899;border-radius:0;padding:14px}
+#ask-form label{font-size:14px}textarea{color:#e4eafa;font-size:16px}textarea::placeholder{color:#aebdd7}
+.form-bottom button{background:#a4edd5;color:#142634;border-radius:0;min-height:44px;font-size:14px}
+.audio-tools{border-color:#495575;font-size:14px}.audio-tools label{min-height:44px}
+#voice-status,#transcript{color:#ffcf83;font-size:14px}#form-error,#change-notice{color:#ffc1b5;font-size:14px;line-height:1.6}#change-notice:empty{display:none}
+.comparison{margin:24px 0;padding:24px}.comparison table{color:#e4eafa;font-size:14px}.comparison th,.comparison td{border-color:#495575}
+footer{color:#bac5dd;font-size:12px;flex-wrap:wrap;line-height:1.6}
+button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid #ffcf83;outline-offset:4px}
+.methodology{color:#e4eafa}.methodology pre{background:#1a233b;color:#b6ffe8;border-radius:0;overflow-wrap:anywhere}
+@media(max-width:900px){.compact-title{flex-wrap:wrap}.tutor-section{grid-template-columns:1fr}.compact-title .primary{margin-top:0}.experience-grid{gap:24px}}
+@media(max-width:480px){.site-header{padding:18px 16px}.brand{font-size:17px}.compact-title{margin:0 0 24px}.compact-title h1{font-size:32px}.compact-title p{font-size:15px}.dashboard h2{font-size:29px}.tutor-section h2{font-size:30px}.tutor-card{padding:16px}.decision-panel .scenario-actions{flex-wrap:wrap}.decision-panel .scenario-actions button{flex-basis:120px}.question-chips button{font-size:14px}.assumptions{padding:16px}.result-card>summary,.explore-panel>summary{font-size:20px}.deck-caption{font-size:10px}}
+
+/* Keep the coach beside the longer mixer on desktop, after controls on phones. */
+.experience-grid{grid-template-areas:'world controls' 'coach controls' 'model controls';grid-template-rows:min-content min-content 1fr;row-gap:24px}
+.experience-grid>.tutor-section{grid-area:coach;grid-template-columns:1fr;margin:0;min-width:0;gap:20px}
+.experience-grid>.assumptions{grid-area:model;align-self:start;margin:0}
+@media(max-width:900px){.experience-grid{grid-template-areas:'world' 'controls' 'coach' 'model';grid-template-rows:auto}.experience-grid>.assumptions{margin-bottom:24px}}
+.experience-grid{margin-bottom:32px}

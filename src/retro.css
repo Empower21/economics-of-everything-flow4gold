@@ -53,3 +53,6 @@ button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible
 .experience-grid>.assumptions{grid-area:model;align-self:start;margin:0}
 @media(max-width:900px){.experience-grid{grid-template-areas:'world' 'controls' 'coach' 'model';grid-template-rows:auto}.experience-grid>.assumptions{margin-bottom:24px}}
 .experience-grid{margin-bottom:32px}
+
+/* Chapter links keep the longer guided story easy to revisit. */
+#video-chapters{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}#video-chapters button{font-size:13px;text-align:left;min-height:44px;padding:8px 12px;flex:1 1 220px}#video-transcript{font-size:15px}.compact-title #setup{max-width:880px}

@@ -46,7 +46,7 @@ app.use('/api', (_req,res) => res.status(404).json({ error:'Endpoint not found.'
 // Only the concert is published. Retired lesson URLs and media must not reach the SPA fallback.
 app.use((req,res,next)=>{
   const unsupportedLesson=(req.path.startsWith('/lessons/')&&!['/lessons/concert','/lessons/concert-economics'].includes(req.path.replace(/\/$/,'')))||(req.query.lesson&&!['concert','concert-economics'].includes(req.query.lesson));
-  const unsupportedAsset=(req.path.startsWith('/models/')&&!['/models/concert.glb','/models/control-deck.glb'].includes(req.path))||(req.path.startsWith('/media/')&&!/^\/media\/concert-(en|de)(\.mp4|\.vtt|\.txt|-poster\.jpg)$/.test(req.path));
+  const unsupportedAsset=(req.path.startsWith('/models/')&&!['/models/concert.glb','/models/control-deck.glb'].includes(req.path))||(req.path.startsWith('/media/')&&!/^\/media\/concert-(en|de)(\.mp4|\.vtt|\.txt|\.chapters\.json|-poster\.jpg)$/.test(req.path));
   if(unsupportedLesson||unsupportedAsset)return res.status(404).type('html').send('<!doctype html><html lang="en"><meta charset="utf-8"><title>Page unavailable</title><h1>This page is no longer available.</h1><a href="/">Open The concert</a></html>');
   next();
 });

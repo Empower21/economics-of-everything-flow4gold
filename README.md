@@ -11,7 +11,7 @@ Live: https://web-production-af12a.up.railway.app. The existing QR code in docs/
 | --- | --- |
 | /lessons/concert-economics | Ticket price, independent demand, venue capacity and costs |
 
-Append ?lang=de for German. Root opens the concert. Mix Your Margins offers typed/sliding levers, fictional location profiles and estimated/manual attendance. Reset concert, Pause motion, Save this mix and Undo have distinct purposes. Your last move explains deterministic changes. See docs/ADDENDUM-03-VALIDATION.md and docs/TYPESAFE-SETUP.md for current implementation and evidence.
+Append ?lang=de for German. Root opens the concert. Mix Your Margins offers typed/sliding levers, fictional location profiles and estimated/manual attendance. Reset concert, Pause motion and Save this mix have distinct purposes. The guided story introduces the purpose, controls, economic trade-offs and architecture. See docs/ADDENDUM-03-VALIDATION.md and docs/TYPESAFE-SETUP.md for current implementation and evidence.
 
 ## Run
 
@@ -43,9 +43,9 @@ All amounts are USD; demand/cost assumptions are fictional teaching inputs. Capa
 
 Microphone -> OpenAI transcription -> editable transcript -> Send -> validated setting command when present -> n8n -> approved text -> configured ElevenLabs voice. Recording lasts at most 30 seconds with Stop recording and Cancel. Scenario/language/topic changes discard pending responses. Stop audio also suppresses pending speech. Permission denial leaves text input usable.
 
-One preset story in two languages runs approximately 70 seconds each in a phone-friendly 960 × 960 composition. These are actual animated browser recordings of original Blender scenes, with native caption tracks and transcripts. Live controls do not alter recorded numbers. Learner media is separate from the pending competition video.
+One guided product story runs approximately 4 minutes 30 seconds in English and 5 minutes 15 seconds in German, in a phone-friendly 960 × 960 composition. Eleven chapters cover the purpose, pricing, capacity, costs, audience assumptions, competing events, saved comparisons, voice/text coaching and the deterministic/n8n architecture. Chapter buttons support seeking. These are actual animated browser recordings of original Blender scenes, with native caption tracks and transcripts. Live controls do not alter recorded numbers. Learner media is separate from the pending competition video.
 
-Regenerate using scripts/generate-narration.js then scripts/record-explainers.js against a production preview. These require FFmpeg and Playwright Chromium; narration calls the paid speech service for missing cached clips. Existing owner-configured ElevenLabs voice is used; no new voice was cloned. Rebuild afterward to include media in dist.
+Regenerate using node --env-file=.env scripts/generate-narration.js then node scripts/record-explainers.js against a production preview (TEST_BASE_URL, default http://127.0.0.1:3196; matching PUBLIC_ORIGIN required for demonstration requests). STORY_PREVIEW=1 produces chapter screenshots; STORY_LANGUAGE=en or de limits a render to one language. Narration caches are keyed by script, language and configured voice. These require FFmpeg and Playwright Chromium; narration calls the paid speech service for missing cached clips. Existing owner-configured ElevenLabs voice is used; no new voice was cloned. Rebuild afterward to include media in dist.
 
 ## Fallbacks and privacy
 

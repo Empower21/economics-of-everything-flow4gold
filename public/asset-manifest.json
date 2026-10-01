@@ -14,7 +14,7 @@
   "fallback": "Accessible dashboard and metrics with scene retry; no alternate renderer",
   "voice": "Existing configured ElevenLabs voice; user accent review pending",
   "media": {
-    "version": "addendum03",
+    "version": "guided-story-2026-09-30",
     "format": "960 × 960 actual browser recordings with configured ElevenLabs narration",
     "languages": [
       "en",
@@ -23,7 +23,12 @@
     "paths": [
       "/media/concert-en.mp4",
       "/media/concert-de.mp4"
-    ]
+    ],
+    "chapters": 11,
+    "durationSeconds": {
+      "en": 270,
+      "de": 315
+    }
   },
   "modelBytes": 1373956
 }

@@ -1,49 +1,163 @@
 WEBVTT
 
-00:00:00.000 --> 00:00:02.785
-A full house looks like success.
+00:00:00.000 --> 00:00:06.877
+Meet The Economics of Everything: an interactive economics lab built around everyday decisions.
 
-00:00:02.785 --> 00:00:07.485
-But does a bigger crowd always mean a better business?
+00:00:06.877 --> 00:00:10.206
+In this chapter, you are the concert promoter.
 
-00:00:07.485 --> 00:00:13.839
-Let us explore a miniature concert, using invented numbers in US dollars.
+00:00:10.206 --> 00:00:14.622
+Your mission is to put on a great night without losing money.
 
-00:00:13.989 --> 00:00:21.129
-At a ticket price of twenty dollars, one hundred and fifty guests attend.
+00:00:14.622 --> 00:00:19.255
+This is a playable model, not a ticket shop or a sales forecast.
 
-00:00:21.129 --> 00:00:23.672
-Revenue is three thousand.
+00:00:19.255 --> 00:00:23.381
+Change an assumption, see the consequences, then ask why.
 
-00:00:23.672 --> 00:00:31.497
-After production, venue and per-person costs, profit is seven hundred and fifty.
+00:00:23.531 --> 00:00:25.538
+Start in Mix Your Margins.
 
-00:00:31.647 --> 00:00:35.300
-Raise the ticket price to thirty dollars.
+00:00:25.538 --> 00:00:29.554
+Drag the ticket-price fader or type an exact number.
 
-00:00:35.300 --> 00:00:37.974
-Now one hundred guests attend.
+00:00:29.554 --> 00:00:32.411
+The second fader sets venue capacity.
 
-00:00:37.974 --> 00:00:42.251
-Revenue stays at three thousand, but costs fall.
+00:00:32.411 --> 00:00:39.825
+The animated dance floor and five signs turn your inputs into guests, revenue, costs and profit.
 
-00:00:42.251 --> 00:00:44.835
-Profit rises to one thousand.
+00:00:39.825 --> 00:00:47.933
+At twenty dollars, our example has a hundred and fifty guests and seven hundred and fifty dollars profit.
 
-00:00:44.985 --> 00:00:50.773
-Now rent a thousand-place venue without changing interest.
+00:00:48.083 --> 00:00:50.762
+Now raise the price to thirty dollars.
 
-00:00:50.773 --> 00:00:55.662
-The crowd stays the same, while venue costs rise.
+00:00:50.762 --> 00:00:55.344
+In this model, fewer people buy: attendance falls to one hundred.
 
-00:00:55.662 --> 00:00:59.753
-The event loses twelve hundred and fifty.
+00:00:55.344 --> 00:01:02.323
+Revenue stays at three thousand dollars, but per-guest costs fall, so profit rises to one thousand.
 
-00:00:59.903 --> 00:01:03.813
-More capacity is not the same as more demand.
+00:01:02.323 --> 00:01:04.790
+That is price elasticity in action.
 
-00:01:03.813 --> 00:01:05.985
-Try your own assumptions.
+00:01:04.790 --> 00:01:09.513
+A bigger crowd and a better business are not always the same thing.
 
-00:01:05.985 --> 00:01:10.677
-Follow the money, and remember: revenue is not profit.
+00:01:09.663 --> 00:01:15.006
+Next, return the price to twenty and increase capacity to one thousand.
+
+00:01:15.006 --> 00:01:18.542
+You still have only a hundred and fifty buyers.
+
+00:01:18.542 --> 00:01:24.261
+Venue costs rise, and profit becomes a twelve-hundred-and-fifty-dollar loss.
+
+00:01:24.261 --> 00:01:27.948
+Capacity is a constraint, not a demand generator.
+
+00:01:27.948 --> 00:01:34.344
+Use this lever when testing the cost of expanding before assuming the room will fill.
+
+00:01:34.494 --> 00:01:38.212
+Open the cost breakdown to see where the money goes.
+
+00:01:38.212 --> 00:01:45.148
+In Add a variable, expose stage and sound, venue costs, cost per guest, promotion or sponsorship.
+
+00:01:45.148 --> 00:01:47.436
+Change one assumption at a time.
+
+00:01:47.436 --> 00:01:51.655
+Fixed and variable costs explain why revenue is not profit.
+
+00:01:51.655 --> 00:01:56.946
+The break-even message helps you see what must change to cover your costs.
+
+00:01:57.096 --> 00:02:03.273
+Use the Audience selector to choose price-based demand or set attendance yourself.
+
+00:02:03.273 --> 00:02:06.512
+Venue setup loads illustrative assumptions.
+
+00:02:06.512 --> 00:02:13.969
+Promotion spending and its assumed audience boost are separate: spending does not guarantee buyers.
+
+00:02:13.969 --> 00:02:20.070
+These controls let you test uncertainty, rather than disguise it as a prediction.
+
+00:02:20.070 --> 00:02:23.309
+All financial amounts remain in US dollars.
+
+00:02:23.459 --> 00:02:27.422
+Before choosing your date, open Who else is on the bill.
+
+00:02:27.422 --> 00:02:33.436
+Pick Atlanta, Berlin or Kingston, Jamaica, choose a date, then press Check this date.
+
+00:02:33.436 --> 00:02:39.734
+Simulation mode uses clearly labeled made-up events; live mode requests sourced research.
+
+00:02:39.734 --> 00:02:43.838
+This introduces competition for scarce audience attention.
+
+00:02:43.838 --> 00:02:50.277
+Listings do not automatically change attendance: decide which assumptions you want to test.
+
+00:02:50.427 --> 00:02:53.314
+Save this mix before your next experiment.
+
+00:02:53.314 --> 00:02:57.714
+Then change one input and compare the saved and current results.
+
+00:02:57.714 --> 00:03:03.558
+Restore the saved mix to return to your baseline, or reset the concert to start over.
+
+00:03:03.558 --> 00:03:13.389
+This is the economic habit we want to teach: compare alternatives, make assumptions visible, and understand what you give up for what you gain.
+
+00:03:13.539 --> 00:03:17.010
+When a result surprises you, ask your concert coach.
+
+00:03:17.010 --> 00:03:23.884
+Type a question, choose a suggested question, or use the microphone, review the transcript and send it.
+
+00:03:23.884 --> 00:03:26.554
+Enable Speak replies to hear the answer.
+
+00:03:26.554 --> 00:03:34.830
+The coach explains this bounded concert model using your current scenario, helping connect the numbers to the economic idea.
+
+00:03:34.980 --> 00:03:40.525
+For the builders in the room: shared deterministic formulas own the money.
+
+00:03:40.525 --> 00:03:43.822
+Blender assets and Babylon render the world.
+
+00:03:43.822 --> 00:03:54.313
+One n8n workflow handles coaching and event research; TypeSafe AI classifies concert questions, and the coach selects approved explanations.
+
+00:03:54.313 --> 00:03:59.634
+AI helps interpret the model; it does not invent the financial results.
+
+00:03:59.634 --> 00:04:03.980
+That separation makes the learning experience inspectable.
+
+00:04:04.130 --> 00:04:10.998
+The Economics of Everything starts with a familiar experience and makes its hidden economics visible.
+
+00:04:10.998 --> 00:04:19.021
+The concert is the working chapter: demand, constraints, costs and trade-offs you can manipulate, not just read about.
+
+00:04:19.021 --> 00:04:20.925
+Try your first decision now.
+
+00:04:20.925 --> 00:04:24.461
+Move the price fader, watch the result, and ask why.
+
+00:04:24.461 --> 00:04:27.589
+The outcome is not a perfect concert forecast.
+
+00:04:27.589 --> 00:04:29.833
+It is a better economic question.

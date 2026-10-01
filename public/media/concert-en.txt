@@ -1,9 +1,21 @@
-A full house looks like success. But does a bigger crowd always mean a better business? Let us explore a miniature concert, using invented numbers in US dollars.
+Meet The Economics of Everything: an interactive economics lab built around everyday decisions. In this chapter, you are the concert promoter. Your mission is to put on a great night without losing money. This is a playable model, not a ticket shop or a sales forecast. Change an assumption, see the consequences, then ask why.
 
-At a ticket price of twenty dollars, one hundred and fifty guests attend. Revenue is three thousand. After production, venue and per-person costs, profit is seven hundred and fifty.
+Start in Mix Your Margins. Drag the ticket-price fader or type an exact number. The second fader sets venue capacity. The animated dance floor and five signs turn your inputs into guests, revenue, costs and profit. At twenty dollars, our example has a hundred and fifty guests and seven hundred and fifty dollars profit.
 
-Raise the ticket price to thirty dollars. Now one hundred guests attend. Revenue stays at three thousand, but costs fall. Profit rises to one thousand.
+Now raise the price to thirty dollars. In this model, fewer people buy: attendance falls to one hundred. Revenue stays at three thousand dollars, but per-guest costs fall, so profit rises to one thousand. That is price elasticity in action. A bigger crowd and a better business are not always the same thing.
 
-Now rent a thousand-place venue without changing interest. The crowd stays the same, while venue costs rise. The event loses twelve hundred and fifty.
+Next, return the price to twenty and increase capacity to one thousand. You still have only a hundred and fifty buyers. Venue costs rise, and profit becomes a twelve-hundred-and-fifty-dollar loss. Capacity is a constraint, not a demand generator. Use this lever when testing the cost of expanding before assuming the room will fill.
 
-More capacity is not the same as more demand. Try your own assumptions. Follow the money, and remember: revenue is not profit.
+Open the cost breakdown to see where the money goes. In Add a variable, expose stage and sound, venue costs, cost per guest, promotion or sponsorship. Change one assumption at a time. Fixed and variable costs explain why revenue is not profit. The break-even message helps you see what must change to cover your costs.
+
+Use the Audience selector to choose price-based demand or set attendance yourself. Venue setup loads illustrative assumptions. Promotion spending and its assumed audience boost are separate: spending does not guarantee buyers. These controls let you test uncertainty, rather than disguise it as a prediction. All financial amounts remain in U.S. dollars.
+
+Before choosing your date, open Who else is on the bill. Pick Atlanta, Berlin or Kingston, Jamaica, choose a date, then press Check this date. Simulation mode uses clearly labeled made-up events; live mode requests sourced research. This introduces competition for scarce audience attention. Listings do not automatically change attendance: decide which assumptions you want to test.
+
+Save this mix before your next experiment. Then change one input and compare the saved and current results. Restore the saved mix to return to your baseline, or reset the concert to start over. This is the economic habit we want to teach: compare alternatives, make assumptions visible, and understand what you give up for what you gain.
+
+When a result surprises you, ask your concert coach. Type a question, choose a suggested question, or use the microphone, review the transcript and send it. Enable Speak replies to hear the answer. The coach explains this bounded concert model using your current scenario, helping connect the numbers to the economic idea.
+
+For the builders in the room: shared deterministic formulas own the money. Blender assets and Babylon render the world. One n8n workflow handles coaching and event research; TypeSafe AI classifies concert questions, and the coach selects approved explanations. AI helps interpret the model; it does not invent the financial results. That separation makes the learning experience inspectable.
+
+The Economics of Everything starts with a familiar experience and makes its hidden economics visible. The concert is the working chapter: demand, constraints, costs and trade-offs you can manipulate, not just read about. Try your first decision now. Move the price fader, watch the result, and ask why. The outcome is not a perfect concert forecast. It is a better economic question.

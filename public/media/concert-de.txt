@@ -1,9 +1,21 @@
-Ein volles Haus sieht nach Erfolg aus. Aber bedeutet ein größeres Publikum immer ein besseres Geschäft? Wir erkunden ein kleines Konzert mit erfundenen Zahlen in US-Dollar.
+Das ist The Economics of Everything: ein interaktives Wirtschaftslabor für alltägliche Entscheidungen. In diesem Kapitel bist du Konzertveranstalter. Deine Mission: ein großartiger Abend ohne Verlust. Dies ist ein spielbares Modell, kein Ticketshop und keine Verkaufsprognose. Ändere eine Annahme, beobachte die Folgen und frage nach dem Warum.
 
-Bei einem Ticketpreis von zwanzig Dollar kommen hundertfünfzig Gäste. Der Umsatz beträgt dreitausend. Nach Produktionskosten, Saalkosten und Kosten je Gast bleiben siebenhundertfünfzig Gewinn.
+Starte unter Mixe deine Gewinne. Bewege den Ticketpreis-Regler oder gib eine genaue Zahl ein. Der zweite Regler bestimmt die Saalgröße. Tanzfläche und fünf Anzeigen übersetzen deine Eingaben in Gäste, Umsatz, Kosten und Gewinn. Bei zwanzig Dollar kommen im Beispiel hundertfünfzig Gäste. Der Gewinn beträgt siebenhundertfünfzig Dollar.
 
-Erhöhe den Ticketpreis auf dreißig Dollar. Jetzt kommen hundert Gäste. Der Umsatz bleibt bei dreitausend, aber die Kosten sinken. Der Gewinn steigt auf tausend.
+Erhöhe den Preis auf dreißig Dollar. Im Modell kaufen nun weniger Menschen: Die Gästezahl sinkt auf hundert. Der Umsatz bleibt bei dreitausend Dollar, doch die Kosten je Gast entfallen für die fehlenden Gäste. Der Gewinn steigt auf tausend Dollar. Das zeigt Preiselastizität. Mehr Publikum bedeutet nicht automatisch mehr Gewinn.
 
-Miete nun einen Saal mit tausend Plätzen, ohne die Nachfrage zu ändern. Das Publikum bleibt gleich, aber die Saalkosten steigen. Das Event verliert eintausendzweihundertfünfzig.
+Setze den Preis wieder auf zwanzig und erhöhe die Kapazität auf tausend. Es bleiben hundertfünfzig Käufer. Die Saalkosten steigen, und das Ergebnis wird zu einem Verlust von eintausendzweihundertfünfzig Dollar. Kapazität begrenzt den Absatz, erzeugt aber keine Nachfrage. Prüfe damit die Kosten einer Erweiterung, bevor du ein volles Haus erwartest.
 
-Mehr Kapazität ist nicht dasselbe wie mehr Nachfrage. Teste deine eigenen Annahmen. Verfolge das Geld und denke daran: Umsatz ist nicht Gewinn.
+Öffne die Kostenübersicht und verfolge das Geld. Über Variable hinzufügen kannst du Bühne und Ton, Saalkosten, Kosten je Gast, Werbung oder Sponsoring einblenden. Ändere jeweils eine Annahme. Fixe und variable Kosten erklären, warum Umsatz nicht Gewinn ist. Der Break-even-Hinweis zeigt, was zur Kostendeckung nötig ist.
+
+Wähle unter Publikum zwischen preisabhängiger Nachfrage und einer selbst festgelegten Gästezahl. Das Veranstaltungsprofil lädt Beispielannahmen. Werbeausgaben und angenommener Nachfragezuwachs sind getrennt: Ausgaben garantieren keine Käufer. So prüfst du Unsicherheit, statt sie als Vorhersage zu tarnen. Alle Geldbeträge bleiben in US-Dollar.
+
+Prüfe vor der Terminwahl, wer sonst noch spielt. Wähle Atlanta, Berlin oder Kingston in Jamaika, ein Datum und dann Datum prüfen. Der Simulationsmodus zeigt gekennzeichnete erfundene Veranstaltungen; der Live-Modus recherchiert mit Quellen. Hier geht es um Wettbewerb um begrenzte Aufmerksamkeit. Einträge ändern die Gästezahl nicht automatisch: Entscheide selbst, welche Annahmen du testen möchtest.
+
+Speichere deinen Mix vor dem nächsten Experiment. Ändere eine Eingabe und vergleiche gespeicherte und aktuelle Ergebnisse. Lade den Mix, um zur Ausgangslage zurückzukehren, oder setze das Konzert zurück. Das ist die wirtschaftliche Denkweise dahinter: Alternativen vergleichen, Annahmen sichtbar machen und verstehen, was du für einen Vorteil aufgibst.
+
+Wenn dich ein Ergebnis überrascht, frage den Konzert-Coach. Tippe eine Frage, wähle einen Vorschlag oder nutze das Mikrofon, prüfe den erkannten Text und sende ihn. Aktiviere Antworten vorlesen, um zuzuhören. Der Coach erklärt dieses begrenzte Konzertmodell anhand deines aktuellen Szenarios und verbindet Zahlen mit wirtschaftlichen Zusammenhängen.
+
+Für die Entwickler im Raum: Gemeinsame deterministische Formeln berechnen das Geld. Blender-Assets und Babylon stellen die Welt dar. Ein n8n-Workflow übernimmt Coaching und Event-Recherche. TypeSafe AI ordnet Konzertfragen ein; der Coach wählt freigegebene Erklärungen. KI hilft bei der Interpretation, erfindet aber keine Finanzergebnisse. Diese Trennung macht das Lernmodell nachvollziehbar.
+
+The Economics of Everything beginnt mit einer vertrauten Erfahrung und macht die Wirtschaft dahinter sichtbar. Das Konzert ist das funktionierende Kapitel: Nachfrage, Grenzen, Kosten und Abwägungen zum Ausprobieren statt nur zum Lesen. Teste jetzt eine Entscheidung. Bewege den Preisregler, beobachte das Ergebnis und frage warum. Das Ziel ist keine perfekte Konzertprognose, sondern eine bessere wirtschaftliche Frage.

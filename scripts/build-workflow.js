@@ -28,5 +28,5 @@ nodes.find(n=>n.name==='Select lesson explanation').position=[1480,-80];nodes.fi
 nodes.find(n=>n.name==='Check explanation or use prepared lesson').position=[1740,-80];nodes.find(n=>n.name==='Deliver interactive lesson').position=[2000,-80];
 connect('Valid lesson request?','Identify concert question');connect('Identify concert question','Read intent confidence');connect('Read intent confidence','Confident supported intent?');connect('Confident supported intent?','Select lesson explanation');connect('Confident supported intent?','Ask focused clarification',1);connect('Ask focused clarification','Deliver interactive lesson');
 const workflow={name:'The Economics of Everything — The concert',nodes,connections,settings:{executionOrder:'v1',saveDataErrorExecution:'none',saveDataSuccessExecution:'none',saveManualExecutions:false,executionTimeout:30},active:false,pinData:{},tags:[]};
-await mkdir('workflow',{recursive:true});await writeFile('workflow/economics-concert.json',JSON.stringify(workflow,null,2)+'\n');
-console.log('Sanitized workflow written to workflow/economics-concert.json');
+await mkdir('.local',{recursive:true});await writeFile('.local/coach-branch.json',JSON.stringify(workflow,null,2)+'\n');
+console.log('Sanitized workflow written to .local/coach-branch.json');

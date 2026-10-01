@@ -1,0 +1,27 @@
+[
+  {
+    "path": "/webhook/economics-concert-v1",
+    "auth": false,
+    "status": 403
+  },
+  {
+    "path": "/webhook/economics-concert-v1",
+    "auth": true,
+    "status": 400
+  },
+  {
+    "path": "/webhook/concert-events-v1",
+    "auth": false,
+    "status": 403
+  },
+  {
+    "path": "/webhook/concert-events-v1",
+    "auth": true,
+    "status": 400
+  },
+  {
+    "speech": 200,
+    "type": "audio/mpeg",
+    "bytes": 206097
+  }
+]

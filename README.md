@@ -19,9 +19,9 @@ Requires Node 22+. Install with npm ci, then npm run dev (port 3000). Production
 
 ## Services
 
-Import workflow/economics-concert.json into n8n. The filename and authenticated webhook path are preserved, and only the concert topic is supported. Select Header Auth on Lesson request, with header X-Lesson-Key and a random secret. Select an OpenAI credential on Select lesson explanation and a TypeSafe AI API credential on Identify concert question, then publish.
+The single canonical production workflow is [The Economics of Everything ? Concert System](https://amdrfound.app.n8n.cloud/workflow/Cbr6Bvxj4vKROEaE). See [Addendum 05 validation and rollback](docs/ADDENDUM-05-VALIDATION.md). The old research canvas is inactive. For reproduction, import workflow/economics-concert.json into n8n. The filename and authenticated webhook path are preserved, and only the concert topic is supported. Select the same Header Auth on Lesson request and Event research request, with header X-Lesson-Key and a random secret. Select the existing OpenAI credential on Select lesson explanation and Retrieve dated sources and a TypeSafe AI API credential on Identify concert question, then publish.
 
-Server variables: N8N_WEBHOOK_URL, matching N8N_WEBHOOK_SECRET, OPENAI_API_KEY for transcription, ELEVENLABS_API_KEY and ELEVENLABS_VOICE_ID for speech, PUBLIC_ORIGIN for the exact HTTPS origin. Railway uses TRUST_PROXY_HOPS=1 and a single replica. Credentials never reach browser code. Owner-specific deployment helpers are scripts/n8n-deploy.js and scripts/configure-railway.js.
+Server variables: N8N_WEBHOOK_URL, N8N_EVENTS_WEBHOOK_URL (two entries on the same canonical workflow), matching N8N_WEBHOOK_SECRET, OPENAI_API_KEY for transcription, ELEVENLABS_API_KEY and ELEVENLABS_VOICE_ID for speech, PUBLIC_ORIGIN for the exact HTTPS origin. Railway uses TRUST_PROXY_HOPS=1 and a single replica. Credentials never reach browser code. Owner-specific deployment helpers are scripts/n8n-deploy.js and scripts/configure-railway.js.
 
 ## Trusted calculations
 

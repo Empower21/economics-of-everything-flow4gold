@@ -8,7 +8,7 @@
     "build": "vite build",
     "start": "node --env-file-if-exists=.env server/index.js --production",
     "test": "node --test tests/*.test.js",
-    "workflow": "node scripts/build-workflow.js",
+    "workflow": "node scripts/build-system-workflow.js",
     "test:browser": "node scripts/pixel-browser-check.js",
     "assets": "node scripts/build-assets.js"
   },

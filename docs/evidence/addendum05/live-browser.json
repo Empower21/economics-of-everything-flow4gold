@@ -1,0 +1,58 @@
+[
+  {
+    "kind": "actual website form requests, overlapped",
+    "coach": {
+      "requestId": "df7909f9-f572-4121-a523-3fd18118e207",
+      "delivery": "n8n-openai",
+      "intentDecision": {
+        "unavailable": false,
+        "explain": true,
+        "intent": "ticket_price",
+        "confidence": 0.96,
+        "model": "jev-1.13.0"
+      },
+      "scenarioRevision": 0
+    },
+    "research": {
+      "requestId": "f977c67d-9b03-464f-b46e-5be5b01e8328",
+      "status": "ok",
+      "cached": false,
+      "queryKey": "[\"atlanta-us\",\"live\",\"2026-10-10T04:00:00.000Z\",\"2026-10-11T04:00:00.000Z\",\"music\",\"same_day\",\"en\"]",
+      "eventCount": 1,
+      "sources": [
+        "https://www.atledmevents.com/calendar",
+        "https://www.axs.com/uk/venues/130338/believe-music-hall-atlanta-tickets",
+        "https://www.axs.com/venues/130338/believe-music-hall-atlanta-tickets?skin=independent",
+        "https://www.axs.com/venues/101068/heaven-at-the-masquerade-atlanta-tickets",
+        "https://www.axs.com/venues/130338/believe-music-hall-atlanta-tickets",
+        "https://www.axs.com/venues/130338/believe-music-hall-atlanta-tickets?page=2&skin=tmobile&staticDetails=staticDetails",
+        "https://soybean-bison-24c9.squarespace.com/calendar?category=Atlanta",
+        "https://19hz.info/eventlisting_Atlanta.php",
+        "https://www.atlanta-ga.events/concerts/edm/",
+        "https://www.ticketle.net/atlanta/october",
+        "https://believeatl.com/calendar/",
+        "https://www.concertowl.com/atlanta/pisces"
+      ]
+    },
+    "qr": {
+      "decodedUrl": "https://web-production-af12a.up.railway.app",
+      "pageUrl": "https://web-production-af12a.up.railway.app/",
+      "physicalScan": false,
+      "pageLoadPostCalls": 0
+    },
+    "economicsUnchanged": true,
+    "errors": []
+  },
+  {
+    "language": "de",
+    "requestId": "67e2095f-6668-45a1-992e-06b6040fa43f",
+    "delivery": "n8n-openai",
+    "intentDecision": {
+      "unavailable": false,
+      "explain": true,
+      "intent": "ticket_price",
+      "confidence": 0.9,
+      "model": "jev-1.13.0"
+    }
+  }
+]

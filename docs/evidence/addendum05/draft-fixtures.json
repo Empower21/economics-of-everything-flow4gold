@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "kind": "local serialized Code-node fixtures, not live provider executions",
+  "checks": [
+    "valid and invalid coach",
+    "TypeSafe confidence and provider error",
+    "model parity",
+    "three simulation cities",
+    "research failure",
+    "zero events"
+  ]
+}

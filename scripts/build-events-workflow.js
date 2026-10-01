@@ -18,14 +18,6 @@ const invalid=clone('Explain how to correct input','Return invalid request',720,
 const audit=code('Record research correlation',1200,`const p=$('Validate planning interval').first().json.plan;console.log(JSON.stringify({requestId:p.requestId,executionId:$execution.id,status:$json.response.status}));return $input.all();`);
 const nodes=[webhook,validate,branch,mode,simulation,search,normalize,audit,respond,invalid];const connections={};const link=(a,b,i=0)=>{connections[a]??={main:[]};connections[a].main[i]=[{node:b,type:'main',index:0}];};link(webhook.name,validate.name);link(validate.name,branch.name);link(branch.name,mode.name);link(mode.name,simulation.name);link(mode.name,search.name,1);link(simulation.name,audit.name);link(branch.name,invalid.name,1);link(search.name,normalize.name);link(normalize.name,audit.name);link(audit.name,respond.name);
 const workflow={name:'The concert — City and date research',nodes,connections,settings:{executionOrder:'v1',executionTimeout:75,saveDataErrorExecution:'all',saveDataSuccessExecution:'all',saveManualExecutions:false}};
-await fs.writeFile('workflow/concert-events.json',JSON.stringify(workflow,null,2));
-if(process.argv.includes('--deploy')){
- const base=process.env.N8N_BASE_URL,headers={'X-N8N-API-KEY':process.env.N8N_API_KEY||process.env.n8n_API_KEY,'Content-Type':'application/json'};
- const api=async(path,method='GET',body)=>{const r=await fetch(base+'/api/v1'+path,{method,headers,body:body?JSON.stringify(body):undefined});if(!r.ok)throw Error('n8n '+r.status+' '+await r.text());return r.json();};
- webhook.credentials=prior.nodes.find(n=>n.name==='Lesson request').credentials;search.credentials=prior.nodes.find(n=>n.name==='Select lesson explanation').credentials;
- let state={};try{state=JSON.parse(await fs.readFile('.local/events-state.json','utf8'));}catch{}
- const saved=state.id?await api('/workflows/'+state.id,'PUT',workflow):await api('/workflows','POST',workflow);state.id=saved.id;await fs.writeFile('.local/events-state.json',JSON.stringify(state));
- await api('/workflows/'+state.id+'/activate','POST');const published=await api('/workflows/'+state.id);
- await fs.writeFile('docs/evidence/addendum04/events-published.json',JSON.stringify({id:published.id,active:published.active,versionId:published.versionId,activeVersionId:published.activeVersionId,nodes:published.nodes,connections:published.connections,settings:published.settings},null,2));
- let env=await fs.readFile('.env','utf8');const line='N8N_EVENTS_WEBHOOK_URL='+base+'/webhook/concert-events-v1';env=/^N8N_EVENTS_WEBHOOK_URL=.*$/m.test(env)?env.replace(/^N8N_EVENTS_WEBHOOK_URL=.*$/m,line):env.trimEnd()+'\n'+line+'\n';await fs.writeFile('.env',env);console.log(JSON.stringify({id:published.id,active:published.active,versionId:published.versionId,activeVersionId:published.activeVersionId}));
-}
+await fs.mkdir('.local',{recursive:true});
+await fs.writeFile('.local/events-branch.json',JSON.stringify(workflow,null,2));
+if(process.argv.includes('--deploy'))throw Error('Deploy the consolidated workflow with scripts/n8n-deploy.js; separate event deployment is retired.');

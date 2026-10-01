@@ -1,0 +1,35 @@
+{
+  "nodes": 24,
+  "coachNodes": [
+    "Lesson request",
+    "Validate and calculate",
+    "Valid lesson request?",
+    "Identify concert question",
+    "Read intent confidence",
+    "Confident supported intent?",
+    "Select lesson explanation",
+    "Check explanation or use prepared lesson",
+    "Deliver interactive lesson",
+    "Ask focused clarification",
+    "Explain how to correct input"
+  ],
+  "researchNodes": [
+    "Event research request",
+    "Validate planning interval",
+    "Valid planning request?",
+    "Use illustrative listings?",
+    "Build clearly labeled simulation",
+    "Record research correlation",
+    "Return one research response",
+    "Retrieve dated sources",
+    "Verify geography dates and deduplicate",
+    "Return invalid request"
+  ],
+  "disjoint": true,
+  "duplicateNames": false,
+  "duplicateIds": false,
+  "paths": [
+    "economics-concert-v1",
+    "concert-events-v1"
+  ]
+}

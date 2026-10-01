@@ -1,0 +1,70 @@
+[
+  {
+    "id": "3707",
+    "workflowId": "Cbr6Bvxj4vKROEaE",
+    "status": "success",
+    "requestId": "67e2095f-6668-45a1-992e-06b6040fa43f",
+    "nodes": [
+      "Lesson request",
+      "Validate and calculate",
+      "Valid lesson request?",
+      "Identify concert question",
+      "Read intent confidence",
+      "Confident supported intent?",
+      "Select lesson explanation",
+      "Check explanation or use prepared lesson",
+      "Deliver interactive lesson"
+    ],
+    "typeSafe": {
+      "answers": {
+        "intent": {
+          "choice": "ticket_price",
+          "confidence": 0.9
+        }
+      },
+      "model": "jev-1.13.0"
+    }
+  },
+  {
+    "id": "3706",
+    "workflowId": "Cbr6Bvxj4vKROEaE",
+    "status": "success",
+    "requestId": "f977c67d-9b03-464f-b46e-5be5b01e8328",
+    "nodes": [
+      "Event research request",
+      "Validate planning interval",
+      "Valid planning request?",
+      "Use illustrative listings?",
+      "Retrieve dated sources",
+      "Verify geography dates and deduplicate",
+      "Record research correlation",
+      "Return one research response"
+    ]
+  },
+  {
+    "id": "3705",
+    "workflowId": "Cbr6Bvxj4vKROEaE",
+    "status": "success",
+    "requestId": "df7909f9-f572-4121-a523-3fd18118e207",
+    "nodes": [
+      "Lesson request",
+      "Validate and calculate",
+      "Valid lesson request?",
+      "Identify concert question",
+      "Read intent confidence",
+      "Confident supported intent?",
+      "Select lesson explanation",
+      "Check explanation or use prepared lesson",
+      "Deliver interactive lesson"
+    ],
+    "typeSafe": {
+      "answers": {
+        "intent": {
+          "choice": "ticket_price",
+          "confidence": 0.96
+        }
+      },
+      "model": "jev-1.13.0"
+    }
+  }
+]

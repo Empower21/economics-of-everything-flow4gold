@@ -1,5 +1,9 @@
 {
+  "id": "Cbr6Bvxj4vKROEaE",
   "name": "The Economics of Everything — Concert System",
+  "active": true,
+  "versionId": "ac2b9da7-7fe8-4fa2-a64b-0a604e1492a6",
+  "activeVersionId": "ac2b9da7-7fe8-4fa2-a64b-0a604e1492a6",
   "nodes": [
     {
       "id": "guide",
@@ -32,6 +36,12 @@
         "authentication": "headerAuth",
         "responseMode": "responseNode",
         "options": {}
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "baFNvpvZPTTSQg8r",
+          "name": "Concert gateway — pixel revision"
+        }
       }
     },
     {
@@ -101,6 +111,12 @@
         "jsonBody": "={{ JSON.stringify($json.modelRequest) }}",
         "options": {
           "timeout": 10000
+        }
+      },
+      "credentials": {
+        "openAiApi": {
+          "id": "wSO3sod62xnX0Ppj",
+          "name": "Economics Concert — OpenAI"
         }
       }
     },
@@ -200,6 +216,12 @@
           "simplify": true,
           "includeOtherFields": false
         }
+      },
+      "credentials": {
+        "typeSafeAiApi": {
+          "id": "ctwcSiHAGRqkfxLO",
+          "name": "TypeSafe AI account"
+        }
       }
     },
     {
@@ -278,6 +300,12 @@
         "authentication": "headerAuth",
         "responseMode": "responseNode",
         "options": {}
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "baFNvpvZPTTSQg8r",
+          "name": "Concert gateway — pixel revision"
+        }
       }
     },
     {
@@ -394,6 +422,12 @@
         "jsonBody": "={{ JSON.stringify($json.modelRequest) }}",
         "options": {
           "timeout": 50000
+        }
+      },
+      "credentials": {
+        "openAiApi": {
+          "id": "wSO3sod62xnX0Ppj",
+          "name": "Economics Concert — OpenAI"
         }
       }
     },
@@ -700,6 +734,8 @@
   },
   "settings": {
     "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true,
     "saveManualExecutions": false,
     "saveDataErrorExecution": "none",
     "saveDataSuccessExecution": "none",

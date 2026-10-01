@@ -1,0 +1,32 @@
+[
+  {
+    "question": "Why does profit rise at a higher ticket price?",
+    "status": 200,
+    "delivery": "intent-clarification",
+    "paragraphs": [
+      "clarification"
+    ],
+    "intent": {
+      "unavailable": false,
+      "explain": false,
+      "intent": "ticket_price",
+      "confidence": 0.75,
+      "model": "jev-1.13.0"
+    }
+  },
+  {
+    "question": "What other events compete for my audience on this date?",
+    "status": 200,
+    "delivery": "intent-clarification",
+    "paragraphs": [
+      "clarification"
+    ],
+    "intent": {
+      "unavailable": false,
+      "explain": false,
+      "intent": "local_events",
+      "confidence": 0.7,
+      "model": "jev-1.13.0"
+    }
+  }
+]

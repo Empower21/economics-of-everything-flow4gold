@@ -1,0 +1,13 @@
+{
+  "rows": [
+    {
+      "name": "approved",
+      "sha256": "b4baa4c90a76eb866f4c7332169fe08d20df0bab5cb6b6587f0ac49fab5a9757"
+    },
+    {
+      "name": "revised",
+      "sha256": "b4baa4c90a76eb866f4c7332169fe08d20df0bab5cb6b6587f0ac49fab5a9757"
+    }
+  ],
+  "identical": true
+}

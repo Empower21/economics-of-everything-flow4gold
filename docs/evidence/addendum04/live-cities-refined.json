@@ -1,0 +1,155 @@
+[
+  {
+    "request": {
+      "cityId": "berlin-de",
+      "timeZone": "Europe/Berlin",
+      "localStartDate": "2026-10-10",
+      "localEndDate": "2026-10-10",
+      "localStartTime": null,
+      "localEndTime": null,
+      "startUtc": "2026-10-09T22:00:00.000Z",
+      "endUtc": "2026-10-10T22:00:00.000Z",
+      "category": "music",
+      "dateScope": "same_day",
+      "language": "en",
+      "schemaVersion": "concert-events-v1",
+      "requestId": "42f81221-aa4b-4b62-89b6-1c82f27cf28c",
+      "planningRevision": 1,
+      "queryKey": "[\"berlin-de\",\"2026-10-09T22:00:00.000Z\",\"2026-10-10T22:00:00.000Z\",\"music\",\"same_day\",\"en\"]"
+    },
+    "response": {
+      "schemaVersion": "concert-events-v1",
+      "requestId": "42f81221-aa4b-4b62-89b6-1c82f27cf28c",
+      "planningRevision": 1,
+      "queryKey": "[\"berlin-de\",\"2026-10-09T22:00:00.000Z\",\"2026-10-10T22:00:00.000Z\",\"music\",\"same_day\",\"en\"]",
+      "status": "ok",
+      "events": [
+        {
+          "id": "sodalicious|2026-10-10|22:00|sodaclubberlin",
+          "title": "Sodalicious",
+          "venue": "Soda Club Berlin",
+          "area": "Berlin",
+          "cityId": "berlin-de",
+          "timeZone": "Europe/Berlin",
+          "date": "2026-10-10",
+          "endDate": "2026-10-10",
+          "time": "22:00",
+          "endTime": null,
+          "category": "Music/DJ",
+          "sourceUrl": "https://berliner.party/en/parties/mainstream",
+          "sourceName": "berliner.party",
+          "verifiedAt": "2026-10-01T01:33:21.567Z",
+          "dateRelevance": "same_day",
+          "eventStatus": "scheduled",
+          "overlap": null,
+          "overlapReason": null
+        }
+      ],
+      "checkedAt": "2026-10-01T01:33:21.567Z",
+      "cached": false,
+      "coverage": {
+        "attemptedSources": [
+          "OpenAI web search"
+        ],
+        "successfulSources": [
+          "https://berliner.party/en/parties/mainstream",
+          "https://technobeatscloud.com/en/events/october-2026/germany/berlin",
+          "https://technobeatscloud.com/en/events/genres/electro-industrial/october-2026/germany/berlin",
+          "https://technobeatscloud.com/en/events/genres/techno/october-2026/germany/berlin",
+          "https://technobeatscloud.com/en/events/genres/techno/germany/state-of-berlin",
+          "https://technobeatscloud.com/en/events/genres/house/october-2026/germany/berlin",
+          "https://www.eventworld.com/berlin/concerts/october-10?sort=announced",
+          "https://www.eventworld.com/berlin/concerts/october-10?sort=popular",
+          "https://soundcheck.club/berlin/house/2026-10/",
+          "https://tockets.io/events/berlin/nightlife-techno",
+          "https://www.ticketle.de/en/berlin/october",
+          "https://www.eventfinder.de/berlin/konzerte/oktober/?page=18",
+          "https://oazis.app/en/whats-on/berlin/dj-set/october-2026",
+          "https://oazis.app/en/whats-on/berlin/techno/october-2026",
+          "https://www.regioactive.de/events/14356/berlin/veranstaltungen-party-konzerte/2026-10-10",
+          "https://www.ticketmaster.de/venue/uber-eats-music-hall-berlin-tickets/bervertimh/755?language=en-us",
+          "https://www.ticketmaster.de/venue/uber-eats-music-hall-berlin-tickets/bervertimh/731?language=en-us",
+          "https://allevents.in/berlin/edm--october",
+          "https://rausgegangen.de/events/wknd-x-usha-berlin-1/",
+          "https://evental.eu/germany/en/venue/columbiahalle-berlin/",
+          "https://happeningnext.com/berlin/music"
+        ],
+        "failedSources": [],
+        "truncated": false,
+        "note": "Public web coverage varies by city and date. No listing does not establish a competition-free date."
+      }
+    }
+  },
+  {
+    "request": {
+      "cityId": "kingston-jm",
+      "timeZone": "America/Jamaica",
+      "localStartDate": "2026-10-10",
+      "localEndDate": "2026-10-10",
+      "localStartTime": null,
+      "localEndTime": null,
+      "startUtc": "2026-10-10T05:00:00.000Z",
+      "endUtc": "2026-10-11T05:00:00.000Z",
+      "category": "music",
+      "dateScope": "same_day",
+      "language": "en",
+      "schemaVersion": "concert-events-v1",
+      "requestId": "2ff23052-7dba-40e1-aba3-28b2b0b8ac7d",
+      "planningRevision": 1,
+      "queryKey": "[\"kingston-jm\",\"2026-10-10T05:00:00.000Z\",\"2026-10-11T05:00:00.000Z\",\"music\",\"same_day\",\"en\"]"
+    },
+    "response": {
+      "schemaVersion": "concert-events-v1",
+      "requestId": "2ff23052-7dba-40e1-aba3-28b2b0b8ac7d",
+      "planningRevision": 1,
+      "queryKey": "[\"kingston-jm\",\"2026-10-10T05:00:00.000Z\",\"2026-10-11T05:00:00.000Z\",\"music\",\"same_day\",\"en\"]",
+      "status": "partial",
+      "events": [
+        {
+          "id": "latinnighteverysaturdayatclubcubana|2026-10-10|18:00|clubcubana",
+          "title": "Latin Night Every Saturday at Club Cubana",
+          "venue": "Club Cubana",
+          "area": "Kingston",
+          "cityId": "kingston-jm",
+          "timeZone": "America/Jamaica",
+          "date": "2026-10-10",
+          "endDate": "2026-10-10",
+          "time": "18:00",
+          "endTime": null,
+          "category": "Music/DJ",
+          "sourceUrl": "https://www.salsavida.com/guides/jamaica/kingston/",
+          "sourceName": "Salsa Vida",
+          "verifiedAt": "2026-10-01T01:33:24.820Z",
+          "dateRelevance": "same_day",
+          "eventStatus": "uncertain",
+          "overlap": null,
+          "overlapReason": null
+        }
+      ],
+      "checkedAt": "2026-10-01T01:33:24.820Z",
+      "cached": false,
+      "coverage": {
+        "attemptedSources": [
+          "OpenAI web search"
+        ],
+        "successfulSources": [
+          "https://www.hardwineja.com/",
+          "https://www.bookgreatness.com/",
+          "https://riddim.world/venue/stone-love-hq/",
+          "https://kingstonjaevents.com/bzr-wknd-kingston-jamaica/",
+          "https://prohomesja.com/blog/heroes-weekend-kingston-2026",
+          "https://www.jamaicaobserver.com/2026/09/07/greatness-weekend-chooses-kingston/",
+          "https://taboo876.com/venue/kingston/",
+          "https://taboo876.com/venue/kingston/page/2/",
+          "https://www.salsavida.com/guides/jamaica/kingston/",
+          "https://originaltickets.com/news/keyshia-cole-spice-and-malie-donn-join-cardi-b-for-bzr-wknd-jamaica-2026-258ea7414b",
+          "https://www.ticketgateway.com/city/kingston",
+          "https://www.eventbrite.ca/e/hard-wine-the-ultimate-soca-experience-tickets-1999127575393?aff=ebdssbcitybrowse"
+        ],
+        "failedSources": [],
+        "truncated": false,
+        "note": "Public web coverage varies by city and date. No listing does not establish a competition-free date."
+      }
+    }
+  }
+]

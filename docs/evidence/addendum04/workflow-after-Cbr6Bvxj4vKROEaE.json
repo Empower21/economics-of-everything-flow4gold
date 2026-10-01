@@ -1,5 +1,9 @@
 {
+  "id": "Cbr6Bvxj4vKROEaE",
   "name": "The Economics of Everything — The concert",
+  "versionId": "6d3dba69-360e-4db4-8a7c-344f64f5e99d",
+  "activeVersionId": "6d3dba69-360e-4db4-8a7c-344f64f5e99d",
+  "active": true,
   "nodes": [
     {
       "id": "guide",
@@ -19,19 +23,25 @@
     {
       "id": "webhook",
       "name": "Lesson request",
+      "webhookId": "economics-concert-v1",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
         0,
         40
       ],
-      "webhookId": "economics-concert-v1",
       "parameters": {
         "httpMethod": "POST",
         "path": "economics-concert-v1",
         "authentication": "headerAuth",
         "responseMode": "responseNode",
         "options": {}
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "baFNvpvZPTTSQg8r",
+          "name": "Concert gateway — pixel revision"
+        }
       }
     },
     {
@@ -86,11 +96,11 @@
       "name": "Select lesson explanation",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
+      "onError": "continueRegularOutput",
       "position": [
         1480,
         -80
       ],
-      "onError": "continueRegularOutput",
       "parameters": {
         "method": "POST",
         "url": "https://api.openai.com/v1/responses",
@@ -101,6 +111,12 @@
         "jsonBody": "={{ JSON.stringify($json.modelRequest) }}",
         "options": {
           "timeout": 10000
+        }
+      },
+      "credentials": {
+        "openAiApi": {
+          "id": "wSO3sod62xnX0Ppj",
+          "name": "Economics Concert — OpenAI"
         }
       }
     },
@@ -179,11 +195,11 @@
       "name": "Identify concert question",
       "type": "@typesafe-ai/n8n-nodes-typesafe-ai.typeSafeAi",
       "typeVersion": 1,
+      "onError": "continueRegularOutput",
       "position": [
         740,
         -40
       ],
-      "onError": "continueRegularOutput",
       "parameters": {
         "operation": "evaluate",
         "model": {
@@ -199,6 +215,12 @@
           "timeout": 4500,
           "simplify": true,
           "includeOtherFields": false
+        }
+      },
+      "credentials": {
+        "typeSafeAiApi": {
+          "id": "ctwcSiHAGRqkfxLO",
+          "name": "TypeSafe AI account"
         }
       }
     },
@@ -380,12 +402,11 @@
   },
   "settings": {
     "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true,
+    "saveManualExecutions": false,
     "saveDataErrorExecution": "none",
     "saveDataSuccessExecution": "none",
-    "saveManualExecutions": false,
     "executionTimeout": 30
-  },
-  "active": false,
-  "pinData": {},
-  "tags": []
+  }
 }

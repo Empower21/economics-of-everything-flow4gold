@@ -1,0 +1,265 @@
+{
+  "workflows": [
+    {
+      "id": "Cbr6Bvxj4vKROEaE",
+      "active": true,
+      "versionId": "6d3dba69-360e-4db4-8a7c-344f64f5e99d",
+      "activeVersionId": "6d3dba69-360e-4db4-8a7c-344f64f5e99d"
+    },
+    {
+      "id": "Hdc8JHwuai8BlbI6",
+      "active": true,
+      "versionId": "1e0da033-3517-41d9-916c-2f080ef44133",
+      "activeVersionId": "1e0da033-3517-41d9-916c-2f080ef44133"
+    }
+  ],
+  "executions": [
+    {
+      "executionId": "3697",
+      "requestId": "c590ba99-2f2c-451f-9428-d19f4b73e9bd",
+      "cityId": "kingston-jm",
+      "dataMode": "simulation",
+      "executionStatus": "success",
+      "resultStatus": "ok",
+      "eventCount": 3,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Use illustrative listings?",
+        "Build clearly labeled simulation",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:42:33.657Z"
+    },
+    {
+      "executionId": "3696",
+      "requestId": "e1ae2f72-daab-4711-b3b1-b6fee5d5b913",
+      "cityId": "kingston-jm",
+      "dataMode": "simulation",
+      "executionStatus": "success",
+      "resultStatus": "ok",
+      "eventCount": 3,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Use illustrative listings?",
+        "Build clearly labeled simulation",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:38:54.165Z"
+    },
+    {
+      "executionId": "3693",
+      "requestId": "4032718a-de2a-4b1e-b482-1ebadbca609d",
+      "cityId": "kingston-jm",
+      "dataMode": "simulation",
+      "executionStatus": "success",
+      "resultStatus": "ok",
+      "eventCount": 3,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Use illustrative listings?",
+        "Build clearly labeled simulation",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:37:24.859Z"
+    },
+    {
+      "executionId": "3692",
+      "requestId": "e5276249-becd-47a3-9abf-8f91fb448a00",
+      "cityId": "kingston-jm",
+      "dataMode": "simulation",
+      "executionStatus": "success",
+      "resultStatus": "ok",
+      "eventCount": 3,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Use illustrative listings?",
+        "Build clearly labeled simulation",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:37:23.233Z"
+    },
+    {
+      "executionId": "3691",
+      "requestId": "d8e948e4-c745-4c11-b74f-61bccdec9a45",
+      "cityId": "berlin-de",
+      "dataMode": "simulation",
+      "executionStatus": "success",
+      "resultStatus": "ok",
+      "eventCount": 3,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Use illustrative listings?",
+        "Build clearly labeled simulation",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:37:22.502Z"
+    },
+    {
+      "executionId": "3690",
+      "requestId": "34c63c6f-ee75-41d2-a377-e7f57ae3be1e",
+      "cityId": "atlanta-us",
+      "dataMode": "simulation",
+      "executionStatus": "success",
+      "resultStatus": "ok",
+      "eventCount": 3,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Use illustrative listings?",
+        "Build clearly labeled simulation",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:37:20.166Z"
+    },
+    {
+      "executionId": "3689",
+      "requestId": "2ff23052-7dba-40e1-aba3-28b2b0b8ac7d",
+      "cityId": "kingston-jm",
+      "dataMode": "live",
+      "executionStatus": "success",
+      "resultStatus": "partial",
+      "eventCount": 1,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Retrieve dated sources",
+        "Verify geography dates and deduplicate",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:33:21.815Z"
+    },
+    {
+      "executionId": "3688",
+      "requestId": "42f81221-aa4b-4b62-89b6-1c82f27cf28c",
+      "cityId": "berlin-de",
+      "dataMode": "live",
+      "executionStatus": "success",
+      "resultStatus": "ok",
+      "eventCount": 1,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Retrieve dated sources",
+        "Verify geography dates and deduplicate",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:33:16.869Z"
+    },
+    {
+      "executionId": "3687",
+      "requestId": "a489f1a6-0513-4e30-82b9-257d9e44f4fd",
+      "cityId": "kingston-jm",
+      "dataMode": "live",
+      "executionStatus": "success",
+      "resultStatus": "partial",
+      "eventCount": 0,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Retrieve dated sources",
+        "Verify geography dates and deduplicate",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:29:35.927Z"
+    },
+    {
+      "executionId": "3686",
+      "requestId": "10c053ac-b446-46cf-9f27-458c24f3d557",
+      "cityId": "berlin-de",
+      "dataMode": "live",
+      "executionStatus": "success",
+      "resultStatus": "partial",
+      "eventCount": 0,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Retrieve dated sources",
+        "Verify geography dates and deduplicate",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:29:32.021Z"
+    },
+    {
+      "executionId": "3685",
+      "requestId": "b3275904-f380-4696-bf68-3c9fe8061fd2",
+      "cityId": "atlanta-us",
+      "dataMode": "live",
+      "executionStatus": "success",
+      "resultStatus": "ok",
+      "eventCount": 6,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Retrieve dated sources",
+        "Verify geography dates and deduplicate",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:29:24.910Z"
+    },
+    {
+      "executionId": "3684",
+      "requestId": "0967fc25-c589-4ee1-b21d-d5dd23d4148e",
+      "cityId": "atlanta-us",
+      "dataMode": "live",
+      "executionStatus": "success",
+      "resultStatus": "partial",
+      "eventCount": 0,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Retrieve dated sources",
+        "Verify geography dates and deduplicate",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:22:18.632Z"
+    },
+    {
+      "executionId": "3683",
+      "requestId": "92c9d508-347e-4376-acd0-6ec9795ee106",
+      "cityId": "atlanta-us",
+      "dataMode": "live",
+      "executionStatus": "success",
+      "resultStatus": "partial",
+      "eventCount": 0,
+      "nodes": [
+        "Event research request",
+        "Validate planning interval",
+        "Valid planning request?",
+        "Retrieve dated sources",
+        "Verify geography dates and deduplicate",
+        "Record research correlation",
+        "Return one research response"
+      ],
+      "startedAt": "2026-10-01T01:20:13.148Z"
+    }
+  ]
+}

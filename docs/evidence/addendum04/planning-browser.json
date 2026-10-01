@@ -1,0 +1,28 @@
+[
+  {
+    "cityId": "atlanta-us",
+    "requestId": "0857191b-3560-4afa-9c8d-3e07b2aa08ec",
+    "status": "ok",
+    "mode": "simulation"
+  },
+  {
+    "cityId": "berlin-de",
+    "requestId": "c5a48e4a-e5d9-4be2-8298-c937ada38c93",
+    "status": "ok",
+    "mode": "simulation"
+  },
+  {
+    "cityId": "kingston-jm",
+    "requestId": "a33282eb-b462-44bb-8c2b-ddf9800e1f7a",
+    "status": "ok",
+    "mode": "simulation"
+  },
+  {
+    "cache": true,
+    "refresh": true,
+    "savedSnapshot": true,
+    "keyboard": true,
+    "staleResponseIgnored": true,
+    "errors": []
+  }
+]

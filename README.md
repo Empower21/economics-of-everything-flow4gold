@@ -25,6 +25,10 @@ Append ?lang=de for German. Root opens the concert. Mix Your Margins offers type
 
 Requires Node 22+. Install with npm ci, then npm run dev (port 3000). Production: npm run build then npm start. Use .env.example when setting up a new checkout; never overwrite an existing configured .env. Without service credentials, prepared text and calculations still work. Microphone capture requires HTTPS or localhost.
 
+## Docker
+
+Copy .env.example to .env and fill it in, then run docker compose up -d --build. The app is served on http://localhost:3000, bound to 127.0.0.1 only because the container holds paid service keys. Without compose: docker build -t economics-of-everything . then docker run -d -p 127.0.0.1:3000:3000 --env-file .env economics-of-everything. .env is excluded from the image and supplied at run time. Behind one reverse proxy, set PUBLIC_ORIGIN to the exact HTTPS origin and TRUST_PROXY_HOPS=1.
+
 ## Services
 
 The single canonical production workflow is [The Economics of Everything ? Concert System](https://amdrfound.app.n8n.cloud/workflow/Cbr6Bvxj4vKROEaE). See [Addendum 05 validation and rollback](docs/ADDENDUM-05-VALIDATION.md). The old research canvas is inactive. For reproduction, import workflow/economics-concert.json into n8n. The filename and authenticated webhook path are preserved, and only the concert topic is supported. Select the same Header Auth on Lesson request and Event research request, with header X-Lesson-Key and a random secret. Select the existing OpenAI credential on Select lesson explanation and Retrieve dated sources and a TypeSafe AI API credential on Identify concert question, then publish.

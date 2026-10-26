@@ -4,7 +4,7 @@
   "checks": [
     "valid and invalid coach",
     "TypeSafe confidence and provider error",
-    "model parity",
+    "model parity (raw API and native OpenAI node shapes)",
     "three simulation cities",
     "research failure",
     "zero events"

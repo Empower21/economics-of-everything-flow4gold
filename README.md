@@ -27,13 +27,13 @@ Requires Node 22+. Install with npm ci, then npm run dev (port 3000). Production
 
 ## Services
 
-The single canonical production workflow is [The Economics of Everything ? Concert System](https://amdrfound.app.n8n.cloud/workflow/Cbr6Bvxj4vKROEaE). See [Addendum 05 validation and rollback](docs/ADDENDUM-05-VALIDATION.md). The old research canvas is inactive. For reproduction, import workflow/economics-concert.json into n8n. The filename and authenticated webhook path are preserved, and only the concert topic is supported. Select the same Header Auth on Lesson request and Event research request, with header X-Lesson-Key and a random secret. Select the existing OpenAI credential on Select lesson explanation and Retrieve dated sources and a TypeSafe AI API credential on Identify concert question, then publish.
+The single canonical production workflow is [The Economics of Everything ? Concert System](https://amdrfound.app.n8n.cloud/workflow/Cbr6Bvxj4vKROEaE). See [Addendum 05 validation and rollback](docs/ADDENDUM-05-VALIDATION.md). The old research canvas is inactive. For reproduction, import workflow/economics-concert.json into n8n. The filename and authenticated webhook path are preserved, and only the concert topic is supported. Select the same Header Auth on Lesson request and Event research request, with header X-Lesson-Key and a random secret. Select the existing OpenAI credential on Select lesson explanation (native OpenAI node on the Responses API, n8n 1.117 or later) and on Retrieve dated sources (HTTP Request, kept because the native node cannot require a web search call or return the search sources the server checks), and a TypeSafe AI API credential on Identify concert question, then publish.
 
 Server variables: N8N_WEBHOOK_URL, N8N_EVENTS_WEBHOOK_URL (two entries on the same canonical workflow), matching N8N_WEBHOOK_SECRET, OPENAI_API_KEY for transcription, ELEVENLABS_API_KEY and ELEVENLABS_VOICE_ID for speech, PUBLIC_ORIGIN for the exact HTTPS origin. Railway uses TRUST_PROXY_HOPS=1 and a single replica. Credentials never reach browser code. Owner-specific deployment helpers are scripts/n8n-deploy.js and scripts/configure-railway.js.
 
 ## Trusted calculations
 
-shared/registry.js contains field schemas, bounds, presets and deterministic formulas. shared/teaching.js supplies bilingual field metadata, causal comparisons and scene state; shared/lesson.js supplies authored tutor explanations. npm run workflow embeds the same functions in n8n. AI selects approved paragraph IDs and a declared scene focus. It cannot invent numbers or execute code. Server and browser validate matching results and request revisions.
+shared/registry.js contains field schemas, bounds, presets and deterministic formulas. shared/teaching.js supplies bilingual field metadata, causal comparisons and scene state; shared/lesson.js supplies authored tutor explanations. npm run workflow embeds the same functions in n8n. Each Code node bundles only the helpers it calls, keeps readable unminified syntax, and carries a Why Code note naming the native node considered; routing is native IF and the lesson model call is the native OpenAI node. See docs/ADDENDUM-06-REVIEW-FEEDBACK.md. AI selects approved paragraph IDs and a declared scene focus. It cannot invent numbers or execute code. Server and browser validate matching results and request revisions.
 
 Concert: D = floor(M * (1 + promotionBoost/100) * (p/20)^(-e)); attendance = min(capacity, manual ? manualAttendance : D); cost = productionBudget + venueRate * capacity + perGuest * attendance + promotionBudget; revenue = ticketPrice * attendance + sponsorship; profit = revenue - cost. Return on cost is null at zero cost. Capacity does not create demand.
 
@@ -70,3 +70,7 @@ npm test covers formulas, contract validation, fallback and gateway behavior. Se
 Run npm run assets to rebuild assets/*.blend and public/models/*.glb with the installed Blender 5.2.2 LTS. Override BLENDER_EXE if needed. Blender exports DJ/record/light animations and four reusable audience designs. Babylon plays the single pixel scene and instances live crowd poses; no HyperFrames dependency was added. One figure per guest at small capacities; larger capacities use an explicit scale capped at 300 visible figures.
 
 See docs/ADDENDUM-03-VALIDATION.md, docs/CONTROL-INVENTORY.md, docs/MANUAL-STEPS.md and docs/SUBMISSION.md. Actual phone microphone behavior and human voice/language preferences require owner review. Competition recording remains the final production step.
+
+## License
+
+MIT, see LICENSE. Font licenses and asset provenance are recorded in docs/THIRD-PARTY-NOTICES.md and docs/licenses/.

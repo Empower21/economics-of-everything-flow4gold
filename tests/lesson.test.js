@@ -22,6 +22,14 @@ test('AI selects approved content and calculator supplies numbers',()=>{
   const l=applyModel(request(),response({paragraphs:['revenue','overview'],focus:'entrance'}));
   assert.equal(l.fallbackUsed,false);assert.match(l.explanation,/750/);
 });
+test('native n8n OpenAI node output (schema text already parsed) is accepted and rejected identically',()=>{
+  const native=value=>({status:'completed',output:[{type:'message',content:[{type:'output_text',text:value}]}]});
+  const chosen={paragraphs:['revenue','overview'],focus:'entrance'};
+  const l=applyModel(request(),native(chosen));
+  assert.equal(l.fallbackUsed,false);assert.deepEqual(l,applyModel(request(),response(chosen)));
+  assert.equal(applyModel(request(),native({paragraphs:['invented'],focus:'entrance'})).fallbackUsed,true);
+  for(const r of [{output:[]},{status:'completed',output:[]},{status:'completed',output:[{type:'message',content:[]}]}])assert.equal(applyModel(request(),r).fallbackUsed,true);
+});
 test('model errors, refusals, raw numbers and arbitrary actions fall back',()=>{
   for(const r of [{error:'timeout'},{status:'incomplete'},response({explanation:'Your profit is 999999 currency units.',focus:'profit'}),response({explanation:'Profit is {{invented}}.',focus:'profit'}),response({explanation:'Profit is {{profit}}.',focus:'executeJavaScript'}),response({explanation:'<script>alert()</script>',focus:'profit'})])assert.equal(applyModel(request(),r).fallbackUsed,true);
 });

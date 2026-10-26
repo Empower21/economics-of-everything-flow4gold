@@ -33,7 +33,7 @@ workflow.nodes.find(n=>n.name==='Select lesson explanation').credentials={openAi
 const typeSafeNode=workflow.nodes.find(n=>n.name==='Identify concert question');if(typeSafeNode){if(!state.typeSafeCredential)throw new Error('Configure the existing TypeSafe credential first.');typeSafeNode.credentials={typeSafeAiApi:state.typeSafeCredential};}
 if(process.env.OPENAI_MODEL){
   const node=workflow.nodes.find(n=>n.name==='Validate and calculate');
-  node.parameters.jsCode=node.parameters.jsCode.replace("model: 'gpt-4o-mini'",'model: '+JSON.stringify(process.env.OPENAI_MODEL));
+  node.parameters.jsCode=node.parameters.jsCode.replace(/model:\s*["']gpt-4o-mini["']/,'model: '+JSON.stringify(process.env.OPENAI_MODEL));
 }
 const current=await api('/workflows/'+workflowId);
 if(current.active) await api('/workflows/'+workflowId+'/deactivate','POST');

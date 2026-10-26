@@ -1,0 +1,47 @@
+# yaml-language-server: $schema=https://cubic.dev/schema/cubic-repository-config.schema.json
+# cubic AI review settings. Repo-level file; dashboard settings are the fallback if this fails validation.
+version: 1
+
+reviews:
+  enabled: true
+  sensitivity: medium
+  incremental_commits: true
+  check_drafts: false
+  resolve_threads_when_addressed: true
+  custom_instructions: |
+    This repository is an n8n workflow template plus its Node/Express companion app.
+    Priorities, in order:
+    1. Secrets. workflow/economics-concert.json, submission/*.json and docs/evidence/** must never contain
+       API keys, credential IDs, webhook secrets, session IDs or learner questions. Flag any .env-style value.
+    2. Calculator parity. shared/*.js is the single source of truth for all arithmetic and validation. It is
+       serialized into n8n Code nodes by scripts/build-workflow.js, scripts/build-events-workflow.js and
+       scripts/consolidate-workflows.js. Flag any hand edit to workflow/economics-concert.json that is not
+       reproduced by `npm run workflow`, and any second implementation of a shared/ formula.
+    3. Server trust boundaries. server/ must keep rate limits, helmet, origin checks and the 5 MB upload cap.
+       Browser code (src/) must never receive credentials or call providers directly.
+    4. n8n hygiene. Each Code node carries a "Why Code:" note naming the native node considered. Prefer IF,
+       Edit Fields, Filter, Remove Duplicates or HTTP Request over new Code when the job fits.
+  ignore:
+    files:
+      - 'dist/**'
+      - 'node_modules/**'
+      - 'package-lock.json'
+      - 'public/media/**'
+      - 'public/models/**'
+      - 'assets/**'
+      - 'docs/licenses/**'
+      - 'test-results/**'
+      - '**/*.png'
+      - '**/*.jpg'
+      - '**/*.mp4'
+      - '**/*.mp3'
+      - '**/*.glb'
+      - '**/*.blend'
+    max_changed_lines: 20000
+
+pr_descriptions:
+  generate: true
+  skip_if_author_description: true
+  instructions: |
+    Lead with what changed for someone importing the n8n template. Call out any change to
+    workflow/economics-concert.json, shared/*.js, or an environment variable by name.

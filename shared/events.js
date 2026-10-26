@@ -1,5 +1,6 @@
 import {CITIES,validDate,shiftDate,localInstant} from './planning.js';
 export function safeSource(url){if(typeof url!=='string'||url.length>2500||/[\s\\<>"']/u.test(url))return null;const m=/^https:\/\/([a-z0-9.-]+)(?::443)?(\/[^#]*)?(?:#.*)?$/i.exec(url);if(!m||!m[1].includes('.')||/^[\d.]+$/.test(m[1])||m[1].endsWith('.localhost'))return null;return ('https://'+m[1].toLowerCase()+(m[2]||'/')).replace(/([?&])utm_[^=&]+=[^&]*/g,'$1').replace(/[?&]+$/,'').replace('?&','?');}
+import {outputJson} from './responses.js';
 export function researchResult(p,status='unavailable'){return {schemaVersion:'concert-events-v1',requestId:p.requestId,planningRevision:p.planningRevision,queryKey:p.queryKey,status,dataMode:p.dataMode||'live',events:[],checkedAt:new Date().toISOString(),cached:false,coverage:{attemptedSources:['OpenAI web search'],successfulSources:[],failedSources:status==='unavailable'?['OpenAI web search']:[],truncated:false,note:'Public web coverage varies by city and date. No listing does not establish a competition-free date.'}};}
 export function eventRequest(p){
  const properties={title:{type:'string'},venue:{type:['string','null']},area:{type:'string'},country:{type:'string',enum:[CITIES[p.cityId].country]},cityId:{type:'string',enum:[p.cityId]},date:{type:'string'},endDate:{type:['string','null']},time:{type:['string','null']},endTime:{type:['string','null']},category:{type:['string','null']},url:{type:'string'},sourceName:{type:'string'},eventStatus:{type:'string',enum:['scheduled','canceled','postponed','unknown']},evidence:{type:'string'},placeEvidence:{type:'string'}};
@@ -8,7 +9,7 @@ export function eventRequest(p){
 export function readEvents(response,p){
  const r=researchResult(p);if(response.status!=='completed'||!response.output?.some(o=>o.type==='web_search_call'&&o.status==='completed'))return r;
  const sources=new Set();for(const item of response.output){for(const s of item.action?.sources||[]){const u=safeSource(s.url);if(u)sources.add(u);}for(const part of item.content||[])for(const a of part.annotations||[]){const u=safeSource(a.url);if(u)sources.add(u);}}
- let parsed;try{parsed=JSON.parse(response.output.flatMap(o=>o.content||[]).filter(c=>c.type==='output_text').map(c=>c.text).join(''));}catch{return r;}
+ let parsed;try{parsed=outputJson(response);if(!parsed)return r;}catch{return r;}
  if(!Array.isArray(parsed.events))return r;
  r.coverage.successfulSources=[...sources].slice(0,25);r.coverage.failedSources=[];r.coverage.truncated=parsed.events.length>=8;
  const seen=new Set();let rejected=0;

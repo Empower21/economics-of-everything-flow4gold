@@ -1,0 +1,217 @@
+{
+  "deployedAt": "2026-10-26T01:04:05.887Z",
+  "versionId": "669fc575-21b7-44d0-81c2-42ed5aab662b",
+  "active": true,
+  "lessonNodeType": "@n8n/n8n-nodes-langchain.openAi",
+  "lesson": {
+    "requestId": "review-round-1-mvojzz3d",
+    "status": 200,
+    "delivery": "intent-clarification",
+    "fallbackUsed": true,
+    "paragraphIds": [
+      "clarification"
+    ],
+    "intent": "profit_roi",
+    "validated": true
+  },
+  "events": {
+    "requestId": "review-round-1-events-mvojzz3d",
+    "status": 200,
+    "result": "ok",
+    "dataMode": "simulation",
+    "events": 3,
+    "validated": true
+  },
+  "invalid": {
+    "status": 400
+  },
+  "executions": [],
+  "lessonAttempts": [
+    {
+      "requestId": "review-round-1-q0-mvok0iar",
+      "question": "Why did profit change?",
+      "status": 200,
+      "ms": 3546,
+      "delivery": "model-fallback",
+      "fallbackUsed": true,
+      "paragraphIds": [
+        "change",
+        "overview"
+      ],
+      "focus": "entrance",
+      "intent": "profit_roi",
+      "confidence": 0.86,
+      "validated": true
+    },
+    {
+      "requestId": "review-round-1-q1-mvok0l1a",
+      "question": "Why doesn’t a bigger venue fill itself?",
+      "status": 200,
+      "ms": 707,
+      "delivery": "model-fallback",
+      "fallbackUsed": true,
+      "paragraphIds": [
+        "overview",
+        "limits"
+      ],
+      "focus": "entrance",
+      "intent": "audience_capacity",
+      "confidence": 0.84,
+      "validated": true
+    },
+    {
+      "requestId": "review-round-1-q2-mvok0lkx",
+      "question": "Where does the ticket money go?",
+      "status": 200,
+      "ms": 434,
+      "delivery": "intent-clarification",
+      "fallbackUsed": true,
+      "paragraphIds": [
+        "clarification"
+      ],
+      "intent": "costs",
+      "confidence": 0.18,
+      "validated": true
+    },
+    {
+      "requestId": "review-round-1-q3-mvok0lx1",
+      "question": "If I raise the ticket price from 20 to 30, why does revenue stay the same but profit goes up?",
+      "status": 200,
+      "ms": 543,
+      "delivery": "intent-clarification",
+      "fallbackUsed": true,
+      "paragraphIds": [
+        "clarification"
+      ],
+      "intent": "ticket_price",
+      "confidence": 0.49,
+      "validated": true
+    }
+  ],
+  "finding": {
+    "summary": "Stored OpenAI credential is stale: native node returned 401 (Authorization failed); backed-up HTTP Request version also fell back; local OPENAI_API_KEY rejected by the OpenAI models endpoint.",
+    "abTest": {
+      "httpNodeVersion": "model-fallback",
+      "nativeNodeVersion": "model-fallback"
+    },
+    "diagnosticExecution": "retention enabled briefly for one synthetic request, execution 4322 deleted, retention restored to none",
+    "ownerAction": "replace the OpenAI credential, then confirm delivery n8n-openai"
+  },
+  "afterCredentialReplaced": {
+    "at": "2026-10-26T01:09:37.065Z",
+    "lesson_en": {
+      "requestId": "review-fixed-en-mvok72kg",
+      "status": 200,
+      "ms": 3159,
+      "delivery": "model-fallback",
+      "fallbackUsed": true,
+      "paragraphIds": [
+        "change",
+        "overview"
+      ],
+      "focus": "entrance",
+      "intent": "profit_roi",
+      "confidence": 0.85,
+      "validated": true
+    },
+    "lesson_de": {
+      "requestId": "review-fixed-de-mvok72kg",
+      "status": 200,
+      "ms": 459,
+      "delivery": "intent-clarification",
+      "fallbackUsed": true,
+      "paragraphIds": [
+        "clarification"
+      ],
+      "intent": "profit_roi",
+      "confidence": 0.71,
+      "validated": true
+    },
+    "events_live": {
+      "requestId": "review-fixed-events-mvok72kg",
+      "status": 200,
+      "ms": 453,
+      "result": "unavailable",
+      "dataMode": "live",
+      "events": 0,
+      "successfulSources": 0,
+      "failedSources": [
+        "OpenAI web search"
+      ],
+      "validated": true
+    }
+  },
+  "round2": {
+    "at": "2026-10-26T01:28:30.154Z",
+    "lesson_en": {
+      "requestId": "round2-en-mvokv5qq",
+      "status": 200,
+      "ms": 4146,
+      "delivery": "n8n-openai",
+      "fallbackUsed": false,
+      "paragraphIds": [
+        "change",
+        "revenue",
+        "costs"
+      ],
+      "focus": "stage",
+      "intent": "profit_roi",
+      "confidence": 0.9,
+      "validated": true
+    },
+    "lesson_de": {
+      "requestId": "round2-de-mvokv5qq",
+      "status": 200,
+      "ms": 466,
+      "delivery": "intent-clarification",
+      "fallbackUsed": true,
+      "paragraphIds": [
+        "clarification"
+      ],
+      "intent": "ticket_price",
+      "confidence": 0.54,
+      "validated": true
+    },
+    "lesson_lowConfidence": {
+      "requestId": "round2-lowConfidence-mvokv5qq",
+      "status": 200,
+      "ms": 408,
+      "delivery": "intent-clarification",
+      "fallbackUsed": true,
+      "paragraphIds": [
+        "clarification"
+      ],
+      "intent": "profit_roi",
+      "confidence": 0.27,
+      "validated": true
+    },
+    "events_simulation": {
+      "requestId": "round2-events-simulation-mvokv5qq",
+      "status": 200,
+      "ms": 282,
+      "result": "ok",
+      "dataMode": "simulation",
+      "events": 3,
+      "successfulSources": 0,
+      "failedSources": [],
+      "sample": {
+        "title": "[Simulation] Peachtree Pixel Nights",
+        "date": "2026-11-14",
+        "source": null
+      },
+      "validated": true
+    },
+    "events_live": {
+      "requestId": "round2-events-live-mvokv5qq",
+      "status": 200,
+      "ms": 6491,
+      "result": "partial",
+      "dataMode": "live",
+      "events": 0,
+      "successfulSources": 12,
+      "failedSources": [],
+      "sample": null,
+      "validated": true
+    }
+  }
+}

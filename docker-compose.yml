@@ -1,0 +1,9 @@
+services:
+  web:
+    build: .
+    image: economics-of-everything:latest
+    # Localhost only: the container holds paid OpenAI/ElevenLabs keys.
+    ports:
+      - "127.0.0.1:3000:3000"
+    env_file: .env
+    restart: unless-stopped

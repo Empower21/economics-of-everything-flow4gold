@@ -77,4 +77,4 @@ See docs/ADDENDUM-03-VALIDATION.md, docs/CONTROL-INVENTORY.md, docs/MANUAL-STEPS
 
 ## License
 
-MIT, see LICENSE. Font licenses and asset provenance are recorded in docs/THIRD-PARTY-NOTICES.md and docs/licenses/.
+Code, workflow export, scripts and docs: MIT, see LICENSE. Recorded media, Blender models and narration audio are reserved and not covered by MIT, see LICENSE-ASSETS.md. Font licenses and asset provenance are recorded in docs/THIRD-PARTY-NOTICES.md and docs/licenses/.

@@ -45,7 +45,7 @@ Two differences from the HTTP Request body, both verified in the node source:
 
 The node has no per-request timeout option; the HTTP node had 10 seconds. The server still aborts the n8n call at 18 seconds and falls back, and the workflow timeout remains 75 seconds.
 
-`Retrieve dated sources` stays an HTTP Request node with a `Why HTTP:` rationale in the README. The native node exposes web search, `search_context_size` and `include: web_search_call.action.sources`, but not `tool_choice: required`. Without it the model may answer from memory and the research branch would degrade silently to `unavailable`. The server's URL allowlist check depends on a search actually running.
+`Retrieve dated sources` was first kept as HTTP Request because the native node cannot send `tool_choice: required`. At the owner's decision it is now the native OpenAI node too (round 2 below): built-in Web Search with context size medium, `include: web_search_call.action.sources` so the server's URL allowlist check keeps working, JSON schema output, `store: false`. `readEvents` reports a response without a completed `web_search_call` as `unavailable`, which is the designed fallback if the model ever skips the search.
 
 ## cubic.dev, topics, license
 
@@ -69,6 +69,26 @@ Live: the canonical workflow was backed up to `docs/evidence/addendum06/before-C
 The `model-fallback` results were diagnosed with execution retention enabled briefly for one synthetic request (the execution was deleted and retention restored to none). The native node returned `Authorization failed - please check your credentials`. Restoring the backed-up HTTP Request version and sending the same question also returned `model-fallback`, and the OpenAI key in the local `.env` is rejected by the OpenAI models endpoint. The stored OpenAI credential is stale; the node change is not the cause. The native node path could therefore not be exercised end to end on the live instance.
 
 **Owner action required:** replace the OpenAI credential `Economics Concert — OpenAI` in n8n with a valid key (and `OPENAI_API_KEY` in `.env` and on Railway if transcription uses the same key), then send one question that clears the confidence gate and confirm `delivery: "n8n-openai"`. Until then the coaching path serves prepared bilingual text and the live research path returns `unavailable`; the public demo keeps working because that is the designed fallback.
+
+## Round 2 (same day)
+
+After the owner replaced the OpenAI credential and asked for the research call to use the native node as well:
+
+- `Retrieve dated sources` became the native OpenAI node (see above). `shared/responses.js` now holds the one `outputJson` reader used by both branches, so the research parser accepts the native node's pre-parsed output exactly as the coach parser does. `tests/planning.test.js` covers the native shape and the no-search case.
+- `Ask focused clarification` became a native Edit Fields node in raw JSON mode: one object expression over the prepared lesson and the intent decision. The fixture harness evaluates that expression the way it evaluates Code. Six nodes were native before this addendum; eight are now, and seven Code nodes remain, all of them the shared calculator or its validators.
+- cubic.dev reviewed the pull request and raised three findings, all accepted: the `docs/evidence/**` ignore contradicted the instruction to check evidence for secrets (removed); the README overstated what the native node cannot do (rewritten); the consolidation step would have aborted the `--rollback` path on archived exports (the transform loop now runs only for freshly built sources).
+
+Live verification after redeploy, recorded under `round2` in `docs/evidence/addendum06/live-smoke.json`:
+
+| Request | Result |
+| --- | --- |
+| Coach, English, confidence 0.90 | 200, `delivery: n8n-openai`, `fallbackUsed: false`, three approved paragraphs, focus `stage`, validated |
+| Coach, German, confidence 0.54 | 200, `intent-clarification` from the Edit Fields node, validated |
+| Coach, low confidence 0.27 | 200, `intent-clarification`, validated |
+| Research, Atlanta, simulation | 200, `ok`, three labeled fictional listings, validated |
+| Research, Atlanta, live, 2026-11-14 | 200, `partial`, native web search ran with 12 retrieved sources, zero events survived the geography, date and evidence checks, validated |
+
+The credential finding above is closed: the native node path works end to end with the replaced key.
 
 ## Rollback
 

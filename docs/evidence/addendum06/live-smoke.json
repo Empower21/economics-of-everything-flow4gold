@@ -96,5 +96,122 @@
     },
     "diagnosticExecution": "retention enabled briefly for one synthetic request, execution 4322 deleted, retention restored to none",
     "ownerAction": "replace the OpenAI credential, then confirm delivery n8n-openai"
+  },
+  "afterCredentialReplaced": {
+    "at": "2026-10-26T01:09:37.065Z",
+    "lesson_en": {
+      "requestId": "review-fixed-en-mvok72kg",
+      "status": 200,
+      "ms": 3159,
+      "delivery": "model-fallback",
+      "fallbackUsed": true,
+      "paragraphIds": [
+        "change",
+        "overview"
+      ],
+      "focus": "entrance",
+      "intent": "profit_roi",
+      "confidence": 0.85,
+      "validated": true
+    },
+    "lesson_de": {
+      "requestId": "review-fixed-de-mvok72kg",
+      "status": 200,
+      "ms": 459,
+      "delivery": "intent-clarification",
+      "fallbackUsed": true,
+      "paragraphIds": [
+        "clarification"
+      ],
+      "intent": "profit_roi",
+      "confidence": 0.71,
+      "validated": true
+    },
+    "events_live": {
+      "requestId": "review-fixed-events-mvok72kg",
+      "status": 200,
+      "ms": 453,
+      "result": "unavailable",
+      "dataMode": "live",
+      "events": 0,
+      "successfulSources": 0,
+      "failedSources": [
+        "OpenAI web search"
+      ],
+      "validated": true
+    }
+  },
+  "round2": {
+    "at": "2026-10-26T01:28:30.154Z",
+    "lesson_en": {
+      "requestId": "round2-en-mvokv5qq",
+      "status": 200,
+      "ms": 4146,
+      "delivery": "n8n-openai",
+      "fallbackUsed": false,
+      "paragraphIds": [
+        "change",
+        "revenue",
+        "costs"
+      ],
+      "focus": "stage",
+      "intent": "profit_roi",
+      "confidence": 0.9,
+      "validated": true
+    },
+    "lesson_de": {
+      "requestId": "round2-de-mvokv5qq",
+      "status": 200,
+      "ms": 466,
+      "delivery": "intent-clarification",
+      "fallbackUsed": true,
+      "paragraphIds": [
+        "clarification"
+      ],
+      "intent": "ticket_price",
+      "confidence": 0.54,
+      "validated": true
+    },
+    "lesson_lowConfidence": {
+      "requestId": "round2-lowConfidence-mvokv5qq",
+      "status": 200,
+      "ms": 408,
+      "delivery": "intent-clarification",
+      "fallbackUsed": true,
+      "paragraphIds": [
+        "clarification"
+      ],
+      "intent": "profit_roi",
+      "confidence": 0.27,
+      "validated": true
+    },
+    "events_simulation": {
+      "requestId": "round2-events-simulation-mvokv5qq",
+      "status": 200,
+      "ms": 282,
+      "result": "ok",
+      "dataMode": "simulation",
+      "events": 3,
+      "successfulSources": 0,
+      "failedSources": [],
+      "sample": {
+        "title": "[Simulation] Peachtree Pixel Nights",
+        "date": "2026-11-14",
+        "source": null
+      },
+      "validated": true
+    },
+    "events_live": {
+      "requestId": "round2-events-live-mvokv5qq",
+      "status": 200,
+      "ms": 6491,
+      "result": "partial",
+      "dataMode": "live",
+      "events": 0,
+      "successfulSources": 12,
+      "failedSources": [],
+      "sample": null,
+      "validated": true
+    }
   }
 }

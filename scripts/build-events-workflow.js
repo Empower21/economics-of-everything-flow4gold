@@ -1,8 +1,9 @@
 import fs from 'node:fs/promises';
 import * as planning from '../shared/planning.js';
 import * as events from '../shared/events.js';
+import * as responses from '../shared/responses.js';
 const declarations=m=>Object.entries(m).map(([k,v])=>typeof v==='function'?v.toString():`const ${k}=${JSON.stringify(v)};`).join('\n');
-const shared=declarations(planning)+'\n'+declarations(events);
+const shared=declarations(responses)+'\n'+declarations(planning)+'\n'+declarations(events);
 const prior=JSON.parse(await fs.readFile('docs/evidence/addendum04/workflow-before-Cbr6Bvxj4vKROEaE.json','utf8'));
 const clone=(old,name,x,y)=>{const n=structuredClone(prior.nodes.find(n=>n.name===old));n.id=name.replace(/\W/g,'');n.name=name;n.position=[x,y];delete n.credentials;return n;};
 // Helpers at top level, node logic inside execute(): lets consolidate-workflows.js tree-shake each node.
@@ -13,7 +14,11 @@ const validate=code('Validate planning interval',240,bundle(shared,`try { const 
 const branch=clone('Valid lesson request?','Valid planning request?',480,0);
 const mode=clone('Valid lesson request?','Use illustrative listings?',600,-120);mode.parameters.conditions.conditions[0].leftValue="={{ $json.plan.dataMode === 'simulation' }}";
 const simulation=code('Build clearly labeled simulation',960,bundle(shared,`const plan=$('Validate planning interval').first().json.plan;return [{json:{response:simulatedEvents(plan)}}];`),'Edit Fields considered. The labeled fictional listings come from shared/events.js simulatedEvents, and the server re-validates the response byte for byte against the same function, so the dataset cannot be authored as static node fields.');simulation.position=[960,-240];
-const search=clone('Select lesson explanation','Retrieve dated sources',720,0);search.parameters.options.timeout=50000;
+// Native OpenAI node (Responses API, node v2) with the built-in Web Search tool. Every field is an
+// expression over $json.modelRequest from shared/planning.js eventRequest. The node cannot send
+// tool_choice:"required"; readEvents treats a response without a completed web_search_call as
+// unavailable, and "Web Search Tool Call Sources" is included so the server's URL allowlist check works.
+const search={id:'Retrieveddatedsources',name:'Retrieve dated sources',type:'@n8n/n8n-nodes-langchain.openAi',typeVersion:2,position:[720,0],onError:'continueRegularOutput',notes:'Native OpenAI node, Responses API, built-in Web Search (context medium) with search sources included. Model, instructions, input, token cap, store:false and the JSON schema are expressions over $json.modelRequest from shared/planning.js. Simplify Output off. The node cannot require a search; a response without a completed web search is reported as unavailable.',notesInFlow:true,parameters:{resource:'text',operation:'response',modelId:{__rl:true,mode:'id',value:'={{ $json.modelRequest.model }}'},responses:{values:[{type:'text',role:'user',content:'={{ $json.modelRequest.input }}'}]},simplify:false,builtInTools:{webSearch:{searchContextSize:'medium'}},options:{include:['web_search_call.action.sources'],instructions:'={{ $json.modelRequest.instructions }}',maxTokens:'={{ $json.modelRequest.max_output_tokens }}',store:false,textFormat:{textOptions:{type:'json_schema',name:'={{ $json.modelRequest.text.format.name }}',schema:'={{ JSON.stringify($json.modelRequest.text.format.schema) }}'}}}}};
 const normalize=code('Verify geography dates and deduplicate',960,bundle(shared,`const plan=$('Validate planning interval').first().json.plan;const response=readEvents($json,plan);return [{json:{response}}];`),'Filter and Remove Duplicates considered. Source URL normalization, geography and date checks and deduplication are shared/events.js readEvents, re-validated by the server. A native Filter/Remove Duplicates chain would be a second implementation that could drift from that check.');
 const respond=clone('Deliver interactive lesson','Return one research response',1440,0);respond.parameters.responseBody='={{ $json.response }}';
 const invalid=clone('Explain how to correct input','Return invalid request',720,240);invalid.parameters.responseBody='={{ $json.response }}';

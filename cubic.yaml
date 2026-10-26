@@ -29,7 +29,6 @@ reviews:
       - 'public/media/**'
       - 'public/models/**'
       - 'assets/**'
-      - 'docs/evidence/**'
       - 'docs/licenses/**'
       - 'test-results/**'
       - '**/*.png'

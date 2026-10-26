@@ -13,3 +13,7 @@ The `e•` application mark is a simple original typographic mark. The product d
 ## Addendum 02 assets
 
 Articulated character geometry, environments and SVG fallback illustrations were authored in this project. No Rain character, reference-video footage or third-party character rig was imported. Blender 5.2.2 exports are identified in public/asset-manifest.json. Revised learner films are recordings of those Blender assets animated by Babylon.js. Existing configured ElevenLabs concert narration is retained. No voice cloning or HyperFrames project was introduced.
+
+## License split
+
+Source code, the workflow export, scripts and documentation are MIT (`LICENSE`). Recorded media, Blender models, GLB exports and narration audio are reserved; see `LICENSE-ASSETS.md`.

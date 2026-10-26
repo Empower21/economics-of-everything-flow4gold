@@ -9,3 +9,12 @@ test-results/
 *.blend1
 *.log
 __pycache__/
+
+# Private submission working files (recordings, organizer correspondence, render scripts).
+# The four template files linked from the README stay tracked.
+submission/*
+!submission/TEMPLATE-SETUP.txt
+!submission/The-Economics-of-Everything-Concert-n8n.json
+!submission/prepare-template.mjs
+!submission/walkthrough-video-url.txt
+/Submit a Workflow, Win a Gold Coin.pdf
